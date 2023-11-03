@@ -6,26 +6,29 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:13:37 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/20 15:58:52 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/10/29 15:30:39 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*subcpy;
+	char	*str;
 	size_t	i;
 
-	subcpy = (char *)malloc(len * sizeof(char));
-	if (!subcpy)
+	if (ft_strlen((char *)s) <= start)
+		return ((char *)ft_calloc(1, 1));
+	str = (char *)malloc((len + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
 	i = 0;
 	while (i < len && s[start + i])
 	{
-		subcpy[i] = s[start + i];
+		str[i] = s[start + i];
 		i++;
 	}
-	subcpy[i] = 0;
-	return (subcpy);
+	str[i] = 0;
+	return (str);
 }

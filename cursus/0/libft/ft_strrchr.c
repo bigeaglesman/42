@@ -6,24 +6,34 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:51:59 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/20 15:11:35 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/10/29 22:58:31 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-size_t	ft_strlen(char *str);
+#include <stdlib.h>
+#include "libft.h"
 
-char	*strrchr(const char *str, int val)
+char	*ft_strrchr(const char *str, int val)
 {
-	size_t			i;
+	int				i;
+	int				last;
 	unsigned char	temp_val;
+	unsigned char	*temp_str;
 
+	i = 0;
+	last = -1;
+	temp_str = (unsigned char *)str;
 	temp_val = (unsigned char)val;
-	i = ft_strlen(str);
-	while (i >= 0)
+	while (temp_str[i])
 	{
-		if (str[i] == temp_val)
-			return (str + i);
-		i--;
+		if (temp_str[i] == temp_val)
+			last = i;
+		i++;
 	}
-	return (0);
+	if (temp_val == 0)
+		return ((char *)(str + i));
+	else if (last == -1)
+		return (0);
+	else
+		return ((char *)(str + last));
 }

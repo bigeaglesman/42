@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 15:43:18 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/13 15:56:36 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/10/29 13:42:12 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	while (ft_is_space(str[i]))
 		i++;
-	while (str[i] == '-' || str [i] == '+')
+	if (str[i] == '-' || str [i] == '+')
 	{
 		if (str[i++] == '-')
 			sign *= -1;

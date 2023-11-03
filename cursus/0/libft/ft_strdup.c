@@ -6,13 +6,12 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 14:46:01 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/20 15:45:54 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/10/28 04:15:51 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-
-size_t	ft_strlen(char *str);
+#include "libft.h"
 
 char	*ft_strdup(const char *s1)
 {

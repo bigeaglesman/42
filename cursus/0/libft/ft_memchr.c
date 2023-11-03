@@ -6,25 +6,25 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 13:00:26 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/13 13:47:42 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/10/28 05:23:37 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-void	*memchr(const void *ptr, int val, size_t num)
+void	*ft_memchr(const void *ptr, int val, size_t num)
 {
 	size_t			i;
 	unsigned char	temp_val;
 	unsigned char	*temp_ptr;
 
 	i = 0;
-	*temp_ptr = (unsigned char *)ptr;
+	temp_ptr = (unsigned char *)ptr;
 	temp_val = (unsigned char)val;
 	while (i < num)
 	{
 		if (temp_ptr[i] == temp_val)
-			return (ptr + i);
+			return ((void *)(ptr + i));
 		i++;
 	}
 	return (0);

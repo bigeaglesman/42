@@ -6,12 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:07:04 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/13 13:06:30 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/10/28 05:24:33 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 void	*ft_memcpy(void *dest, const void *src, size_t size)
 {

@@ -14,6 +14,7 @@ SOURCES =	ft_atoi.c\
 			ft_memchr.c\
 			ft_memcmp.c\
 			ft_memcpy.c\
+			ft_memmove.c\
 			ft_memset.c\
 			ft_strchr.c\
 			ft_strdup.c\
@@ -75,7 +76,7 @@ SOURCESB =	ft_atoi.c\
 			ft_lstdelone_bonus.c\
 			ft_lstclear_bonus.c\
 			ft_lstiter_bonus.c\
-			#*ft_lstmap_bonus.c\
+			*ft_lstmap_bonus.c\
 
 OBJECTS = $(SOURCES:.c=.o)
 OBJECTSB = $(SOURCESB:.c=.o)
