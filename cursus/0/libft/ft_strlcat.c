@@ -6,12 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:29:49 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/28 04:15:50 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/04 21:57:16 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
@@ -21,7 +20,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 
 	i = 0;
 	dest_len = ft_strlen(dest);
-	src_len = ft_strlen((char *)src);
+	src_len = ft_strlen(src);
 	if (dest_len >= size)
 		return (src_len + size);
 	else

@@ -1,46 +1,114 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/04 12:32:00 by ycho2             #+#    #+#             */
+/*   Updated: 2023/11/04 21:56:34 by ycho2            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static size_t count_words(char const *s, char c)
-static char *speprate_words(char const *s, char c, size_t n_words)
+int			count_words(char const *s, char c);
+char		*sep_words(char const *s, int start, int end);
+int			save_words(char const *s, char c, char **split);
+void		split_free(char **split);
 
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	size_t	n_words;
-	int	flag;
 	char	**split;
 
-	n_words = count_words(s,c);
-	arr = (char **)malloc(sizeof(char *)*(n_words + 1));
-	if (!arr)
+	split = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1));
+	if (!split)
 		return (0);
-	
+	if (!save_words(s, c, split))
+	{
+		split_free(split);
+		return (0);
+	}
+	return (split);
 }
 
-static size_t count_words(char const *s, char c)
+int	count_words(char const *s, char c)
 {
-	size_t	i;
-	size_t	cnt;
+	int	i;
+	int	cnt;
 	int	flag;
 
 	i = 0;
 	cnt = 0;
 	flag = 0;
-	while(s[i])
+	while (s[i])
 	{
-		if (s[i] == c && flag == 0);
-		else if (s[i] != c && flag ==0)
+		if (s[i] != c && flag == 0)
 		{
 			flag = 1;
 			cnt++;
 		}
 		else if (s[i] == c && flag == 1)
 			flag = 0;
-		else if (s[i] != c && flag == 1);
 		i++;
 	}
+	return (cnt);
 }
 
-static char *speprate_words(char const *s, char c, size_t n_words, char **arr)
+char	*sep_words(char const *s, int start, int end)
 {
-	
+	char	*word;
+	int		i;
+
+	i = 0;
+	word = (char *)malloc(sizeof(char) * (end - start + 1));
+	if (!word)
+		return (0);
+	while (i < end - start)
+	{
+		word[i] = s[i + start];
+		i++;
+	}
+	word[i] = 0;
+	return (word);
+}
+
+int	save_words(char const *s, char c, char **split)
+{
+	size_t		i;
+	long long	start;
+	size_t		nth_word;
+
+	start = -1;
+	nth_word = 0;
+	i = 0;
+	while (i <= ft_strlen(s))
+	{
+		if (s[i] != c && start == -1)
+			start = i;
+		else if ((s[i] == c || i == ft_strlen(s)) && start != -1)
+		{
+			split[nth_word] = sep_words(s, start, i);
+			if (!split[nth_word])
+				return (0);
+			start = -1;
+			nth_word++;
+		}
+		i++;
+	}
+	split[nth_word] = 0;
+	return (1);
+}
+
+void	split_free(char **split)
+{
+	size_t	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

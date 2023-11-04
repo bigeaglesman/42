@@ -6,11 +6,10 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 14:46:01 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/28 04:15:51 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/04 21:57:44 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strdup(const char *s1)
@@ -20,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	i = 0;
-	len = ft_strlen((char *)s1);
+	len = ft_strlen(s1);
 	s1_cpy = (char *)malloc((len + 1) * sizeof(char));
 	if (!s1_cpy)
 		return (NULL);

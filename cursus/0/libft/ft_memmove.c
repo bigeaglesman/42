@@ -6,14 +6,14 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 17:35:34 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/03 19:00:05 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/04 21:54:42 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_start_move(unsigned char *src, unsigned char *dst, size_t len);
-static void	ft_end_move(unsigned char *src, unsigned char *dst, size_t len);
+void	ft_start_move(unsigned char *src, unsigned char *dst, size_t len);
+void	ft_end_move(unsigned char *src, unsigned char *dst, size_t len);
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
@@ -31,30 +31,26 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
-static void	ft_end_move(unsigned char *src, unsigned char *dst, size_t len)
+void	ft_end_move(unsigned char *src, unsigned char *dst, size_t len)
 {
 	size_t			i;
-	unsigned char	tmp;
 
 	i = 0;
 	while (i < len)
 	{
-		tmp = src[len - i - 1];
-		dst[len - i - 1] = tmp;
+		dst[len - i - 1] = src[len - i - 1];
 		i++;
 	}
 }
 
-static void	ft_start_move(unsigned char *src, unsigned char *dst, size_t len)
+void	ft_start_move(unsigned char *src, unsigned char *dst, size_t len)
 {
 	size_t			i;
-	unsigned char	tmp;
 
 	i = 0;
 	while (i < len)
 	{
-		tmp = src[i];
-		dst[i] = tmp;
+		dst[i] = src[i];
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:14:29 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/03 17:53:22 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/04 22:00:21 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 
-size_t	ft_strlen(char *str);
+size_t	ft_strlen(const char *str);
 void	*ft_memset(void *ptr, int value, size_t num);
 void	ft_bzero(void *ptr, size_t size);
 void	*ft_memcpy(void *dest, const void *src, size_t size);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
-int		ft_strncmp(char *s1, char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);

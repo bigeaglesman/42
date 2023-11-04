@@ -6,11 +6,10 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 01:21:34 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/29 22:00:04 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/04 21:58:21 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 size_t	ft_find_start(char const *s1, char const *set);
@@ -56,7 +55,7 @@ size_t	ft_find_end(char const *s1, char const *set)
 	size_t	end;
 	size_t	set_i;
 
-	end = ft_strlen((char *)s1) - 1;
+	end = ft_strlen(s1) - 1;
 	while (end >= 0)
 	{
 		set_i = 0;

@@ -6,11 +6,10 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:51:59 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/29 22:58:31 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/04 21:58:16 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strrchr(const char *str, int val)

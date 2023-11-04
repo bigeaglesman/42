@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:23:07 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/31 19:15:02 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/04 20:50:13 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 	else
 	{
-	last = ft_lstlast(*lst);
-	last->next = new;
+		last = ft_lstlast(*lst);
+		last->next = new;
 	}	
 }
