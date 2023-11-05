@@ -6,14 +6,14 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:39:42 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/04 20:26:04 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 14:06:27 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_write_num(long long ll_n, int fd);
-void	ft_iteri_num(long long ll_n, int fd);
+static void	ft_write_num(long long ll_n, int fd);
+static void	ft_iteri_num(long long ll_n, int fd);
 
 void	ft_putnbr_fd(int n, int fd)
 {
@@ -28,14 +28,14 @@ void	ft_putnbr_fd(int n, int fd)
 	ft_iteri_num(ll_n, fd);
 }
 
-void	ft_iteri_num(long long ll_n, int fd)
+static void	ft_iteri_num(long long ll_n, int fd)
 {
 	if (ll_n >= 10)
 		ft_iteri_num(ll_n / 10, fd);
 	ft_write_num(ll_n % 10, fd);
 }
 
-void	ft_write_num(long long ll_n, int fd)
+static void	ft_write_num(long long ll_n, int fd)
 {
 	char	num;
 

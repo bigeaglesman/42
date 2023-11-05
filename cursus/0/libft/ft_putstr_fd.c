@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:04:14 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/30 13:12:51 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 14:53:15 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	len;
 
-	len = ft_strlen(s);
+	len = ft_strlen((const char *)s);
 	write(fd, s, len);
 }

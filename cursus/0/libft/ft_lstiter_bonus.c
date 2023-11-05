@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 19:56:09 by ycho2             #+#    #+#             */
-/*   Updated: 2023/10/31 20:37:38 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 14:56:50 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	t_list	*temp_lst;
-
-	temp_lst = lst;
-	while (temp_lst)
+	while (lst)
 	{
-		f(temp_lst->content);
-		temp_lst = temp_lst->next;
+		f(lst->content);
+		lst = lst->next;
 	}
 }

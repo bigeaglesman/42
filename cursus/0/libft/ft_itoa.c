@@ -6,13 +6,13 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 03:01:19 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/04 21:53:57 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 14:12:57 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_numlen(long long num);
+static size_t	ft_numlen(long long num);
 
 char	*ft_itoa(int n)
 {
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-size_t	ft_numlen(long long num)
+static size_t	ft_numlen(long long num)
 {
 	size_t	len;
 

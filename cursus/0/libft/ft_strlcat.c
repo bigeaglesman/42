@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:29:49 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/04 21:57:16 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 17:00:41 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	size_t	src_len;
 
 	i = 0;
-	dest_len = ft_strlen(dest);
+	if (!dest && !size)
+		return (ft_strlen(src));
+	dest_len = ft_strlen((const char *)dest);
 	src_len = ft_strlen(src);
 	if (dest_len >= size)
 		return (src_len + size);

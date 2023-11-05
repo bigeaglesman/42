@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 15:56:57 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/04 22:40:03 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 14:40:44 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*ft_calloc(size_t count, size_t size)
 {
 	void		*arr;
-	long long	mul_size_cnt;
+	size_t		mul_size_cnt;
 
 	mul_size_cnt = count * size;
 	if (count != 0 && mul_size_cnt / count != size)

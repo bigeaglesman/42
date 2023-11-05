@@ -6,12 +6,13 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:14:29 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/04 22:00:21 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 15:55:42 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
 # include <stdlib.h>
 # include <unistd.h>
 

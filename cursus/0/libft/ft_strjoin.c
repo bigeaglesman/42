@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 18:50:18 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/04 21:57:38 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 14:48:34 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!concat_str)
 		return (NULL);
 	concat_str[0] = 0;
-	ft_strlcat(concat_str, (char *)s1, len_s1 + 1);
-	ft_strlcat(concat_str, (char *)s2, len_s1 + len_s2 + 1);
+	ft_strlcat(concat_str, s1, len_s1 + 1);
+	ft_strlcat(concat_str, s2, len_s1 + len_s2 + 1);
 	return (concat_str);
 }

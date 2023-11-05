@@ -6,16 +6,16 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:32:00 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/04 21:56:34 by ycho2            ###   ########.fr       */
+/*   Updated: 2023/11/05 14:07:23 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			count_words(char const *s, char c);
-char		*sep_words(char const *s, int start, int end);
-int			save_words(char const *s, char c, char **split);
-void		split_free(char **split);
+static int		count_words(char const *s, char c);
+static char		*sep_words(char const *s, int start, int end);
+static int		save_words(char const *s, char c, char **split);
+static void		split_free(char **split);
 
 char	**ft_split(char const *s, char c)
 {
@@ -32,7 +32,7 @@ char	**ft_split(char const *s, char c)
 	return (split);
 }
 
-int	count_words(char const *s, char c)
+static int	count_words(char const *s, char c)
 {
 	int	i;
 	int	cnt;
@@ -55,7 +55,7 @@ int	count_words(char const *s, char c)
 	return (cnt);
 }
 
-char	*sep_words(char const *s, int start, int end)
+static char	*sep_words(char const *s, int start, int end)
 {
 	char	*word;
 	int		i;
@@ -73,7 +73,7 @@ char	*sep_words(char const *s, int start, int end)
 	return (word);
 }
 
-int	save_words(char const *s, char c, char **split)
+static int	save_words(char const *s, char c, char **split)
 {
 	size_t		i;
 	long long	start;
@@ -100,7 +100,7 @@ int	save_words(char const *s, char c, char **split)
 	return (1);
 }
 
-void	split_free(char **split)
+static void	split_free(char **split)
 {
 	size_t	i;
 
