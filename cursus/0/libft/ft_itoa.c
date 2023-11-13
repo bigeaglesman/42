@@ -19,9 +19,7 @@ char	*ft_itoa(int n)
 	size_t		len;
 	char		*str;
 	long long	ll_n;
-	size_t		i;
 
-	i = 0;
 	ll_n = (long long)n;
 	len = ft_numlen(ll_n);
 	str = (char *)ft_calloc(len + 1, 1);

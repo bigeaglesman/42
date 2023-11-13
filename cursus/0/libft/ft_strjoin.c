@@ -14,14 +14,10 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len;
-	size_t	i;
 	size_t	len_s1;
 	size_t	len_s2;
 	char	*concat_str;
 
-	len = 0;
-	i = 0;
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
 	concat_str = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
