@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:08:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/26 18:29:58 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/01/26 22:35:39 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	prtimage();
 
-int	main(int argc, char** argv)
+int	main()
 {
-	if (argc != 2 || check_file_validity(argv[1]))
-		
+	// if (argc != 2 || check_file_validity(argv[1]))
 	prtimage();
 	return (0);
 }
@@ -34,5 +33,5 @@ void	prtimage()
 	image.img = mlx_new_image(vars.mlx, img_width, img_height);
 	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian);
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
-	mlx_event_controller(&vars);
+	mlx_event_control(&vars);
 }

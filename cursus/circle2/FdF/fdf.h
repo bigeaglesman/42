@@ -11,16 +11,23 @@
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
-}				t_vars;
+}t_vars;
 
 // image data 구조체
 typedef struct s_data
 {
-	void 	*img;
+	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}		t_data;
+}t_data;
+
+// 좌표 구조체
+typedef struct s_coord
+{
+	int	x;
+	int	y;
+}t_coord;
 
 #endif

@@ -6,18 +6,17 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:30:31 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/26 17:33:02 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/01/26 20:45:47 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	mlx_event_control(&vars)
 {
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_hook(vars.win, 17, 0, exit_hook, 0); // close button press event
+	mlx_loop(vars.mlx);
 }
 
 // esc key press event
