@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 15:20:47 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/15 19:00:11 by ycho2            ###   ########.fr       */
+/*   Created: 2023/10/13 13:44:31 by ycho2             #+#    #+#             */
+/*   Updated: 2023/11/05 16:47:14 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-#define BUFFER_SIZE 42
+char	*ft_strnstr(const char *str, const char *find, size_t len)
+{
+	size_t	i;
+	size_t	find_i;
 
-char	*get_next_line(int fd);
-
-#endif
+	i = 0;
+	if (!str && !len)
+		return (NULL);
+	if (find[i] == 0)
+		return ((char *)str);
+	while (str[i])
+	{
+		find_i = 0;
+		while (str[i + find_i] == find[find_i] && i + find_i < len)
+		{
+			find_i++;
+			if (find[find_i] == 0)
+				return ((char *)(str + i));
+		}
+		i++;
+	}
+	return (0);
+}

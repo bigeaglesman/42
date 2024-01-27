@@ -56,7 +56,7 @@ static size_t	ft_find_end(char const *s1, char const *set)
 	size_t	set_i;
 
 	end = ft_strlen(s1) - 1;
-	while (end > 0)
+	while (end >= 0)
 	{
 		set_i = 0;
 		while (set[set_i])

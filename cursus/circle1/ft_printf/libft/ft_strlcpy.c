@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 18:50:18 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/05 14:48:34 by ycho2            ###   ########.fr       */
+/*   Created: 2023/10/13 12:26:06 by ycho2             #+#    #+#             */
+/*   Updated: 2023/11/04 21:57:35 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	size_t	len_s1;
-	size_t	len_s2;
-	char	*concat_str;
+	size_t	i;
 
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	concat_str = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
-	if (!concat_str)
-		return (NULL);
-	concat_str[0] = 0;
-	ft_strlcat(concat_str, s1, len_s1 + 1);
-	ft_strlcat(concat_str, s2, len_s1 + len_s2 + 1);
-	return (concat_str);
+	i = 0;
+	while (src[i] && (i + 1) < size)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (size != 0)
+		dest[i] = 0;
+	return (ft_strlen(src));
 }

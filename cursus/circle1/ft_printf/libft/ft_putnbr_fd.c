@@ -1,58 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 03:01:19 by ycho2             #+#    #+#             */
-/*   Updated: 2023/11/05 14:12:57 by ycho2            ###   ########.fr       */
+/*   Created: 2023/10/30 13:39:42 by ycho2             #+#    #+#             */
+/*   Updated: 2023/11/05 14:06:27 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_numlen(long long num);
+static void	ft_write_num(long long ll_n, int fd);
+static void	ft_iteri_num(long long ll_n, int fd);
 
-char	*ft_itoa(int n)
+void	ft_putnbr_fd(int n, int fd)
 {
-	size_t		len;
-	char		*str;
 	long long	ll_n;
 
 	ll_n = (long long)n;
-	len = ft_numlen(ll_n);
-	str = (char *)ft_calloc(len + 1, 1);
-	if (!str)
-		return (0);
-	if (ll_n == 0)
-		str[0] = '0';
-	else if (ll_n < 0)
+	if (ll_n < 0)
 	{
+		write (fd, "-", 1);
 		ll_n *= -1;
-		str[0] = '-';
 	}
-	while (ll_n)
-	{
-		str[--len] = ll_n % 10 + 48;
-		ll_n /= 10;
-	}
-	return (str);
+	ft_iteri_num(ll_n, fd);
 }
 
-static size_t	ft_numlen(long long num)
+static void	ft_iteri_num(long long ll_n, int fd)
 {
-	size_t	len;
+	if (ll_n >= 10)
+		ft_iteri_num(ll_n / 10, fd);
+	ft_write_num(ll_n % 10, fd);
+}
 
-	len = 0;
-	if (num == 0)
-		return (1);
-	if (num < 0)
-		len++;
-	while (num)
-	{
-		num /= 10;
-		len++;
-	}
-	return (len);
+static void	ft_write_num(long long ll_n, int fd)
+{
+	char	num;
+
+	num = (char)(ll_n + 48);
+	write (fd, &num, 1);
 }
