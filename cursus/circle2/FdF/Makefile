@@ -1,7 +1,9 @@
 SRCS = fdf.c\
 		event.c\
 		draw.c\
+		utils.c\
+		validity.c\
 
 all : $(SRCS)
-	gcc -Wextra -Werror -Wall -I./mlx -L./mlx -lmlx -framework OpenGL \
+	gcc -g -Wextra -Werror -Wall -I./mlx -L./mlx -lmlx -framework OpenGL \
 	-framework Appkit $(SRCS) -o fdf

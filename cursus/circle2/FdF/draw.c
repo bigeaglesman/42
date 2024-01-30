@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/27 18:50:15 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/01/30 12:23:22 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,57 @@ void draw_line_x(t_data *data, int x1, int y1, const int x2, const int y2)
 		}
 		x1++;
 	}
+}
+
+void draw_cube(t_data *data)
+{
+	int **y_trans = mat_create(3, 3);
+	int **z_trans = mat_create(3,3);
+	int **xy_proj = mat_create(3,3);
+	double pi = PI;
+
+	int cos_45 = (int)(cos(45 * pi /180)+0.5);
+	int cos_m30 = (int)(cos(-30 * pi /180)+0.5);
+	int sin_m30 = (int)(sin(-30 * pi /180)+0.5);
+
+	int **a = mat_create(3,1);
+	a[0][0] = 500;
+	a[1][0] = 500;
+
+	int **b = mat_create(3,1);
+	b[0][0] = 300;
+	b[1][0] = 300;
+
+	y_trans[0][0] = cos_45;
+	y_trans[2][2] = cos_45;
+	y_trans[0][2] = -cos_45;
+	y_trans[2][1] = cos_45;
+	y_trans[1][1] = 1;
+
+	z_trans[0][0] = cos_m30;
+	z_trans[0][1] = -sin_m30;
+	z_trans[1][0] = sin_m30;
+	z_trans[1][1] = cos_m30;
+	z_trans[2][2] = 1;
+
+	xy_proj[0][0] = 1;
+	xy_proj[1][1] = 1;
+
+	int **temp_mat = mat_multiple(z_trans, y_trans, 3,3,3);
+	int **temp2_mat = mat_multiple(xy_proj,temp_mat,3,3,3);
+	int **temp3_mat = mat_multiple(temp2_mat, a, 3, 1, 3);
+	int **temp4_mat = mat_multiple(temp2_mat, b, 3, 1, 3);
+
+	draw_line(data, a[0][0], a[1][0], b[0][0], b[1][0]);
+	free(temp2_mat);
+	free(temp_mat);
+	free(temp3_mat);
+	free(temp4_mat);
+	free(xy_proj);
+	free(z_trans);
+	free(y_trans);
+	free(a);
+	free(b);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)

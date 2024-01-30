@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:08:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/27 18:48:28 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/01/30 12:23:39 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	prtimage();
 
-int	main()
+int	main(int argc, char **argv)
 {
-	// if (argc != 2 || check_file_validity(argv[1]))
+	if (argc != 2 || extension_validity(argv[1]))
+		exit (0);
 	prtimage();
 	return (0);
 }
@@ -39,6 +40,7 @@ void	prtimage()
 	// draw_line(&image, 150, 270, 250, 500);
 	// draw_line(&image, 400, 100, 900, 900);
 	draw_rectangle(&image, 200, 200 , 100);
+	draw_cube(&image);
 	// for (int i = 0; i < 200 ; i++)
 	// {
 	// 	draw_line(&image, 500, 500, 600+i, 500 + i);
