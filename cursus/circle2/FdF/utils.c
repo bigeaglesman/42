@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 19:15:09 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/30 12:23:52 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/01/30 12:40:41 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int **mat_create(int row, int col)
 
 	i = 0;
 	mat = (int **)malloc(sizeof(int *)*row);
-	while (i < col)
+	while (i < row)
 	{
 		mat[i] = (int *)calloc(col,sizeof(int));
 		if (!mat[i])

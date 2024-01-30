@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/30 12:23:22 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/01/30 12:44:49 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void draw_cube(t_data *data)
 	int sin_m30 = (int)(sin(-30 * pi /180)+0.5);
 
 	int **a = mat_create(3,1);
-	a[0][0] = 500;
-	a[1][0] = 500;
+	a[0][0] = 300;
+	a[1][0] = 100;
 
 	int **b = mat_create(3,1);
 	b[0][0] = 300;
@@ -133,7 +133,7 @@ void draw_cube(t_data *data)
 	int **temp3_mat = mat_multiple(temp2_mat, a, 3, 1, 3);
 	int **temp4_mat = mat_multiple(temp2_mat, b, 3, 1, 3);
 
-	draw_line(data, a[0][0], a[1][0], b[0][0], b[1][0]);
+	draw_line(data, temp3_mat[0][0], temp3_mat[1][0], temp4_mat[0][0], temp4_mat[1][0]);
 	free(temp2_mat);
 	free(temp_mat);
 	free(temp3_mat);

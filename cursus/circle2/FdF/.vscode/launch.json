@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/fdf",
-			"args": [],
+			"args": ["42.fdf"],
 			"cwd": "${workspaceFolder}"
 		}
 	]
