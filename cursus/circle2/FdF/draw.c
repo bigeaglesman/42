@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/30 12:44:49 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/01/31 19:02:15 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ void draw_line_x(t_data *data, int x1, int y1, const int x2, const int y2)
 	{
 		my_mlx_pixel_put(data, x1, y1, 0xff0000);
 		if (m > 0)
-			m -= 2*h;
+			m -= 2 * h;
 		else
 		{
-			m += 2*(w - h);
+			m += 2 * (w - h);
 			y1++;
 		}
 		x1++;
@@ -96,44 +96,45 @@ void draw_line_x(t_data *data, int x1, int y1, const int x2, const int y2)
 
 void draw_cube(t_data *data)
 {
-	int **y_trans = mat_create(3, 3);
-	int **z_trans = mat_create(3,3);
-	int **xy_proj = mat_create(3,3);
+	t_mat	*y_trans = mat_create(3, 3);
+	t_mat	*z_trans = mat_create(3,3);
+	t_mat	*xy_proj = mat_create(3,3);
 	double pi = PI;
 
 	int cos_45 = (int)(cos(45 * pi /180)+0.5);
 	int cos_m30 = (int)(cos(-30 * pi /180)+0.5);
 	int sin_m30 = (int)(sin(-30 * pi /180)+0.5);
 
-	int **a = mat_create(3,1);
-	a[0][0] = 300;
-	a[1][0] = 100;
+	t_mat	*a = mat_create(3,1);
+	a->mat[0][0] = 200;
+	a->mat[1][0] = 100;
 
-	int **b = mat_create(3,1);
-	b[0][0] = 300;
-	b[1][0] = 300;
+	t_mat	*b = mat_create(3,1);
+	b->mat[0][0] = 300;
+	b->mat[1][0] = 300;
 
-	y_trans[0][0] = cos_45;
-	y_trans[2][2] = cos_45;
-	y_trans[0][2] = -cos_45;
-	y_trans[2][1] = cos_45;
-	y_trans[1][1] = 1;
+	y_trans->mat[0][0] = cos_45;
+	y_trans->mat[2][2] = cos_45;
+	y_trans->mat[0][2] = -cos_45;
+	y_trans->mat[2][1] = cos_45;
+	y_trans->mat[1][1] = 1;
 
-	z_trans[0][0] = cos_m30;
-	z_trans[0][1] = -sin_m30;
-	z_trans[1][0] = sin_m30;
-	z_trans[1][1] = cos_m30;
-	z_trans[2][2] = 1;
+	z_trans->mat[0][0] = cos_m30;
+	z_trans->mat[0][1] = -sin_m30;
+	z_trans->mat[1][0] = sin_m30;
+	z_trans->mat[1][1] = cos_m30;
+	z_trans->mat[2][2] = 1;
 
-	xy_proj[0][0] = 1;
-	xy_proj[1][1] = 1;
+	xy_proj->mat[0][0] = 1;
+	xy_proj->mat[1][1] = 1;
 
-	int **temp_mat = mat_multiple(z_trans, y_trans, 3,3,3);
-	int **temp2_mat = mat_multiple(xy_proj,temp_mat,3,3,3);
-	int **temp3_mat = mat_multiple(temp2_mat, a, 3, 1, 3);
-	int **temp4_mat = mat_multiple(temp2_mat, b, 3, 1, 3);
+	t_mat *temp_mat = mat_multiple(z_trans, y_trans);
+	t_mat *temp2_mat = mat_multiple(xy_proj,temp_mat);
+	t_mat *temp3_mat = mat_multiple(temp2_mat, a);
+	t_mat *temp4_mat = mat_multiple(temp2_mat, b);
+	printf("3[0][0]:%d 3[1][0]:%d 4[0][0]%d 4[1][0]%d\n", temp3_mat->mat[0][0], temp3_mat->mat[1][0], temp4_mat->mat[0][0], temp4_mat->mat[1][0]);
 
-	draw_line(data, temp3_mat[0][0], temp3_mat[1][0], temp4_mat[0][0], temp4_mat[1][0]);
+	draw_line(data, temp3_mat->mat[0][0], temp3_mat->mat[1][0], temp4_mat->mat[0][0], temp4_mat->mat[1][0]);
 	free(temp2_mat);
 	free(temp_mat);
 	free(temp3_mat);

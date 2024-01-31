@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 19:15:09 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/30 12:40:41 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/01/31 19:01:09 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,60 +40,34 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-int **mat_create(int row, int col)
+void	*ft_calloc(size_t count, size_t size)
 {
-	int i;
-	int **mat;
+	void		*arr;
+	size_t		mul_size_cnt;
 
-	i = 0;
-	mat = (int **)malloc(sizeof(int *)*row);
-	while (i < row)
-	{
-		mat[i] = (int *)calloc(col,sizeof(int));
-		if (!mat[i])
-			exit(0);
-		i++;
-	}
-	return (mat);
+	mul_size_cnt = count * size;
+	if (count != 0 && mul_size_cnt / count != size)
+		return (NULL);
+	arr = malloc(count * size);
+	if (!arr)
+		return (NULL);
+	ft_bzero(arr, count * size);
+	return (arr);
 }
 
-int	**mat_multiple(int **a, int **b, int a_rows, int b_cols, int b_rows)
+void	ft_bzero(void *ptr, size_t size)
 {
-	int	i;
-	int j;
-	int	k;
-	int **c;
-
-	c = (int **)malloc(sizeof(int *) * a_rows);
-	i = 0;
-	while (i < a_rows)
-	{
-		c[i] = (int *)malloc(sizeof(int) * b_cols);
-		j = 0;
-		while (j < b_cols)
-		{
-			k = 0;
-			c[i][j] = 0;
-			while (k < b_rows)
-			{
-				c[i][j] += a[i][k]*b[k][j];
-				k++;
-			}
-			j++;
-		}
-		i++;
-	}
-	return (c);
+	ft_memset(ptr, 0, size);
 }
 
-// void	n_trans_mat(int **mat, int theta, char n)
-// {
-// 	if (n == 'x')
-// 		x_trans_mat(mat, theta);
-// 	else if (n == 'y')
-// 		y_trans_mat(mat, theta);
-// 	else if (n == 'z')
-// 		z_trans_mat(mat, theta);
-// 	else
-// 		exit (0);
-// }
+void	*ft_memset(void *ptr, int value, size_t num)
+{
+	size_t			i;
+	unsigned char	*temp_ptr;
+
+	temp_ptr = (unsigned char *)ptr;
+	i = 0;
+	while (i < num)
+		temp_ptr[i++] = (unsigned char)value;
+	return (ptr);
+}

@@ -1,6 +1,7 @@
 SRCS = fdf.c\
 		event.c\
 		draw.c\
+		mat_utils.c\
 		utils.c\
 		validity.c\
 
