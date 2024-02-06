@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:03:40 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/04 19:57:50 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/06 15:10:03 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_attach_nl(char **pout, t_buf *buf_case)
 	{
 		if (buf_case->read_buf[(buf_case->idx) + i] == '\n')
 		{
-			concat_out = ft_strjoin(*pout, buf_case, ++i);
+			concat_out = gnl_strjoin(*pout, buf_case, ++i);
 			if (concat_out == NULL)
 				return (-1);
 			free (*pout);
@@ -45,7 +45,7 @@ int	ft_attach_nl(char **pout, t_buf *buf_case)
 		}
 		i++;
 	}
-	concat_out = ft_strjoin(*pout, buf_case, i);
+	concat_out = gnl_strjoin(*pout, buf_case, i);
 	if (concat_out == NULL)
 		return (-1);
 	free (*pout);
@@ -54,7 +54,7 @@ int	ft_attach_nl(char **pout, t_buf *buf_case)
 	return (2);
 }
 
-char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len)
+char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len)
 {
 	int		out_len;
 	char	*concat_str;
@@ -64,13 +64,13 @@ char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len)
 	if (!concat_str)
 		return (NULL);
 	concat_str[0] = 0;
-	ft_strlcat(concat_str, out, out_len + 1);
-	ft_strlcat(concat_str, buf_case->read_buf
+	gnl_strlcat(concat_str, out, out_len + 1);
+	gnl_strlcat(concat_str, buf_case->read_buf
 		+ (buf_case->idx), out_len + attach_len + 1);
 	return (concat_str);
 }
 
-void	ft_strlcat(char *dest, const char *src, int size)
+void	gnl_strlcat(char *dest, const char *src, int size)
 {
 	int	i;
 	int	dest_len;

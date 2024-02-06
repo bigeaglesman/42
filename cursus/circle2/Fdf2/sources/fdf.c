@@ -6,34 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:08:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/05 15:51:11 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/06 20:59:57 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	prtimage();
-
-int	main(int argc, char **argv)
-{
-	int fd;
-	t_map	*map;
-
-	if (argc != 2 || extension_validity(argv[1]))
-	{
-		perror("wrong argument");
-		exit(1);
-	}
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-	{
-		perror("file open error");
-		exit(1);
-	}	
-	map = read_map(fd, argv[1]);
-	prtimage();
-	return (0);
-}
 
 void	prtimage()
 {

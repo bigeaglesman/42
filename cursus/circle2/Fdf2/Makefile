@@ -9,7 +9,7 @@ LIBFT_DIR = $(LIB_DIR)libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
 MLX_DIR = $(LIB_DIR)mlx/
-MLX = $(MLX_DIR)libmlx.a
+MLX = $(MLX_DIR)libmlx.dylib
 
 LIBRARIES = -lmlx -lft -L$(MLX_DIR) -L$(LIBFT_DIR) \
 	-framework OpenGL -framework Appkit
@@ -23,8 +23,11 @@ INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
 
 SRC_DIR = ./sources/
 SRCS_LIST = fdf.c\
+		main.c\
 		event.c\
 		draw.c\
+		error.c\
+		file_check.c\
 		mat_utils.c\
 		utils.c\
 		parsing.c\
@@ -39,7 +42,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(OBJ_LIST))
 all : $(NAME)
 
 $(NAME) : $(LIBFT) $(MLX) $(OBJ_DIR) $(OBJS)
-	$(cc) $(CFLAGS) $(INCLUDES) $(LIBRARIES) $(OBJECTS) -o $(NAME)
+	$(cc) $(CFLAGS) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)

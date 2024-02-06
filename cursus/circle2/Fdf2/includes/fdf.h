@@ -6,6 +6,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>
+# include "libft.h"
 
 # include <stdio.h>
 
@@ -40,8 +41,8 @@ typedef struct	s_data
 // 좌표 구조체
 typedef struct	s_dot
 {
-	int	x;
-	int	y;
+	int		z_val;
+	int		color;
 }t_dot;
 
 // 행렬 구조체
@@ -60,19 +61,14 @@ typedef struct	s_buf
 	int		used;
 }t_buf;
 
-typedef struct	s_dot
-{
-	int		z_val;
-	int		color;
-}t_dot;
-
 typedef struct	s_map
 {
-	int				map_row;
-	int				map_col;
+	int				row;
+	int				col;
 	struct s_dot	**map;
 }t_map;
 
+// draw
 void	draw_rectangle(t_data *data, const int x_c, const int y_c, const int width);
 void	draw_line(t_data *data, const int x1, const int y1, const int x2, const int y2);
 void	draw_line_x(t_data *data, const int x1, const int y1, const int x2, const int y2);
@@ -84,9 +80,12 @@ int		exit_hook();
 int		key_hook(int keycode, t_vars *vars);
 void	prtimage();
 
+// error
+void	fd_error();
+
 // parsing & checking
 int		extension_validity(char *file);
-t_map	*read_map(int fd, char *argv);
+t_map	*read_map(char *argv);
 
 //mat_utils 
 t_mat	*mat_create(int row, int col);
@@ -96,16 +95,8 @@ t_mat	*mat_multiple(t_mat *a, t_mat *b);
 t_mat	*x_rot_mat(t_mat *p_mat, int theta);
 t_mat	*y_rot_mat(t_mat *p_mat, int theta);
 t_mat	*z_rot_mat(t_mat *p_mat, int theta);
-
-//libft
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-size_t	ft_strlen(const char *str);
-void	*ft_calloc(size_t count, size_t size);
-void	*ft_memset(void *ptr, int value, size_t num);
-void	ft_bzero(void *ptr, size_t size);
-int		ft_isdigit(int c);
-char	**ft_split(char const *s, char c);
-int		ft_count_words(char const *s, char c);
+t_mat	*n_mat_proj(t_mat *p_mat, char n);
+t_mat	*mat_par_mov(t_mat *p_mat, int x, int y, int z);
 
 //get_next_line
 char	*get_next_line(int fd);
@@ -113,7 +104,7 @@ int		ft_read_attach(int fd, char **pout, t_buf *buf_case);
 
 int		ft_read_line(int fd, t_buf *buf_case);
 int		ft_attach_nl(char **pout, t_buf *buf_case);
-char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len);
-void	ft_strlcat(char *dest, const char *src, int size);
+char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len);
+void	gnl_strlcat(char *dest, const char *src, int size);
 
 #endif

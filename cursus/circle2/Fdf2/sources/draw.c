@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/04 19:24:45 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/06 21:00:20 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@
 	
 // }
 
-void draw_rectangle(t_data *data, const int x_c, const int y_c, const int width)
-{
-	int a;
+// void draw_rectangle(t_data *data, const int x_c, const int y_c, const int width)
+// {
+// 	int a;
 
-	a = width / 2;
-	draw_line(data, x_c - a, y_c - a, x_c - a, y_c + a);
-	draw_line(data, x_c + a, y_c - a, x_c + a, y_c + a);
-	draw_line(data, x_c - a, y_c + a, x_c + a, y_c + a);
-	draw_line(data, x_c - a, y_c - a, x_c + a, y_c - a);
-}
+// 	a = width / 2;
+// 	draw_line(data, x_c - a, y_c - a, x_c - a, y_c + a);
+// 	draw_line(data, x_c + a, y_c - a, x_c + a, y_c + a);
+// 	draw_line(data, x_c - a, y_c + a, x_c + a, y_c + a);
+// 	draw_line(data, x_c - a, y_c - a, x_c + a, y_c - a);
+// }
 
 void draw_line(t_data *data, const int x1, const int y1, const int x2, const int y2)
 {
@@ -96,63 +96,68 @@ void draw_line_x(t_data *data, int x1, int y1, const int x2, const int y2)
 
 void draw_cube(t_data *data)
 {
-	t_mat	*unit = unit_mat_create(3);
+	t_mat	*unit = unit_mat_create(4);
 	t_mat	*y_30_rot = y_rot_mat(unit, 30);
 	t_mat	*xy_30_rot = x_rot_mat(y_30_rot, 30);
-	t_mat	*xy_proj = mat_create(3,3);
+	t_mat	*xy_proj = n_mat_proj(xy_30_rot, 'z');
+	t_mat	*par_mov = mat_par_mov(xy_proj, 500, 500, 0);
 
-	t_mat	*a_1 = mat_create(3,1);
-	a_1->mat[0][0] = 500+0;
-	a_1->mat[1][0] = 500+0;
-	a_1->mat[2][0] = 500+0;
+	t_mat	*a_1 = mat_create(4,1);
+	a_1->mat[0][0] = 0;
+	a_1->mat[1][0] = 0;
+	a_1->mat[2][0] = 0;
+	a_1->mat[3][0] = 1;
 
-	t_mat	*a_2 = mat_create(3,1);
-	a_2->mat[0][0] = 500+100;
-	a_2->mat[1][0] = 500+0;
-	a_2->mat[2][0] = 500+0;
+	t_mat	*a_2 = mat_create(4,1);
+	a_2->mat[0][0] = 100;
+	a_2->mat[1][0] = 0;
+	a_2->mat[2][0] = 0;
+	a_2->mat[3][0] = 1;
 
-	t_mat	*a_3 = mat_create(3,1);
-	a_3->mat[0][0] = 500+0;
-	a_3->mat[1][0] = 500+0;
-	a_3->mat[2][0] = 500+ 100;
+	t_mat	*a_3 = mat_create(4,1);
+	a_3->mat[0][0] = 0;
+	a_3->mat[1][0] = 0;
+	a_3->mat[2][0] =  100;
+	a_3->mat[3][0] = 1;
 
-	t_mat	*a_4 = mat_create(3,1);
-	a_4->mat[0][0] = 500+ 100;
-	a_4->mat[1][0] = 500+ 0;
-	a_4->mat[2][0] = 500+ 100;
+	t_mat	*a_4 = mat_create(4,1);
+	a_4->mat[0][0] =  100;
+	a_4->mat[1][0] =  0;
+	a_4->mat[2][0] =  100;
+	a_4->mat[3][0] = 1;
 
-	t_mat	*b_1 = mat_create(3,1);
-	b_1->mat[0][0] = 500+0;
-	b_1->mat[1][0] = 500+ 100;
-	b_1->mat[2][0] = 500+0;
+	t_mat	*b_1 = mat_create(4,1);
+	b_1->mat[0][0] = 0;
+	b_1->mat[1][0] =  100;
+	b_1->mat[2][0] = 0;
+	b_1->mat[3][0] = 1;
 
-	t_mat	*b_2 = mat_create(3,1);
-	b_2->mat[0][0] = 500+ 100;
-	b_2->mat[1][0] = 500+ 100;
-	b_2->mat[2][0] = 500+ 0;
+	t_mat	*b_2 = mat_create(4,1);
+	b_2->mat[0][0] =  100;
+	b_2->mat[1][0] =  100;
+	b_2->mat[2][0] =  0;
+	b_2->mat[3][0] = 1;
 
-	t_mat	*b_3 = mat_create(3,1);
-	b_3->mat[0][0] = 500+ 0;
-	b_3->mat[1][0] = 500+ 100;
-	b_3->mat[2][0] = 500+ 100;
+	t_mat	*b_3 = mat_create(4,1);
+	b_3->mat[0][0] =  0;
+	b_3->mat[1][0] =  100;
+	b_3->mat[2][0] =  100;
+	b_3->mat[3][0] = 1;
 
-	t_mat	*b_4 = mat_create(3,1);
-	b_4->mat[0][0] = 500+ 100;
-	b_4->mat[1][0] = 500+ 100;
-	b_4->mat[2][0] = 500+ 100;
+	t_mat	*b_4 = mat_create(4,1);
+	b_4->mat[0][0] =  100;
+	b_4->mat[1][0] =  100;
+	b_4->mat[2][0] =  100;
+	b_4->mat[3][0] = 1;
 
-	xy_proj->mat[0][0] = 1;
-	xy_proj->mat[1][1] = 1;
-
-	t_mat *temp2_mat = mat_multiple(xy_proj,xy_30_rot);
-	t_mat *a1 = mat_multiple(temp2_mat, a_1);
-	t_mat *a2 = mat_multiple(temp2_mat, a_2);
-	t_mat *a3 = mat_multiple(temp2_mat, a_3);
-	t_mat *a4 = mat_multiple(temp2_mat, a_4);
-	t_mat *b1 = mat_multiple(temp2_mat, b_1);
-	t_mat *b2 = mat_multiple(temp2_mat, b_2);
-	t_mat *b3 = mat_multiple(temp2_mat, b_3);
-	t_mat *b4 = mat_multiple(temp2_mat, b_4);
+	t_mat *a1 = mat_multiple(par_mov, a_1);
+	t_mat *a2 = mat_multiple(par_mov, a_2);
+	t_mat *a3 = mat_multiple(par_mov, a_3);
+	t_mat *a4 = mat_multiple(par_mov, a_4);
+	t_mat *b1 = mat_multiple(par_mov, b_1);
+	t_mat *b2 = mat_multiple(par_mov, b_2);
+	t_mat *b3 = mat_multiple(par_mov, b_3);
+	t_mat *b4 = mat_multiple(par_mov, b_4);
 	printf("a1 = %d, %d\n", (int)(a1->mat[0][0]), (int)(a1->mat[1][0]));
 	printf("a2 = %d, %d\n", (int)(a2->mat[0][0]), (int)(a2->mat[1][0]));
 	printf("a3 = %d, %d\n", (int)(a3->mat[0][0]), (int)(a3->mat[1][0]));
