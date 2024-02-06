@@ -69,10 +69,10 @@ typedef struct	s_map
 }t_map;
 
 // draw
-void	draw_rectangle(t_data *data, const int x_c, const int y_c, const int width);
-void	draw_line(t_data *data, const int x1, const int y1, const int x2, const int y2);
-void	draw_line_x(t_data *data, const int x1, const int y1, const int x2, const int y2);
-void	draw_line_y(t_data *data, const int x1, const int y1, const int x2, const int y2);
+// void	draw_rectangle(t_data *data, const int x_c, const int y_c, const int width);
+void	draw_line(t_data *data, t_mat *a, t_mat *b);
+void	draw_line_y(t_data *data, t_mat *a, t_mat *b);
+void	draw_line_x(t_data *data, t_mat *a, t_mat *b);
 void	draw_cube(t_data *data);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

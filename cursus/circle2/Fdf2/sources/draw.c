@@ -6,91 +6,70 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/06 21:00:20 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/06 22:09:16 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// void draw_line(t_data *data, const int x1, const int y1, const int x2, const int y2)
-// {
-// 	int	x;
-// 	int y;
-
-// 	x = x1;
-// 	y = y1;
-// 	while (x <= x2)
-// 	{
-// 		my_mlx_pixel_put(data, x, y, 0xff0000);
-// 		if ((-x2+x1)*(2*y+1-2*y1)+(y2-y1)*(2*x+2-2*x1) > 0)
-// 			y++;
-// 		x++;
-// 	}
-
-	
-// }
-
-// void draw_rectangle(t_data *data, const int x_c, const int y_c, const int width)
-// {
-// 	int a;
-
-// 	a = width / 2;
-// 	draw_line(data, x_c - a, y_c - a, x_c - a, y_c + a);
-// 	draw_line(data, x_c + a, y_c - a, x_c + a, y_c + a);
-// 	draw_line(data, x_c - a, y_c + a, x_c + a, y_c + a);
-// 	draw_line(data, x_c - a, y_c - a, x_c + a, y_c - a);
-// }
-
-void draw_line(t_data *data, const int x1, const int y1, const int x2, const int y2)
+void	draw_line(t_data *data, t_mat *a, t_mat *b)
 {
-	const int	w = x2 - x1;
-	const int	h = y2 - y1;
+	const int	w = (int)(b->mat[0][0] - a->mat[0][0]);
+	const int	h = (int)(b->mat[1][0] - a->mat[1][0]);
 
 	if (w >= h)
-		draw_line_x(data, x1, y1, x2, y2);
+		draw_line_x(data, a, b);
 	else
-		draw_line_y(data, x1, y1, x2, y2);
+		draw_line_y(data, a, b);
 }
 
-void draw_line_y(t_data *data, int x1, int y1, const int x2, const int y2)
+void	draw_line_y(t_data *data, t_mat *a, t_mat *b)
 {
-	const int	w = x2 -x1;
-	const int	h = y2 - y1;
-	int	m;
+	const int	w = (int)(b->mat[0][0] - a->mat[0][0]);
+	const int	h = (int)(b->mat[1][0] - a->mat[1][0]);
+	int			m;
+	int			y;
+	int			x;
 
+	x = (int)(a->mat[0][0]);
+	y = (int)(a->mat[1][0]);
 	m = h - 2 * w;
-	while (y1 <= y2)
+	while (y <= (int)(b->mat[1][0]))
 	{
-		my_mlx_pixel_put(data, x1, y1, 0xff0000);
+		my_mlx_pixel_put(data, x, y, 0xffffff);
 		if (m > 0)
 			m -= 2*w;
 		else
 		{
 			m += 2*(h - w);
-			x1++;
+			x++;
 		}
-		y1++;
+		y++;
 	}
 }
 
-void draw_line_x(t_data *data, int x1, int y1, const int x2, const int y2)
+void	draw_line_x(t_data *data, t_mat *a, t_mat *b)
 {
-	const int	w = x2 -x1;
-	const int	h = y2 - y1;
-	int	m;
+	const int	w = (int)(b->mat[0][0] - a->mat[0][0]);
+	const int	h = (int)(b->mat[1][0] - a->mat[1][0]);
+	int			m;
+	int			y;
+	int			x;
 
+	x = (int)(a->mat[0][0]);
+	y = (int)(a->mat[1][0]);
 	m = w - 2 * h;
-	while (x1 <= x2)
+	while (x <= (int)(b->mat[0][0]))
 	{
-		my_mlx_pixel_put(data, x1, y1, 0xff0000);
+		my_mlx_pixel_put(data, x, y, 0xff0000);
 		if (m > 0)
 			m -= 2 * h;
 		else
 		{
 			m += 2 * (w - h);
-			y1++;
+			y++;
 		}
-		x1++;
+		x++;
 	}
 }
 
@@ -158,27 +137,27 @@ void draw_cube(t_data *data)
 	t_mat *b2 = mat_multiple(par_mov, b_2);
 	t_mat *b3 = mat_multiple(par_mov, b_3);
 	t_mat *b4 = mat_multiple(par_mov, b_4);
-	printf("a1 = %d, %d\n", (int)(a1->mat[0][0]), (int)(a1->mat[1][0]));
-	printf("a2 = %d, %d\n", (int)(a2->mat[0][0]), (int)(a2->mat[1][0]));
-	printf("a3 = %d, %d\n", (int)(a3->mat[0][0]), (int)(a3->mat[1][0]));
-	printf("a4 = %d, %d\n", (int)(a4->mat[0][0]), (int)(a4->mat[1][0]));
-	printf("b1 = %d, %d\n", (int)(b1->mat[0][0]), (int)(b1->mat[1][0]));
-	printf("b2 = %d, %d\n", (int)(b2->mat[0][0]), (int)(b2->mat[1][0]));
-	printf("b3 = %d, %d\n", (int)(b3->mat[0][0]), (int)(b3->mat[1][0]));
-	printf("b4 = %d, %d\n", (int)(b4->mat[0][0]), (int)(b4->mat[1][0]));
+	printf("a1 = %f, %f\n", (a1->mat[0][0]), (a1->mat[1][0]));
+	printf("a2 = %f, %f\n", (a2->mat[0][0]), (a2->mat[1][0]));
+	printf("a3 = %f, %f\n", (a3->mat[0][0]), (a3->mat[1][0]));
+	printf("a4 = %f, %f\n", (a4->mat[0][0]), (a4->mat[1][0]));
+	printf("b1 = %f, %f\n", (b1->mat[0][0]), (b1->mat[1][0]));
+	printf("b2 = %f, %f\n", (b2->mat[0][0]), (b2->mat[1][0]));
+	printf("b3 = %f, %f\n", (b3->mat[0][0]), (b3->mat[1][0]));
+	printf("b4 = %f, %f\n", (b4->mat[0][0]), (b4->mat[1][0]));
 	
-	draw_line(data, (int)(a1->mat[0][0]), (int)(a1->mat[1][0]), (int)(b1->mat[0][0]), (int)(b1->mat[1][0]));
-	draw_line(data, (int)(a2->mat[0][0]), (int)(a2->mat[1][0]), (int)(b2->mat[0][0]), (int)(b2->mat[1][0]));
-	draw_line(data, (int)(a3->mat[0][0]), (int)(a3->mat[1][0]), (int)(b3->mat[0][0]), (int)(b3->mat[1][0]));
-	draw_line(data, (int)(a4->mat[0][0]), (int)(a4->mat[1][0]), (int)(b4->mat[0][0]), (int)(b4->mat[1][0]));
-	draw_line(data, (int)(a1->mat[0][0]), (int)(a1->mat[1][0]), (int)(a2->mat[0][0]), (int)(a2->mat[1][0]));
-	draw_line(data, (int)(a3->mat[0][0]), (int)(a3->mat[1][0]), (int)(a4->mat[0][0]), (int)(a4->mat[1][0]));
-	draw_line(data, (int)(a3->mat[0][0]), (int)(a3->mat[1][0]), (int)(a1->mat[0][0]), (int)(a1->mat[1][0]));
-	draw_line(data, (int)(a4->mat[0][0]), (int)(a4->mat[1][0]), (int)(a2->mat[0][0]), (int)(a2->mat[1][0]));
-	draw_line(data, (int)(b1->mat[0][0]), (int)(b1->mat[1][0]), (int)(b2->mat[0][0]), (int)(b2->mat[1][0]));
-	draw_line(data, (int)(b3->mat[0][0]), (int)(b3->mat[1][0]), (int)(b4->mat[0][0]), (int)(b4->mat[1][0]));
-	draw_line(data, (int)(b3->mat[0][0]), (int)(b3->mat[1][0]), (int)(b1->mat[0][0]), (int)(b1->mat[1][0]));
-	draw_line(data, (int)(b4->mat[0][0]), (int)(b4->mat[1][0]), (int)(b2->mat[0][0]), (int)(b2->mat[1][0]));
+	draw_line(data, a1, b1);
+	draw_line(data, a2, b2);
+	draw_line(data, a3, b3);
+	draw_line(data, a4, b4);
+	draw_line(data, a1, a2);
+	draw_line(data, a3, a4);
+	draw_line(data, a3, a1);
+	draw_line(data, a4, a2);
+	draw_line(data, b1, b2);
+	draw_line(data, b3, b4);
+	draw_line(data, b3, b1);
+	draw_line(data, b4, b2);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
