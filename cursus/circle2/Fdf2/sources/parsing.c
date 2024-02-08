@@ -6,19 +6,20 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:57:05 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/06 16:11:32 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:46:24 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	count_col(char *line);
-static void	fill_map(t_map *p_map, char *argv);
-static void	fill_line(t_dot *p_dot, char *line, int col);
+static int		count_col(char *line);
+static t_dot	**fill_map(char *argv, int map_col, int map_row);
+static void		fill_line(t_dot *row_arr, char *line, int col, int y);
+static t_mat	*fill_dot(int x, int y, int z);
 
-t_map	*read_map(char *argv)
+t_dot	**read_map(char *argv)
 {
-	t_map	*p_map;
+	int		map_col;
 	int		map_row;
 	int		fd;
 	char	*line;
@@ -27,21 +28,16 @@ t_map	*read_map(char *argv)
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		fd_error();
-	p_map = (t_map *)malloc(sizeof(t_map));
-	if (!p_map)
-		return (NULL);
 	line = get_next_line(fd);
-	p_map->col = count_col(line);
+	map_col = count_col(line);
 	while (line)
 	{
 		map_row++;
 		free (line);
 		line = get_next_line(fd);
 	}
-	p_map->row = map_row;
 	close (fd);
-	fill_map(p_map, argv);
-	return (p_map);
+	return (fill_map(argv, map_col, map_row));
 }
 
 static int	count_col(char *line)
@@ -57,43 +53,59 @@ static int	count_col(char *line)
 	return (i);
 }
 
-static void	fill_map(t_map *p_map, char *argv)
+static t_dot	**fill_map(char *argv, int map_col, int map_row)
 {
+	t_dot	**map;
 	int		fd;
 	int		i;
 	char	*line;
 
 	i = 0;
 	fd = open(argv, O_RDONLY);
-	p_map->map = (t_dot **)malloc(sizeof(t_dot *) * p_map->row);
-	while (i < p_map->row)
+	map = (t_dot **)malloc(sizeof(t_dot *) * (map_row+1));
+	while (i < map_row)
 	{
-		p_map->map[i] = (t_dot *)malloc(sizeof(t_dot) * p_map->col);
+		map[i] = (t_dot *)malloc(sizeof(t_dot) * (map_col +1));
 		line = get_next_line(fd);
-		fill_line(p_map->map[i], line , p_map->col);
+		fill_line(map[i], line , map_col, i);
 		i++;
 	}
+	map[i] = NULL;
+	return (map);
 }
 
-static void	fill_line(t_dot *p_dot, char *line, int col)
+static void	fill_line(t_dot *row_arr, char *line, int col, int y)
 {
 	char	**seped_line;
-	char	**z_val_color;
-	int		j;
+	char	**z_n_color;
+	int		x;
 
-	j = 0;
+	x = 0;
 	seped_line = ft_split(line, 32);
-	while (j < col)
+	while (x < col)
 	{
-		z_val_color = ft_split(seped_line[j], 44);
-		p_dot[j].z_val = ft_atoi(z_val_color[0]);
-		if (!z_val_color[1])
-			p_dot[j].color = 0xffffff;
+		z_n_color = ft_split(seped_line[x], 44);
+		row_arr[x].coord = fill_dot(x, y, atoi(z_n_color[0]));
+		if (!z_n_color[1])
+			row_arr[x].color = 0xffffff;
 		else
-			p_dot[j].color = ft_atoi16(z_val_color[1]);
-		split_free(z_val_color);
-		j++;
+			row_arr[x].color = ft_atoi16(z_n_color[1]);
+		split_free(z_n_color);
+		row_arr[x].is_end = 0;
+		x++;
 	}
+	row_arr[x].is_end = 1;
 	split_free(seped_line);
 }
 
+static t_mat	*fill_dot(int x, int y, int z)
+{
+	t_mat	*coord;
+
+	coord = mat_create(4, 1);
+	coord->mat[0][0] = x;
+	coord->mat[1][0] = y;
+	coord->mat[2][0] = z;
+	coord->mat[3][0] = 1;
+	return (coord);
+}

@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:27:03 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/06 17:07:06 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:49:28 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_map	*map;
+	t_dot	**map;
 
 	if (argc != 2 || extension_validity(argv[1]))
 	{
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	for (int i = 0; i < 11; i++)
 	{
 		for (int j = 0; j < 19; j++)
-			printf("[%d][%d]=%d 0x%x  ",i, j, (map->map[i][j]).z_val, (map->map[i][j]).color);
+			printf("[%d][%d]=%d %d  ",i, j, (int)map[i][j].coord->mat[2][0], (int)map[i][j].color);
 		printf("\n");
 	}
 	prtimage();

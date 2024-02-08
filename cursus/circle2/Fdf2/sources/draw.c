@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/06 22:09:16 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/08 16:07:40 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ void	draw_line_x(t_data *data, t_mat *a, t_mat *b)
 void draw_cube(t_data *data)
 {
 	t_mat	*unit = unit_mat_create(4);
-	t_mat	*y_30_rot = y_rot_mat(unit, 30);
+	t_mat	*y_30_rot = y_rot_mat(unit, 45);
 	t_mat	*xy_30_rot = x_rot_mat(y_30_rot, 30);
-	t_mat	*xy_proj = n_mat_proj(xy_30_rot, 'z');
+	t_mat	*xyz_rot = z_rot_mat(xy_30_rot, 30);
+	t_mat	*xy_proj = n_mat_proj(xyz_rot, 'z');
 	t_mat	*par_mov = mat_par_mov(xy_proj, 500, 500, 0);
 
 	t_mat	*a_1 = mat_create(4,1);

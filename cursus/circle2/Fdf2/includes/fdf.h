@@ -6,6 +6,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include "libft.h"
 
 # include <stdio.h>
@@ -38,13 +39,6 @@ typedef struct	s_data
 	int		endian;
 }t_data;
 
-// 좌표 구조체
-typedef struct	s_dot
-{
-	int		z_val;
-	int		color;
-}t_dot;
-
 // 행렬 구조체
 typedef struct	s_mat
 {
@@ -53,6 +47,14 @@ typedef struct	s_mat
 	double **mat;
 }t_mat;
 
+// 좌표 구조체
+typedef struct	s_dot
+{
+	t_mat	*coord;
+	int		color;
+	bool	is_end;
+}t_dot;
+
 // gnl 구조체
 typedef struct	s_buf
 {
@@ -60,13 +62,6 @@ typedef struct	s_buf
 	int		idx;
 	int		used;
 }t_buf;
-
-typedef struct	s_map
-{
-	int				row;
-	int				col;
-	struct s_dot	**map;
-}t_map;
 
 // draw
 // void	draw_rectangle(t_data *data, const int x_c, const int y_c, const int width);
@@ -85,7 +80,7 @@ void	fd_error();
 
 // parsing & checking
 int		extension_validity(char *file);
-t_map	*read_map(char *argv);
+t_dot	**read_map(char *argv);
 
 //mat_utils 
 t_mat	*mat_create(int row, int col);
