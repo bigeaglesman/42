@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:57:05 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/08 14:46:24 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/14 21:44:58 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	fill_line(t_dot *row_arr, char *line, int col, int y)
 	while (x < col)
 	{
 		z_n_color = ft_split(seped_line[x], 44);
-		row_arr[x].coord = fill_dot(x, y, atoi(z_n_color[0]));
+		row_arr[x].coord = fill_dot(x, y, ft_atoi(z_n_color[0]));
 		if (!z_n_color[1])
 			row_arr[x].color = 0xffffff;
 		else
