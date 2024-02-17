@@ -18,6 +18,10 @@ INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR)
 
 SRC_DIR = ./sources/
 SRCS_LIST = pipex.c\
+			pipex_pipe.c\
+			pipex_parsing.c\
+			pipex_pipe.c\
+			pipex_here_doc.c\
 			error.c\
 			ft_printf_utils.c\
 			ft_printf_utils2.c\

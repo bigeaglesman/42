@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:03:40 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/14 22:01:42 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/16 11:25:28 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len)
 	return (concat_str);
 }
 
-void	gnl_strlcat(char *dest, const char *src, int size)
-{
-	int	i;
-	int	dest_len;
+// void	gnl_strlcat(char *dest, const char *src, int size)
+// {
+// 	int	i;
+// 	int	dest_len;
 
-	i = 0;
-	dest_len = ft_strlen((const char *)dest);
-	while (dest_len + i + 1 < size && src[i])
-	{
-		dest[dest_len + i] = src[i];
-		i++;
-	}
-	dest[dest_len + i] = 0;
-}
+// 	i = 0;
+// 	dest_len = ft_strlen((const char *)dest);
+// 	while (dest_len + i + 1 < size && src[i])
+// 	{
+// 		dest[dest_len + i] = src[i];
+// 		i++;
+// 	}
+// 	dest[dest_len + i] = 0;
+// }
