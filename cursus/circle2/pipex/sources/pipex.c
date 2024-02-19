@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/19 20:59:41 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/19 21:46:48 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int main(int argc, char **argv, char **envp)
 		else
 		{
 			close(pipefd[1]);
-			ft_printf("child %d exit signal %d\n",wait(statloc), WIFSIGNALED(statloc));
 			if (cmd_cnt)
 				close(tmp_fd);
 			if (!(cmd_cnt == parsing.num_cmd-1))
@@ -63,5 +62,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		cmd_cnt++;
 	}
+	cmd_cnt = -1;
+	while (cmd_cnt++ < parsing.num_cmd)
+		ft_printf("child %d exit signal\n", wait(statloc));
 }
-
