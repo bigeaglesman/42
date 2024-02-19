@@ -2,6 +2,7 @@
 	"files.associations": {
 		"stdarg.h": "c",
 		"pipex.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"unistd.h": "c"
 	}
 }

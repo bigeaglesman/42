@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/17 22:08:33 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/19 20:59:41 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,54 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	int		**pipe;
-	char	**seperated_path;
+	int			pipefd[2];
 	t_parsing	parsing;
+	int			cmd_cnt;
+	int			pid;
+	int			tmp_fd;
+	int			*statloc;
 
-	if (argc < 4)
-		argument_err();
+	statloc = NULL;
+	// check_argument(argc, argv);
 	parsing.envp = envp;
 	parsing_main(argc, argv, &parsing);
-	seperated_path = split_path(envp);
-	if (argv[1] == "here_doc")
+	cmd_cnt = 0;
+	tmp_fd = -1;
+	while (cmd_cnt < parsing.num_cmd)
 	{
-		pipe = create_pipe_arr(argc - 3);
-		return (pipex_here_doc(argc, argv, envp, seperated_path, pipe));
-	}
-	else
-	{
-		pipe = create_pipe_arr(argc - 2);
-		return (pipex_file(argc, argv, envp, seperated_path, pipe));
+		pipe(pipefd);
+		pid = fork();
+		if (pid < 0)
+			exit(1);
+		else if (pid == 0)
+		{
+			close(pipefd[0]);
+			dup2(pipefd[1], STDOUT_FILENO);
+			close(pipefd[1]);
+			if (cmd_cnt == 0)
+			{
+				if (parsing.is_here_doc)
+					get_here_doc_input(parsing.delimiter);
+				else
+					dup2(parsing.fd1, STDIN_FILENO);
+			}
+			else
+				dup2(tmp_fd, STDIN_FILENO);
+			if (cmd_cnt == parsing.num_cmd-1)
+				dup2(parsing.fd2, STDOUT_FILENO);
+			execve(parsing.command_path[cmd_cnt],parsing.seped_command[cmd_cnt], parsing.envp);
+		}
+		else
+		{
+			close(pipefd[1]);
+			ft_printf("child %d exit signal %d\n",wait(statloc), WIFSIGNALED(statloc));
+			if (cmd_cnt)
+				close(tmp_fd);
+			if (!(cmd_cnt == parsing.num_cmd-1))
+				tmp_fd = dup(pipefd[0]);
+			close(pipefd[0]);
+		}
+		cmd_cnt++;
 	}
 }
+

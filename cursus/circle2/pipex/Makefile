@@ -11,24 +11,21 @@ LIBRARIES = -lft -L$(LIBFT_DIR)
 HEADERS_DIR = ./includes/
 HEADERS_LIST = pipex.h\
 				ft_printf.h\
-				get_next_line.h
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR)
 
 SRC_DIR = ./sources/
-SRCS_LIST = pipex.c\
-			pipex_pipe.c\
-			pipex_parsing.c\
-			pipex_pipe.c\
-			pipex_here_doc.c\
-			error.c\
+SRCS_LIST = error.c\
 			ft_printf_utils.c\
 			ft_printf_utils2.c\
 			ft_printf_utils3.c\
 			ft_printf.c\
 			get_next_line_utils.c\
-			get_next_line.c
+			get_next_line.c\
+			pipex_here_doc.c\
+			pipex_parsing.c\
+			pipex.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
 

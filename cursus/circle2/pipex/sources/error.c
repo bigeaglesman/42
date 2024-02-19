@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:55:21 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/14 19:36:40 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/19 19:24:19 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,4 @@ void	file_open_err()
 {
 	perror("file open error");
 	exit (1);
-}
-
-void	pipe_malloc_err(int **pipe_arr, int i)
-{
-	free_pipe_arr(pipe_arr, i);
-	perror("pipe malloc error");
-	exit(1);
 }
