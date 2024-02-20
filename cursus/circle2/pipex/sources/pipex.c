@@ -6,11 +6,13 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/19 21:46:48 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/20 22:19:42 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void	check_argument(int argc, char **argv);
 
 int main(int argc, char **argv, char **envp)
 {
@@ -22,7 +24,7 @@ int main(int argc, char **argv, char **envp)
 	int			*statloc;
 
 	statloc = NULL;
-	// check_argument(argc, argv);
+	check_argument(argc, argv);
 	parsing.envp = envp;
 	parsing_main(argc, argv, &parsing);
 	cmd_cnt = 0;
@@ -39,12 +41,7 @@ int main(int argc, char **argv, char **envp)
 			dup2(pipefd[1], STDOUT_FILENO);
 			close(pipefd[1]);
 			if (cmd_cnt == 0)
-			{
-				if (parsing.is_here_doc)
-					get_here_doc_input(parsing.delimiter);
-				else
-					dup2(parsing.fd1, STDIN_FILENO);
-			}
+				dup2(parsing.fd1, STDIN_FILENO);
 			else
 				dup2(tmp_fd, STDIN_FILENO);
 			if (cmd_cnt == parsing.num_cmd-1)
@@ -56,13 +53,33 @@ int main(int argc, char **argv, char **envp)
 			close(pipefd[1]);
 			if (cmd_cnt)
 				close(tmp_fd);
+			else
+				unlink("tmp.txt");
 			if (!(cmd_cnt == parsing.num_cmd-1))
 				tmp_fd = dup(pipefd[0]);
 			close(pipefd[0]);
 		}
 		cmd_cnt++;
 	}
-	cmd_cnt = -1;
-	while (cmd_cnt++ < parsing.num_cmd)
-		ft_printf("child %d exit signal\n", wait(statloc));
+	cmd_cnt = 0;
+	while (cmd_cnt < parsing.num_cmd)
+	{
+		wait(statloc);
+		cmd_cnt++;
+	}
+	return (0);
+}
+
+static void	check_argument(int argc, char **argv)
+{
+	if (strncmp (argv[1], "here_doc", 9))
+	{
+		if (argc < 6)
+			exit(1);
+	}
+	else
+	{
+		if (argc < 5)
+			exit(1);
+	}
 }

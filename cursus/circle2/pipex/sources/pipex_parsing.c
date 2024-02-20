@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:49:38 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/19 21:00:09 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/20 21:18:55 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 void	parsing_main(int argc, char **argv, t_parsing *parsing)
 {
+	char	*here_doc_str;
+
 	parsing->seped_path_envp = split_path_envp(parsing->envp);
-	if (!ft_strncmp(argv[2], "here_doc", 9))
+	if (!ft_strncmp(argv[1], "here_doc", 9))
 	{
 		parsing->is_here_doc = 1;
-		parsing->delimiter = ft_strjoin(argv[2], "\n");
+		parsing->delimiter = argv[2];
+		parsing->fd1 = open("tmp.txt", O_RDWR | O_CREAT, 0644);
+		here_doc_str = get_here_doc_input(parsing->delimiter);
+		// ft_printf("fd1: %d, str: %s, ft_strlen: %d\n", parsing->fd1, here_doc_str, ft_strlen(here_doc_str));
+		write(parsing->fd1, here_doc_str, ft_strlen(here_doc_str));
+		// ft_printf("write_check: %d\n", check);
+		close(parsing->fd1);
+		parsing->fd1 = open("tmp.txt", O_RDONLY);
 		parsing->fd2 = open(argv[argc - 1], O_RDWR | O_APPEND | O_CREAT, 0644);
 	}
 	else

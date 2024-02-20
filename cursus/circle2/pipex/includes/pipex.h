@@ -18,12 +18,12 @@
 #  define OPEN_MAX 1024
 # endif
 
-typedef struct s_buf
-{
-	char	read_buf[BUFFER_SIZE + 1];
-	int		idx;
-	int		used;
-}t_buf;
+// typedef struct s_buf
+// {
+// 	char	read_buf[BUFFER_SIZE + 1];
+// 	int		idx;
+// 	int		used;
+// }t_buf;
 
 typedef struct s_parsing
 {
@@ -39,11 +39,13 @@ typedef struct s_parsing
 }t_parsing;
 
 char	*get_next_line(int fd);
-int		ft_read_attach(int fd, char **pout, t_buf *buf_case);
-
-int		ft_read_line(int fd, t_buf *buf_case);
-int		ft_attach_nl(char **pout, t_buf *buf_case);
-char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len);
+char	*line(char **rest, int fd);
+char	*cut(char **rest, int new_pos, int i);
+char	*gnl_strrest(char *buff, int new_pos);
+int		gnl_strchr(const char *s, int c);
+char	*gnl_strndup(char *str, int len);
+char	*gnl_strjoin(char *dest, char *append);
+size_t	gnl_strlen(const char *str);
 
 char	*get_here_doc_input(char *marker);
 
