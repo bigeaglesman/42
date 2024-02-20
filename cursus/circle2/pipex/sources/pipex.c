@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/20 22:19:42 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/20 22:34:17 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,20 @@ int main(int argc, char **argv, char **envp)
 
 static void	check_argument(int argc, char **argv)
 {
-	if (strncmp (argv[1], "here_doc", 9))
+	if (!strncmp (argv[1], "here_doc", 9))
 	{
 		if (argc < 6)
-			exit(1);
+		{
+			exit(17);
+			perror("here_doc argument error");
+		}
 	}
 	else
 	{
 		if (argc < 5)
-			exit(1);
+		{
+			exit(17);
+			perror("file argument error");
+		}
 	}
 }
