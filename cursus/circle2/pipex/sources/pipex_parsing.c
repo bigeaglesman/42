@@ -6,97 +6,101 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:49:38 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/20 21:18:55 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/23 18:16:45 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+static char	**split_path_env(char **envp);
+static char	***make_seped_cmd(char **argv_cmd, int num_cmd);
+static char	**make_cmd_path(char ***seped_cmd, char **path_env, int num_cmd);
+static void	chk_path_cmd(char **path_env, char **cmd_path, \
+			char ***sep_cmd, int cmd_cnt);
+
 void	parsing_main(int argc, char **argv, t_parsing *parsing)
 {
-	char	*here_doc_str;
-
-	parsing->seped_path_envp = split_path_envp(parsing->envp);
+	parsing->seped_path_env = split_path_env(parsing->envp);
 	if (!ft_strncmp(argv[1], "here_doc", 9))
-	{
-		parsing->is_here_doc = 1;
-		parsing->delimiter = argv[2];
-		parsing->fd1 = open("tmp.txt", O_RDWR | O_CREAT, 0644);
-		here_doc_str = get_here_doc_input(parsing->delimiter);
-		// ft_printf("fd1: %d, str: %s, ft_strlen: %d\n", parsing->fd1, here_doc_str, ft_strlen(here_doc_str));
-		write(parsing->fd1, here_doc_str, ft_strlen(here_doc_str));
-		// ft_printf("write_check: %d\n", check);
-		close(parsing->fd1);
-		parsing->fd1 = open("tmp.txt", O_RDONLY);
-		parsing->fd2 = open(argv[argc - 1], O_RDWR | O_APPEND | O_CREAT, 0644);
-	}
+		parsing_here_doc(parsing, argv, argc);
 	else
 	{
 		parsing->is_here_doc = 0;
 		parsing->fd1 = open(argv[1], O_RDONLY);
-		parsing->fd2 = open(argv[argc-1], O_RDWR | O_TRUNC);
+		parsing->fd2 = open(argv[argc - 1], O_WRONLY);
+		if (parsing->fd1 == -1 || parsing->fd2 == -1)
+			file_open_err();
 	}
 	parsing->num_cmd = argc - parsing->is_here_doc - 3;
-	parsing->seped_command = make_seped_cmd(&argv[2 + parsing->is_here_doc], parsing->num_cmd);
-	parsing->command_path = make_cmd_path(parsing->seped_command, parsing->seped_path_envp, parsing->num_cmd);
+	parsing->seped_cmd = make_seped_cmd(&argv[2 + parsing->is_here_doc], \
+							parsing->num_cmd);
+	parsing->cmd_path = make_cmd_path(parsing->seped_cmd, \
+							parsing->seped_path_env, parsing->num_cmd);
 }
 
-char	**split_path_envp(char **envp)
+static char	**split_path_env(char **envp)
 {
 	int		i;
 
 	i = 0;
-	while(ft_strncmp(envp[i], "PATH=", 5))
+	while (ft_strncmp(envp[i], "PATH=", 5))
 		i++;
 	return (ft_split(envp[i] + 5, ':'));
 }
 
-char	***make_seped_cmd(char **argv_command, int num_cmd)
+static char	***make_seped_cmd(char **argv_cmd, int num_cmd)
 {
-	char	***seped_command;
+	char	***seped_cmd;
 	int		i;
 
 	i = 0;
-	seped_command = (char ***)malloc(sizeof(char **) * (num_cmd + 1));
+	seped_cmd = (char ***)malloc(sizeof(char **) * (num_cmd + 1));
 	while (i < num_cmd)
 	{
-		seped_command[i] = ft_split(argv_command[i], ' ');
+		seped_cmd[i] = ft_split(argv_cmd[i], ' ');
 		i++;
 	}
-	seped_command[num_cmd] = 0;
-	return (seped_command);
+	seped_cmd[num_cmd] = 0;
+	return (seped_cmd);
 }
 
-char	**make_cmd_path(char ***seped_command, char **path_envp, int num_cmd)
+char	**make_cmd_path(char ***seped_cmd, char **path_env, int num_cmd)
 {
-	char	**command_path_arr;
-	int		command_cnt;
-	int		path_cnt;
-	char	*slash_command;
-	char	*concated_path_command;
+	char	**cmd_path_arr;
+	int		cmd_cnt;
 
-	command_cnt = 0;
-	command_path_arr = (char **)malloc( sizeof(char *) * (num_cmd + 1));
-	while (command_cnt < num_cmd)
+	cmd_cnt = 0;
+	cmd_path_arr = (char **)malloc (sizeof(char *) * (num_cmd + 1));
+	while (cmd_cnt < num_cmd)
 	{
-		path_cnt = 0;
-		slash_command = ft_strjoin("/", seped_command[command_cnt][0]);
-		while(path_envp[path_cnt])
-		{
-			concated_path_command = ft_strjoin(path_envp[path_cnt], slash_command);
-			if (!access(concated_path_command, X_OK))
-			{
-				command_path_arr[command_cnt] = concated_path_command;
-				break;
-			}
-			free(concated_path_command);
-			path_cnt++;
-		}
-		free(slash_command);
-		command_cnt++;
+		chk_path_cmd(path_env, cmd_path_arr, seped_cmd, cmd_cnt);
+		cmd_cnt++;
 	}
-	command_path_arr[num_cmd] = 0;
-	return (command_path_arr);
+	cmd_path_arr[num_cmd] = 0;
+	return (cmd_path_arr);
 }
 
+static void	chk_path_cmd(char **path_env, char **cmd_path, \
+			char ***sep_cmd, int cmd_cnt)
+{
+	char	*join_path_cmd;
+	int		path_cnt;
+	char	*slash_cmd;
 
+	path_cnt = 0;
+	slash_cmd = ft_strjoin("/", sep_cmd[cmd_cnt][0]);
+	while (path_env[path_cnt])
+	{
+		join_path_cmd = ft_strjoin(path_env[path_cnt], slash_cmd);
+		if (!access(join_path_cmd, X_OK))
+		{
+			cmd_path[cmd_cnt] = join_path_cmd;
+			break ;
+		}
+		free(join_path_cmd);
+		path_cnt++;
+	}
+	if (!path_env[path_cnt])
+		cmd_access_err();
+	free(slash_cmd);
+}

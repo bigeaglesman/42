@@ -6,26 +6,26 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:55:21 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/19 19:24:19 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/23 18:17:08 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	argument_err()
+void	cmd_access_err(void)
 {
-	perror("argument input error");
+	ft_printf("command access error\n");
 	exit (1);
 }
 
-void	file_access_err()
+void	file_open_err(void)
 {
-	perror("file access error");
+	ft_printf("file open error\n");
 	exit (1);
 }
 
-void	file_open_err()
+void	malloc_err(void)
 {
-	perror("file open error");
-	exit (1);
+	ft_printf("malloc error\n");
+	exit(1);
 }

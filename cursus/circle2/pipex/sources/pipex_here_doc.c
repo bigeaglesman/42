@@ -6,13 +6,29 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:42:44 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/20 21:19:16 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/23 18:09:38 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*get_here_doc_input(char *marker)
+static char	*get_here_doc_input(char *marker);
+
+void	parsing_here_doc(t_parsing *parsing, char **argv, int argc)
+{
+	char	*here_doc_str;
+
+	parsing->is_here_doc = 1;
+	parsing->delimiter = argv[2];
+	parsing->fd1 = open("tmp.txt", O_RDWR | O_CREAT, 0644);
+	here_doc_str = get_here_doc_input(parsing->delimiter);
+	write(parsing->fd1, here_doc_str, ft_strlen(here_doc_str));
+	close(parsing->fd1);
+	parsing->fd1 = open("tmp.txt", O_RDONLY);
+	parsing->fd2 = open(argv[argc - 1], O_RDWR | O_APPEND | O_CREAT, 0644);
+}
+
+static char	*get_here_doc_input(char *marker)
 {
 	char	*line;
 	char	*input;
@@ -25,7 +41,6 @@ char	*get_here_doc_input(char *marker)
 	line = get_next_line(0);
 	while (ft_strncmp(line, trans_marker, ft_strlen(trans_marker) + 1))
 	{
-		// ft_printf("input string: %s, marker: %s\n", line, trans_marker);
 		input_tmp = ft_strjoin(input, line);
 		free(input);
 		free(line);
@@ -34,5 +49,5 @@ char	*get_here_doc_input(char *marker)
 	}
 	free(trans_marker);
 	free(line);
-	return(input);
+	return (input);
 }

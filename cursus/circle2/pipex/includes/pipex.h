@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 16:33:35 by ycho2             #+#    #+#             */
+/*   Updated: 2024/02/23 18:16:08 by ycho2            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -28,14 +40,15 @@
 typedef struct s_parsing
 {
 	char	**envp;
-	char	**seped_path_envp;
-	char	***seped_command;
-	char	**command_path;
+	char	**seped_path_env;
+	char	***seped_cmd;
+	char	**cmd_path;
 	char	*delimiter;
 	int		num_cmd;
 	int		is_here_doc;
 	int		fd1;
 	int		fd2;
+	int		tmp_fd;
 }t_parsing;
 
 char	*get_next_line(int fd);
@@ -47,15 +60,12 @@ char	*gnl_strndup(char *str, int len);
 char	*gnl_strjoin(char *dest, char *append);
 size_t	gnl_strlen(const char *str);
 
-char	*get_here_doc_input(char *marker);
+void	parsing_here_doc(t_parsing *parsing, char **argv, int argc);
 
 void	parsing_main(int argc, char **argv, t_parsing *parsing);
-char	**split_path_envp(char **envp);
-char	***make_seped_cmd(char **argv_command, int num_cmd);
-char	**make_cmd_path(char ***seped_command, char **path_envp, int num_cmd);
 
-void	argument_err();
-void	file_access_err();
-void	file_open_err();
+void	cmd_access_err(void);
+void	file_open_err(void);
+void	malloc_err(void);
 
 #endif
