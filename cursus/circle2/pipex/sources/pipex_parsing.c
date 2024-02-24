@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:49:38 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/24 16:50:00 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/24 19:52:58 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	parsing_main(int argc, char **argv, t_parsing *parsing)
 	else
 	{
 		parsing->is_here_doc = 0;
-		parsing->fd1 = open(argv[1], O_RDONLY | O_CREAT);
+		parsing->fd1 = open(argv[1], O_RDONLY | O_CREAT, 0644);
 		parsing->fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT, 0644);
 	}
 	if (parsing->fd1 == -1 || parsing->fd2 == -1)
@@ -108,7 +108,5 @@ static void	chk_path_cmd(char **path_env, char **cmd_path, \
 		free(join_path_cmd);
 		path_cnt++;
 	}
-	// if (!path_env[path_cnt])
-	// 	cmd_access_err();
 	free(slash_cmd);
 }
