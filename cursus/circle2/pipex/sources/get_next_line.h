@@ -1,26 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 16:33:35 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/24 13:05:36 by ycho2            ###   ########.fr       */
+/*   Created: 2024/01/11 14:50:17 by ycho2             #+#    #+#             */
+/*   Updated: 2024/01/18 18:05:09 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
-
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <stdio.h>
-# include <string.h>
-# include "libft.h"
-# include "ft_printf.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
@@ -30,6 +21,9 @@
 #  define OPEN_MAX 1024
 # endif
 
+# include <unistd.h>
+# include <stdlib.h>
+
 typedef struct s_buf
 {
 	char	read_buf[BUFFER_SIZE + 1];
@@ -37,34 +31,13 @@ typedef struct s_buf
 	int		used;
 }t_buf;
 
-typedef struct s_parsing
-{
-	char	**envp;
-	char	**seped_path_env;
-	char	***seped_cmd;
-	char	**cmd_path;
-	char	*delimiter;
-	int		num_cmd;
-	int		is_here_doc;
-	int		fd1;
-	int		fd2;
-	int		tmp_fd;
-}t_parsing;
-
+char	*get_next_line(int fd);
 int		ft_read_attach(int fd, char **pout, t_buf *buf_case);
+
 int		ft_read_line(int fd, t_buf *buf_case);
 int		ft_attach_nl(char **pout, t_buf *buf_case);
-char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len);
-
-
-char	*get_next_line(int fd);
-
-void	parsing_here_doc(t_parsing *parsing, char **argv, int argc);
-
-void	parsing_main(int argc, char **argv, t_parsing *parsing);
-
-void	cmd_access_err(void);
-void	file_open_err(void);
-void	malloc_err(void);
+char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len);
+int		ft_strlen(const char *str);
+void	ft_strlcat(char *dest, const char *src, int size);
 
 #endif

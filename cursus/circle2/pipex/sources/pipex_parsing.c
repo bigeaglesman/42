@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:49:38 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/23 18:16:45 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/24 15:36:30 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	chk_path_cmd(char **path_env, char **cmd_path, \
 void	parsing_main(int argc, char **argv, t_parsing *parsing)
 {
 	parsing->seped_path_env = split_path_env(parsing->envp);
+	if (!parsing->seped_path_env)
+		malloc_err();
 	if (!ft_strncmp(argv[1], "here_doc", 9))
 		parsing_here_doc(parsing, argv, argc);
 	else
@@ -28,9 +30,9 @@ void	parsing_main(int argc, char **argv, t_parsing *parsing)
 		parsing->is_here_doc = 0;
 		parsing->fd1 = open(argv[1], O_RDONLY);
 		parsing->fd2 = open(argv[argc - 1], O_WRONLY);
-		if (parsing->fd1 == -1 || parsing->fd2 == -1)
-			file_open_err();
 	}
+	if (parsing->fd1 == -1 || parsing->fd2 == -1)
+		file_open_err();
 	parsing->num_cmd = argc - parsing->is_here_doc - 3;
 	parsing->seped_cmd = make_seped_cmd(&argv[2 + parsing->is_here_doc], \
 							parsing->num_cmd);
@@ -55,9 +57,13 @@ static char	***make_seped_cmd(char **argv_cmd, int num_cmd)
 
 	i = 0;
 	seped_cmd = (char ***)malloc(sizeof(char **) * (num_cmd + 1));
+	if (!seped_cmd)
+		malloc_err();
 	while (i < num_cmd)
 	{
 		seped_cmd[i] = ft_split(argv_cmd[i], ' ');
+		if (!seped_cmd)
+			malloc_err();
 		i++;
 	}
 	seped_cmd[num_cmd] = 0;
@@ -71,6 +77,8 @@ char	**make_cmd_path(char ***seped_cmd, char **path_env, int num_cmd)
 
 	cmd_cnt = 0;
 	cmd_path_arr = (char **)malloc (sizeof(char *) * (num_cmd + 1));
+	if (!cmd_path_arr)
+		malloc_err();
 	while (cmd_cnt < num_cmd)
 	{
 		chk_path_cmd(path_env, cmd_path_arr, seped_cmd, cmd_cnt);

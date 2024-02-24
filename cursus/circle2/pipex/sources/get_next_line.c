@@ -5,95 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 19:41:14 by seongjko          #+#    #+#             */
-/*   Updated: 2024/02/20 19:48:50 by ycho2            ###   ########.fr       */
+/*   Created: 2024/01/11 14:45:55 by ycho2             #+#    #+#             */
+/*   Updated: 2024/02/24 13:04:41 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*gnl_strrest(char *buff, int new_pos)
-{
-	char	*res;
-	int		len;
-	int		i;
-
-	buff += new_pos;
-	len = gnl_strlen(buff);
-	res = (char *)malloc(sizeof(char) * (len + 1));
-	i = -1;
-	while (++i < len)
-		res[i] = buff[i];
-	res[i] = '\0';
-	return (res);
-}
-
-char	*cut(char **rest, int new_pos, int i)
-{
-	char	*ans;
-	char	*temp;
-
-	if (new_pos != -1)
-	{
-		ans = gnl_strndup(*rest, new_pos + 1);
-		temp = *rest;
-		*rest = gnl_strrest(*rest, new_pos + 1);
-		free(temp);
-	}
-	else
-	{
-		if (i == 0 && **rest == (char) NULL)
-		{
-			free(*rest);
-			*rest = NULL;
-			return (NULL);
-		}
-		ans = gnl_strndup(*rest, gnl_strlen(*rest));
-		temp = *rest;
-		*rest = gnl_strndup("", 0);
-		free(temp);
-	}
-	return (ans);
-}
-
-char	*line(char **rest, int fd)
-{
-	char		*ans;
-	char		buff[BUFFER_SIZE + 1];
-	char		*temp;
-	int			i;
-
-	while (1)
-	{
-		i = read(fd, buff, BUFFER_SIZE);
-		if (i < 0)
-		{
-			free(*rest);
-			*rest = NULL;
-			return (NULL);
-		}
-		buff[i] = '\0';
-		temp = *rest;
-		*rest = gnl_strjoin(*rest, buff);
-		free(temp);
-		if (gnl_strchr(*rest, '\n') != -1 || i < BUFFER_SIZE)
-		{
-			ans = cut(rest, gnl_strchr(*rest, '\n'), i);
-			break ;
-		}
-	}
-	return (ans);
-}
+int	ft_read_attach(int fd, char **pout, t_buf *buf_case);
+int	ft_read_line(int fd, t_buf *buf_case);
+int	ft_attach_nl(char **pout, t_buf *buf_case);
 
 char	*get_next_line(int fd)
 {
-	static char	*rest;
-	char		*ans;
+	static t_buf	buf_arr[OPEN_MAX];
+	char			*out;
+	int				flag;
 
-	if (BUFFER_SIZE < 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!rest)
-		rest = gnl_strndup("", 0);
-	ans = line(&rest, fd);
-	return (ans);
+	out = (char *)malloc(sizeof(char));
+	if (out == NULL)
+		return (NULL);
+	out[0] = 0;
+	while (1)
+	{
+		flag = ft_read_attach(fd, &out, &buf_arr[fd]);
+		if (flag == 1 || (flag == 0 && *out != 0))
+			return (out);
+		else if (flag == -1 || flag == 0)
+		{
+			free (out);
+			return (NULL);
+		}
+	}
+}
+
+int	ft_read_attach(int fd, char **pout, t_buf *buf_case)
+{
+	int	flag;
+	int	read_len;
+
+	read_len = 1;
+	if ((buf_case -> used) == 0)
+	{
+		buf_case -> used = 1;
+		buf_case -> idx = -1;
+	}
+	if ((buf_case -> idx) == -1)
+		read_len = ft_read_line(fd, buf_case);
+	if (read_len == -1 || read_len == 0)
+		return (read_len);
+	else
+	{
+		flag = ft_attach_nl(pout, buf_case);
+		return (flag);
+	}
 }

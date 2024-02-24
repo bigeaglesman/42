@@ -2,3 +2,13 @@ hello sdasfas
 fsdfasdfasdf hello
 hello man
 hello there
+       0
+       3
+       2
+       3
+       0
+       6
+       1
+       0
+       0
+       0

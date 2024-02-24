@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 12:32:00 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/06 12:13:12 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/24 15:20:30 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ char	**ft_split(char const *s, char c)
 
 	split = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!split)
-		return (0);
+		return (NULL);
 	if (!save_words(s, c, split))
 	{
 		split_free(split);
-		return (0);
+		return (NULL);
 	}
 	return (split);
 }
