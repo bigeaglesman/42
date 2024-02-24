@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/23 17:59:22 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/24 16:33:19 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	child_proc(t_parsing parsing, int *pfd, int cmd_cnt);
 static void	parent_proc(t_parsing *parsing, int *pfd, int cmd_cnt);
 static void	c_p_proc(t_parsing *parsing, int *pipefd, int cmd_cnt);
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char *envp[])
 {
 	int			pipefd[2];
 	t_parsing	parsing;

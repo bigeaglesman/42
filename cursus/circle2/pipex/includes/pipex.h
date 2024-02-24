@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 16:33:35 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/24 13:05:36 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/24 15:59:07 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int		ft_read_attach(int fd, char **pout, t_buf *buf_case);
 int		ft_read_line(int fd, t_buf *buf_case);
 int		ft_attach_nl(char **pout, t_buf *buf_case);
 char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len);
-
 
 char	*get_next_line(int fd);
 
