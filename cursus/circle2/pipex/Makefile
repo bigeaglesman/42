@@ -10,7 +10,7 @@ LIBRARIES = -lft -L$(LIBFT_DIR)
 
 HEADERS_DIR = ./includes/
 
-HEADERS_LIST_MAND = pipex_mand.h
+HEADERS_LIST_MAND = pipex.h
 HEADERS_MAND = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST_MAND))
 
 HEADERS_LIST_BONUS = pipex_bonus.h	
@@ -46,10 +46,10 @@ OBJ_DIR_BONUS = ./objects/bonus/
 OBJ_LIST_BONUS = $(SRCS_LIST_BONUS:.c=.o)
 OBJS_BONUS = $(addprefix $(OBJ_DIR_BONUS), $(OBJ_LIST_BONUS))
 
-all : pipex_mand
+all : pipex_mandatory
 bonus : pipex_bonus
 
-pipex_mand : $(LIBFT) $(OBJ_DIR_MAND) $(OBJS_MAND)
+pipex_mandatory : $(LIBFT) $(OBJ_DIR_MAND) $(OBJS_MAND)
 	$(cc) $(CFLAGS) $(INCLUDES) $(LIBRARIES) $(OBJS_MAND) -o $(TARGET)
 	touch $@
 
@@ -72,13 +72,15 @@ $(OBJ_DIR_BONUS)%.o : $(SRC_DIR_BONUS)%.c $(HEADERS_BONUS)
 $(LIBFT) :
 	make -C $(LIBFT_DIR)
 
-clean : 
+clean :
 	make -C $(LIBFT_DIR) clean
-	$(RM) $(OBJ_DIR) 
+	$(RM) $(OBJ_DIR)
+	$(RM) pipex_bonus
+	$(RM) pipex_mandatory
 
 fclean : clean
 	$(RM) $(LIBFT)
-	$(RM) $(NAME)
+	$(RM) $(TARGET)
 
 re : fclean all
 

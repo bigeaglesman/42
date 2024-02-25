@@ -6,11 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 11:53:35 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/25 20:51:31 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_mand.h"
+#include "pipex.h"
 
 static void	check_argument(int argc, char **argv);
 static void	child_proc(t_parsing parsing, int *pfd, int cmd_cnt);
@@ -72,7 +72,7 @@ static void	child_proc(t_parsing parsing, int *pfd, int cmd_cnt)
 		dup2(parsing.fd2, STDOUT_FILENO);
 	if (execve (parsing.cmd_path[cmd_cnt], parsing.seped_cmd[cmd_cnt] \
 		, parsing.envp) == -1)
-		exit(1);
+		perror("child process execve error!");
 }
 
 static void	parent_proc(t_parsing *parsing, int *pfd, int cmd_cnt)

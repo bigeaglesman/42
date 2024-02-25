@@ -6,11 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 13:42:44 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 11:54:26 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/25 13:32:09 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_mand.h"
+#include "pipex.h"
 
 static char	*get_here_doc_input(char *marker);
 

@@ -6,11 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:03:40 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 11:51:30 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/25 13:32:08 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_mand.h"
+#include "pipex.h"
 
 int	ft_read_line(int fd, t_buf *buf_case)
 {

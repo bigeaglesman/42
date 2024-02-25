@@ -6,12 +6,12 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 16:33:35 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 11:50:33 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/25 13:28:13 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_MAND_H
-# define PIPEX_MAND_H
+#ifndef PIPEX_H
+# define PIPEX_H
 
 # include <fcntl.h>
 # include <unistd.h>

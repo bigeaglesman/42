@@ -6,11 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:49:38 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 11:51:45 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/25 16:17:04 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_mand.h"
+#include "pipex.h"
 
 static char	**split_path_env(char **envp);
 static char	***make_seped_cmd(char **argv_cmd, int num_cmd);
@@ -28,8 +28,8 @@ void	parsing_main(int argc, char **argv, t_parsing *parsing)
 	else
 	{
 		parsing->is_here_doc = 0;
-		parsing->fd1 = open(argv[1], O_RDONLY | O_CREAT, 0644);
-		parsing->fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT, 0644);
+		parsing->fd1 = open(argv[1], O_RDONLY);
+		parsing->fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 	if (parsing->fd1 == -1 || parsing->fd2 == -1)
 		file_open_err();

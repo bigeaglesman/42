@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 11:51:53 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/25 16:13:49 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char *envp[])
 		wait(NULL);
 		cmd_cnt++;
 	}
-	return (0);
+	exit (0);
 }
 
 static void	check_argument(int argc, char **argv)
