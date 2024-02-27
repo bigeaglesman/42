@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 20:51:31 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/27 11:41:55 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,24 @@ static void	child_proc(t_parsing parsing, int *pfd, int cmd_cnt)
 	dup2(pfd[1], STDOUT_FILENO);
 	close(pfd[1]);
 	if (cmd_cnt == 0)
-		dup2(parsing.fd1, STDIN_FILENO);
+	{
+		if (parsing.fd1 == -1)
+			file_open_err();
+		else
+			dup2(parsing.fd1, STDIN_FILENO);
+	}
 	else
 		dup2(parsing.tmp_fd, STDIN_FILENO);
 	if (cmd_cnt == parsing.num_cmd - 1)
-		dup2(parsing.fd2, STDOUT_FILENO);
+	{
+		if (parsing.fd2 == -1)
+			file_open_err();
+		else
+			dup2(parsing.fd2, STDOUT_FILENO);
+	}
 	if (execve (parsing.cmd_path[cmd_cnt], parsing.seped_cmd[cmd_cnt] \
 		, parsing.envp) == -1)
-		perror("child process execve error!");
+		child_process_err();
 }
 
 static void	parent_proc(t_parsing *parsing, int *pfd, int cmd_cnt)

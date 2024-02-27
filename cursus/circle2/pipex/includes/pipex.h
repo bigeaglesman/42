@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_mand.h                                       :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 16:33:35 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 13:28:13 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/27 11:15:00 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ void	parsing_main(int argc, char **argv, t_parsing *parsing);
 void	cmd_access_err(void);
 void	file_open_err(void);
 void	malloc_err(void);
+void	child_process_err(void);
 
 #endif

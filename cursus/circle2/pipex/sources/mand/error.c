@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:55:21 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 20:51:52 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/27 11:13:44 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@ void	cmd_access_err(void)
 void	file_open_err(void)
 {
 	perror("file open error");
-	// exit (1);
+	exit (1);
+}
+
+void	child_process_err(void)
+{
+	perror("child process execve error!");
+	exit(1);
 }
 
 void	malloc_err(void)

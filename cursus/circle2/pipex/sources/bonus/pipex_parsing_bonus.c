@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 14:49:38 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/25 16:16:56 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/27 11:46:27 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	parsing_main(int argc, char **argv, t_parsing *parsing)
 		parsing->fd1 = open(argv[1], O_RDONLY);
 		parsing->fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
-	if (parsing->fd1 == -1 || parsing->fd2 == -1)
-		file_open_err();
 	parsing->num_cmd = argc - parsing->is_here_doc - 3;
 	parsing->seped_cmd = make_seped_cmd(&argv[2 + parsing->is_here_doc], \
 							parsing->num_cmd);
