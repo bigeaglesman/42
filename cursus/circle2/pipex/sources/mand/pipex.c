@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:24:27 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/27 12:50:22 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/02/28 19:25:02 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	check_argument(int argc, char **argv)
 		perror("argument input error\n");
 		exit(1);
 	}
-	else if (!strncmp (argv[1], "here_doc", 9))
+	else if (!ft_strncmp (argv[1], "here_doc", 9))
 	{
 		if (argc < 6)
 		{
