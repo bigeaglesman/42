@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:24:41 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/09 18:02:19 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/12 16:14:23 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void init_arr(int argc, char **argv , t_mte *mte)
 	while (i < mte->size)
 	{
 		mte->arr[i].number = ft_atoi(argv[argc -1 -i]);
-		mte->arr[i].label = 1; 
+		mte->arr[i].label = 0; 
 		arr_i = 0;
 		while (arr_i < i)
 		{
@@ -97,3 +97,33 @@ static void init_arr(int argc, char **argv , t_mte *mte)
 		i++;
 	}
 }
+
+// static void sort_nA(t_mte *mte, int min, int max)
+// {
+// 	const int n = max - min + 1; 
+// 	const int pivot_1 = n/3 + n%3;
+// 	const int pivot_2 = n/3 * 2 + n%3;
+// 	int i;
+
+// 	i = 0;
+// 	while (i < n)
+// 	{
+// 		if (mte->arr[mte->divide - 1].label < min + pivot_1)
+// 			push(1, mte);
+// 		else if (mte->arr[mte->divide - 1].label < min + pivot_2 &&
+// 			mte->arr[mte->divide - 1].label >= min + pivot_1)
+// 		{
+// 			push(1, mte);
+// 			rotate(1, mte);
+// 		}
+// 		else if(mte->arr[mte->divide - 1].label >= min + pivot_2)
+// 			rotate(0, mte);
+// 		i++;
+// 	}
+	
+// }
+
+// static void sort_nB(t_mte mte, int min, int max)
+// {
+
+// }
