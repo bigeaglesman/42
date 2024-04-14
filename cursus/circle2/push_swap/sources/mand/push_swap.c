@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:24:41 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/12 16:14:23 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/14 22:08:30 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 static t_mte *init_mte(int argc, char **argv);
 static void init_arr(int argc, char **argv , t_mte *mte);
+static void sort_nA(t_mte *mte, int min, int max);
+static void sort_nB(t_mte *mte, int min, int max);
 
 int main(int argc, char **argv)
 {
@@ -27,33 +29,38 @@ int main(int argc, char **argv)
 		printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
 	printf ("divide : %d size: %d\n", mte->divide, mte->size);
 
-	printf("\n\nTest push\n");
-	push(0, mte);
-	push(1,mte);
-	push(1,mte);
-	push(1,mte);
-	for (int i = 0; i < mte->size; i++)
-		printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
-	printf ("divide : %d size: %d\n", mte->divide, mte->size);
+	// printf("\n\nTest push\n");
+	// push(0, mte);
+	// push(1,mte);
+	// push(1,mte);
+	// push(1,mte);
+	// for (int i = 0; i < mte->size; i++)
+	// 	printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
+	// printf ("divide : %d size: %d\n", mte->divide, mte->size);
 
-	printf("\n\nTest swap\n");
-	swap(0, mte);
-	swap(1, mte);
-	// swap(2, mte);
-	for (int i = 0; i < mte->size; i++)
-		printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
-	printf ("divide : %d size: %d\n", mte->divide, mte->size);
+	// printf("\n\nTest swap\n");
+	// swap(0, mte);
+	// swap(1, mte);
+	// // swap(2, mte);
+	// for (int i = 0; i < mte->size; i++)
+	// 	printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
+	// printf ("divide : %d size: %d\n", mte->divide, mte->size);
 
-	printf("\n\nTest rotate\n");
-	rotate(0, mte);
-	rotate(1, mte);
-	for (int i = 0; i < mte->size; i++)
-		printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
-	printf ("divide : %d size: %d\n", mte->divide, mte->size);
+	// printf("\n\nTest rotate\n");
+	// rotate(0, mte);
+	// rotate(1, mte);
+	// for (int i = 0; i < mte->size; i++)
+	// 	printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
+	// printf ("divide : %d size: %d\n", mte->divide, mte->size);
 
-	printf("\n\nTest reverse\n");
-	reverse(0, mte);
-	reverse(1, mte);
+	// printf("\n\nTest reverse\n");
+	// reverse(0, mte);
+	// reverse(1, mte);
+	// for (int i = 0; i < mte->size; i++)
+	// 	printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
+	// printf ("divide : %d size: %d\n", mte->divide, mte->size);
+
+	sort_nA(mte, 0, 4);
 	for (int i = 0; i < mte->size; i++)
 		printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
 	printf ("divide : %d size: %d\n", mte->divide, mte->size);
@@ -98,32 +105,90 @@ static void init_arr(int argc, char **argv , t_mte *mte)
 	}
 }
 
-// static void sort_nA(t_mte *mte, int min, int max)
-// {
-// 	const int n = max - min + 1; 
-// 	const int pivot_1 = n/3 + n%3;
-// 	const int pivot_2 = n/3 * 2 + n%3;
-// 	int i;
+static void sort_nA(t_mte *mte, int min, int max)
+{
+	const int n = max - min + 1; //pivot 정해주기
+	const int pivot_1 = n/3 + n%3;
+	const int pivot_2 = n/3 * 2 + n%3;
+	int i;
 
-// 	i = 0;
-// 	while (i < n)
-// 	{
-// 		if (mte->arr[mte->divide - 1].label < min + pivot_1)
-// 			push(1, mte);
-// 		else if (mte->arr[mte->divide - 1].label < min + pivot_2 &&
-// 			mte->arr[mte->divide - 1].label >= min + pivot_1)
-// 		{
-// 			push(1, mte);
-// 			rotate(1, mte);
-// 		}
-// 		else if(mte->arr[mte->divide - 1].label >= min + pivot_2)
-// 			rotate(0, mte);
-// 		i++;
-// 	}
+	if (n == 2) //n이 1인 경우는 건드리지 않는다 n이 2인 경우는 a스택 위 2대의 값을 비교해서 정렬한다
+	{
+		if (mte->arr[mte->divide-1].label > mte->arr[mte->divide-2].label)
+			swap(0, mte);
+	}
+	else if (n >= 3)
+	{
+		i = 0;
+		while (i < n)
+		{
+			if (mte->arr[mte->divide - 1].label < min + pivot_1) //small은 스택 a하단에 
+				push(1, mte);
+			else if (mte->arr[mte->divide - 1].label < min + pivot_2 &&
+				mte->arr[mte->divide - 1].label >= min + pivot_1) // mid는 스택 b 하단에
+			{
+				push(1, mte);
+				rotate(1, mte);
+			}
+			else if(mte->arr[mte->divide - 1].label >= min + pivot_2) // big은 스택 b상단에
+				rotate(0, mte);
+			i++;
+		}
+		i = 0;
+		while (i < n/3)
+		{
+			reverse(2, mte);
+			i++;
+		}
+		sort_nA(mte, min +pivot_2, max);
+		sort_nB(mte, min +pivot_1, min + pivot_2 -1);
+		sort_nB(mte, min, min +pivot_1 -1);
+	}
+
 	
-// }
+}
 
-// static void sort_nB(t_mte mte, int min, int max)
-// {
+static void sort_nB(t_mte *mte, int min, int max)
+{
+	const int	n = max -min +1;
+	const int	pivot_1 = n/3 + n%3;
+	const int	pivot_2 = n/3 *2 + n%3;
+	int			i;
 
-// }
+	if (n == 1)
+		push(0, mte);
+	else if (n == 2)
+	{
+		if (mte->arr[mte->divide].label < mte->arr[mte->divide +1].label)
+			swap(1, mte);
+		push(0, mte);
+		push(0, mte);
+	}
+	else if (n >= 3)
+	{
+		i = 0;
+		while (i < n)
+		{
+			if (mte->arr[mte->divide].label < min +pivot_1)
+				rotate(1, mte);
+			else if (mte->arr[mte->divide].label >= min +pivot_1 &&
+				mte->arr[mte->divide].label < min +pivot_2)
+			{
+				push(0, mte);
+				rotate(0, mte);
+			}
+			else if (mte->arr[mte->divide].label >= min +pivot_2)
+				push(0, mte);
+			i++;
+		}
+		sort_nA(mte, min +pivot_2, max);
+		i = 0;
+		while (i < n/3)
+		{
+			reverse(2, mte);
+			i++;
+		}
+		sort_nA(mte, min +pivot_1, min +pivot_2 -1);
+		sort_nB(mte, min, min +pivot_1 -1);
+	}
+}
