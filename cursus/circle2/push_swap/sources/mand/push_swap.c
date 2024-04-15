@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:24:41 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/14 22:08:30 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/15 19:00:48 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,18 @@ int main(int argc, char **argv)
 	if (argc <= 2)
 		exit (1);
 	mte = init_mte(argc, argv);
-	for (int i = 0; i < mte->size; i++)
-		printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
-	printf ("divide : %d size: %d\n", mte->divide, mte->size);
+	if (argc == 4)
+	{
+		if (mte)
+	}
+	else if (argc == 6)
+	{
+
+	}
+	else
+	// for (int i = 0; i < mte->size; i++)
+	// 	printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
+	// printf ("divide : %d size: %d\n", mte->divide, mte->size);
 
 	// printf("\n\nTest push\n");
 	// push(0, mte);
@@ -60,10 +69,10 @@ int main(int argc, char **argv)
 	// 	printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
 	// printf ("divide : %d size: %d\n", mte->divide, mte->size);
 
-	sort_nA(mte, 0, 4);
-	for (int i = 0; i < mte->size; i++)
-		printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
-	printf ("divide : %d size: %d\n", mte->divide, mte->size);
+		sort_nA(mte, 0, argc - 2);
+	// for (int i = 0; i < mte->size; i++)
+	// 	printf("%d %d \n", mte->arr[i].number, mte->arr[i].label); // printf 수정
+	// printf ("divide : %d size: %d\n", mte->divide, mte->size);
 }
 
 static t_mte *init_mte(int argc, char **argv)
@@ -144,15 +153,13 @@ static void sort_nA(t_mte *mte, int min, int max)
 		sort_nB(mte, min +pivot_1, min + pivot_2 -1);
 		sort_nB(mte, min, min +pivot_1 -1);
 	}
-
-	
 }
 
 static void sort_nB(t_mte *mte, int min, int max)
 {
 	const int	n = max -min +1;
-	const int	pivot_1 = n/3 + n%3;
-	const int	pivot_2 = n/3 *2 + n%3;
+	const int	pivot_1 = n/3;
+	const int	pivot_2 = n/3 *2;
 	int			i;
 
 	if (n == 1)

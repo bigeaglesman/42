@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:15:24 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/09 18:04:01 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/15 16:36:55 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,4 @@ void push(int to, t_mte *mte);
 void swap(int stack, t_mte *mte);
 void rotate(int stack, t_mte *mte);
 void reverse(int stack, t_mte *mte);
+void print_command(int command, int stack);
