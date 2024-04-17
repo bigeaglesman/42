@@ -19,9 +19,12 @@ HEADERS_MAND = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST_MAND))
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR)
 
 SRC_DIR_MAND = ./sources/mand/
-SRCS_LIST_MAND = command1.c\
-			command2.c\
-			command3.c\
+SRCS_LIST_MAND = com_push_swap.c\
+			com_reverse.c\
+			com_rotate.c\
+			sort_hardcoding.c\
+			sort_n.c\
+			sort_optimize.c\
 			push_swap.c
 SRCS_MAND = $(addprefix $(SRC_DIR_MAND), $(SRCS_LIST_MAND))
 
