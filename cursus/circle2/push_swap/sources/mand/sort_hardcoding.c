@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:16:44 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/17 10:56:40 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/20 23:48:57 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void hard_sort_3(t_mte *mte)
 		if (mte->arr[mte->divide-2].label == 2)
 		{
 			swap(0, mte);
-			reverse(0, mte);
+			rotate(0, mte);
 		}
 	}
 	else if (mte->arr[mte->divide -1].label == 1)
@@ -37,7 +37,7 @@ void hard_sort_3(t_mte *mte)
 			reverse(0, mte);
 		}
 		else if (mte->arr[mte->divide -2].label == 0)
-			reverse(0, mte);
+			rotate(0, mte);
 	}
 }
 
@@ -56,8 +56,10 @@ void hard_sort_5(t_mte *mte)
 		i++;
 	}
 	hard_sort_3(mte);
-	if (mte->arr[mte->divide].label == 3)
+	if (mte->arr[mte->divide].label == 4)
 		swap(1, mte);
 	push(0, mte);
+	rotate(0, mte);
 	push(0, mte);
+	rotate(0, mte);
 }

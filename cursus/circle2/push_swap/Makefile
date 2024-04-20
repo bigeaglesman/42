@@ -1,4 +1,5 @@
 TARGET = push_swap
+BONUS = checker
 cc = cc
 CFLAGS = -g -Wall -Werror -Wextra
 RM = rm -rf
@@ -13,8 +14,8 @@ HEADERS_DIR = ./includes/
 HEADERS_LIST_MAND = push_swap.h
 HEADERS_MAND = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST_MAND))
 
-# HEADERS_LIST_BONUS = push_swap_bonus.h	
-# HEADERS_BONUS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST_BONUS))
+HEADERS_LIST_BONUS = push_swap_bonus.h
+HEADERS_BONUS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST_BONUS))
 
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR)
 
@@ -43,20 +44,20 @@ OBJ_DIR_MAND = ./objects/mand/
 OBJ_LIST_MAND = $(SRCS_LIST_MAND:.c=.o)
 OBJS_MAND = $(addprefix $(OBJ_DIR_MAND), $(OBJ_LIST_MAND))
 
-# OBJ_DIR_BONUS = ./objects/bonus/
-# OBJ_LIST_BONUS = $(SRCS_LIST_BONUS:.c=.o)
-# OBJS_BONUS = $(addprefix $(OBJ_DIR_BONUS), $(OBJ_LIST_BONUS))
+OBJ_DIR_BONUS = ./objects/bonus/
+OBJ_LIST_BONUS = $(SRCS_LIST_BONUS:.c=.o)
+OBJS_BONUS = $(addprefix $(OBJ_DIR_BONUS), $(OBJ_LIST_BONUS))
 
 all : push_swap_mandatory
-# bonus : push_swap_bonus
+bonus : push_swap_bonus
 
 push_swap_mandatory : $(LIBFT) $(OBJ_DIR_MAND) $(OBJS_MAND)
 	$(cc) $(CFLAGS) $(INCLUDES) $(LIBRARIES) $(OBJS_MAND) -o $(TARGET)
 	touch $@
 
-# push_swap_bonus : $(LIBFT) $(OBJ_DIR_BONUS) $(OBJS_BONUS)
-# 	$(cc) $(CFLAGS) $(INCLUDES) $(LIBRARIES) $(OBJS_BONUS) -o $(TARGET)
-# 	touch $@
+push_swap_bonus : $(LIBFT) $(OBJ_DIR_BONUS) $(OBJS_BONUS)
+	$(cc) $(CFLAGS) $(INCLUDES) $(LIBRARIES) $(OBJS_BONUS) -o $(TARGET)
+	touch $@
 
 $(OBJ_DIR_MAND) :
 	mkdir -p $(OBJ_DIR_MAND)
@@ -64,11 +65,11 @@ $(OBJ_DIR_MAND) :
 $(OBJ_DIR_MAND)%.o : $(SRC_DIR_MAND)%.c $(HEADERS_MAND)
 	$(cc) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# $(OBJ_DIR_BONUS) :
-# 	mkdir -p $(OBJ_DIR_BONUS)
+$(OBJ_DIR_BONUS) :
+	mkdir -p $(OBJ_DIR_BONUS)
 
-# $(OBJ_DIR_BONUS)%.o : $(SRC_DIR_BONUS)%.c $(HEADERS_BONUS)
-# 	$(cc) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJ_DIR_BONUS)%.o : $(SRC_DIR_BONUS)%.c $(HEADERS_BONUS)
+	$(cc) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(LIBFT) :
 	make -C $(LIBFT_DIR)
@@ -77,7 +78,7 @@ clean :
 	make -C $(LIBFT_DIR) clean
 	$(RM) $(OBJ_DIR)
 	$(RM) pipex_mandatory
-# $(RM) pipex_bonus
+	$(RM) pipex_bonus
 
 fclean : clean
 	$(RM) $(LIBFT)
