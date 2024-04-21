@@ -6,13 +6,14 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 03:20:12 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/21 03:24:32 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/21 12:31:07 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
+#include "get_next_line.h"
 
 typedef struct s_data
 {
