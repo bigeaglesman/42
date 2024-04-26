@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/08 16:07:40 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/26 12:48:14 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	draw_line_y(t_data *data, t_mat *a, t_mat *b)
 	{
 		my_mlx_pixel_put(data, x, y, 0xffffff);
 		if (m > 0)
-			m -= 2*w;
+			m -= 2 * w;
 		else
 		{
-			m += 2*(h - w);
+			m += 2 *(h - w);
 			x++;
 		}
 		y++;

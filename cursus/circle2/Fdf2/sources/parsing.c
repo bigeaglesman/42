@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:57:05 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/14 21:44:58 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/26 21:08:34 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,43 +17,77 @@ static t_dot	**fill_map(char *argv, int map_col, int map_row);
 static void		fill_line(t_dot *row_arr, char *line, int col, int y);
 static t_mat	*fill_dot(int x, int y, int z);
 
-t_dot	**read_map(char *argv)
+t_dot	**parse_map(char *map_file)
 {
-	int		map_col;
-	int		map_row;
 	int		fd;
-	char	*line;
+	t_dot	**map;
 
-	map_row = 0;
-	fd = open(argv, O_RDONLY);
+	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 		fd_error();
-	line = get_next_line(fd);
-	map_col = count_col(line);
-	while (line)
-	{
-		map_row++;
-		free (line);
-		line = get_next_line(fd);
-	}
+	make_case(fd);
+	fill_map(map);
 	close (fd);
-	return (fill_map(argv, map_col, map_row));
 }
 
-static int	count_col(char *line)
+static t_dot	**make_case(int fd)
 {
+	char	*line;
+	int		col;
+	int		row;
+	t_dot	**map;
+	int		i;
+
+	row = 0;
+	line = get_next_line(fd);
+	col = check_col(line);
+	while (line)
+	{
+		if (col != check_col(line))
+			exit(1);
+		row++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	map = malloc_map(col, row);
+}
+
+static int	check_col(char *line)
+{
+	int		col;
 	char	**cut_line;
+
+	if (!line)
+	{
+		ft_printf("map col err\n");
+		exit(1);
+	}
+	col = 0;
+	cut_line = ft_split(line, 32);
+	while (cut_line[col])
+		col++;
+	split_free(cut_line);
+	return (col);
+}
+
+static t_dot	**malloc_map(int col, int row)
+{
+	t_dot	**map;
 	int		i;
 
 	i = 0;
-	cut_line = ft_split(line, 32);
-	while (cut_line[i])
+	map = (t_dot **)malloc(row * sizeof(t_dot *));
+	handle_malloc_error((void *)map);
+	while (i < row)
+	{
+		map[i] = (t_dot *)malloc(col * sizeof(t_dot));
+		handle_malloc_error((void *)map[i]);
 		i++;
-	split_free(cut_line);
-	return (i);
+	}
+	return (map);
 }
 
-static t_dot	**fill_map(char *argv, int map_col, int map_row)
+static void	fill_map(t_dot **map, char *map_file)
 {
 	t_dot	**map;
 	int		fd;
@@ -62,12 +96,12 @@ static t_dot	**fill_map(char *argv, int map_col, int map_row)
 
 	i = 0;
 	fd = open(argv, O_RDONLY);
-	map = (t_dot **)malloc(sizeof(t_dot *) * (map_row+1));
+	map = (t_dot **)malloc(sizeof(t_dot *) * (map_row +1));
 	while (i < map_row)
 	{
 		map[i] = (t_dot *)malloc(sizeof(t_dot) * (map_col +1));
 		line = get_next_line(fd);
-		fill_line(map[i], line , map_col, i);
+		fill_line(map[i], line, map_col, i);
 		i++;
 	}
 	map[i] = NULL;

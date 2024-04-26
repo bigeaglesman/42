@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 22:04:41 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/05 12:35:07 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/26 12:25:28 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	extension_validity(char *file)
 {
-	if (ft_strncmp(&file[ft_strlen(file)-4], ".fdf", 4) != 0)
+	if (ft_strncmp(&file[ft_strlen(file)-4], ".fdf", 5) != 0)
 		return (1);
 	else
 		return (0);

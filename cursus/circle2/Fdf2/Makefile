@@ -1,24 +1,29 @@
 NAME = fdf
-cc = gcc
+cc = cc
 CFLAGS = -g -Wall -Werror -Wextra
 RM = rm -rf
 
 LIB_DIR = ./lib/
+
 LIBFT_DIR = $(LIB_DIR)libft/
 LIBFT = $(LIBFT_DIR)libft.a
+
+LIBGNL_DIR = $(LIB_DIR)libgnl/
+LIBGNL = $(LIBGNL_DIR)libgnl.a
 
 MLX_DIR = $(LIB_DIR)mlx/
 MLX = $(MLX_DIR)libmlx.dylib
 
-LIBRARIES = -lmlx -lft -L$(MLX_DIR) -L$(LIBFT_DIR) \
+LIBRARIES = -lmlx -lft -lgnl -L$(MLX_DIR) -L$(LIBFT_DIR) -L$(LIBGNL_DIR) \
 	-framework OpenGL -framework Appkit
 
 HEADERS_DIR = ./includes/
+
 HEADERS_LIST = mac_key.h\
 				fdf.h
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
+INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(LIBGNL_DIR)
 
 SRC_DIR = ./sources/
 SRCS_LIST = fdf.c\
@@ -30,8 +35,7 @@ SRCS_LIST = fdf.c\
 		mat_utils.c\
 		utils.c\
 		parsing.c\
-		get_next_line.c\
-		get_next_line_utils.c
+
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
 
 OBJ_DIR = ./objects/
@@ -40,7 +44,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(OBJ_LIST))
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT) $(MLX) $(OBJ_DIR) $(OBJS)
+$(NAME) : $(LIBFT) $(MLX) $(LIBGNL) $(OBJ_DIR) $(OBJS)
 	$(cc) $(CFLAGS) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR) :
@@ -55,13 +59,18 @@ $(LIBFT) :
 $(MLX) :
 	make -C $(MLX_DIR)
 
+$(LIBGNL) :
+	make -C $(LIBGNL_DIR)
+
 clean : 
 	make -C $(LIBFT_DIR) clean
+	make -C $(LIBGNL_DIR) clean
 	make -C $(MLX_DIR) clean
 	$(RM) $(OBJ_DIR)
 
 fclean : clean
 	$(RM) $(LIBFT)
+	$(RM) $(LIBGNL)
 	$(RM) $(MLX)
 	$(RM) $(NAME)
 

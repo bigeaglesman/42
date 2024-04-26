@@ -6,11 +6,15 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:03:40 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/06 15:10:03 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 13:50:36 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "get_next_line.h"
+
+static char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len);
+static int	ft_strlen(const char *str);
+static void	ft_strlcat(char *dest, const char *src, int size);
 
 int	ft_read_line(int fd, t_buf *buf_case)
 {
@@ -35,7 +39,7 @@ int	ft_attach_nl(char **pout, t_buf *buf_case)
 	{
 		if (buf_case->read_buf[(buf_case->idx) + i] == '\n')
 		{
-			concat_out = gnl_strjoin(*pout, buf_case, ++i);
+			concat_out = ft_strjoin(*pout, buf_case, ++i);
 			if (concat_out == NULL)
 				return (-1);
 			free (*pout);
@@ -45,7 +49,7 @@ int	ft_attach_nl(char **pout, t_buf *buf_case)
 		}
 		i++;
 	}
-	concat_out = gnl_strjoin(*pout, buf_case, i);
+	concat_out = ft_strjoin(*pout, buf_case, i);
 	if (concat_out == NULL)
 		return (-1);
 	free (*pout);
@@ -54,7 +58,7 @@ int	ft_attach_nl(char **pout, t_buf *buf_case)
 	return (2);
 }
 
-char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len)
+static char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len)
 {
 	int		out_len;
 	char	*concat_str;
@@ -64,13 +68,23 @@ char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len)
 	if (!concat_str)
 		return (NULL);
 	concat_str[0] = 0;
-	gnl_strlcat(concat_str, out, out_len + 1);
-	gnl_strlcat(concat_str, buf_case->read_buf
+	ft_strlcat(concat_str, out, out_len + 1);
+	ft_strlcat(concat_str, buf_case->read_buf
 		+ (buf_case->idx), out_len + attach_len + 1);
 	return (concat_str);
 }
 
-void	gnl_strlcat(char *dest, const char *src, int size)
+static int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != 0)
+		i++;
+	return (i);
+}
+
+static void	ft_strlcat(char *dest, const char *src, int size)
 {
 	int	i;
 	int	dest_len;

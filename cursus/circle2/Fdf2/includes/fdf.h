@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
+/*   Updated: 2024/04/26 21:29:05 by ycho2            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
@@ -8,6 +20,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "libft.h"
+# include "get_next_line.h"
 
 # include <stdio.h>
 
@@ -24,13 +37,13 @@
 # endif
 
 // mlx 구조체
-typedef struct	s_vars {
+typedef struct s_vars {
 	void		*mlx;
 	void		*win;
 }t_vars;
 
 // image data 구조체
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*img;
 	char	*addr;
@@ -40,28 +53,27 @@ typedef struct	s_data
 }t_data;
 
 // 행렬 구조체
-typedef struct	s_mat
+typedef struct s_mat
 {
-	int	row;
-	int	col;
-	double **mat;
+	int		row;
+	int		col;
+	double	**mat;
 }t_mat;
 
 // 좌표 구조체
-typedef struct	s_dot
+typedef struct s_dot
 {
-	t_mat	*coord;
-	int		color;
-	bool	is_end;
+	int	z_val;
+	int	color;
 }t_dot;
 
-// gnl 구조체
-typedef struct	s_buf
+typedef struct s_map
 {
-	char	read_buf[BUFFER_SIZE + 1];
-	int		idx;
-	int		used;
-}t_buf;
+	int		col;
+	int		row;
+	t_dot	*dot_arr;
+}t_dot;
+
 
 // draw
 // void	draw_rectangle(t_data *data, const int x_c, const int y_c, const int width);
@@ -74,7 +86,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		exit_hook();
 int		key_hook(int keycode, t_vars *vars);
 void	prtimage();
-
+ 
 // error
 void	fd_error();
 
@@ -92,14 +104,5 @@ t_mat	*y_rot_mat(t_mat *p_mat, int theta);
 t_mat	*z_rot_mat(t_mat *p_mat, int theta);
 t_mat	*n_mat_proj(t_mat *p_mat, char n);
 t_mat	*mat_par_mov(t_mat *p_mat, int x, int y, int z);
-
-//get_next_line
-char	*get_next_line(int fd);
-int		ft_read_attach(int fd, char **pout, t_buf *buf_case);
-
-int		ft_read_line(int fd, t_buf *buf_case);
-int		ft_attach_nl(char **pout, t_buf *buf_case);
-char	*gnl_strjoin(char *out, t_buf *buf_case, int attach_len);
-void	gnl_strlcat(char *dest, const char *src, int size);
 
 #endif

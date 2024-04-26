@@ -6,15 +6,15 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:45:55 by ycho2             #+#    #+#             */
-/*   Updated: 2024/02/04 20:00:44 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 12:57:06 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	static t_buf	buf;
+	static t_buf	buf_arr[OPEN_MAX];
 	char			*out;
 	int				flag;
 
@@ -26,7 +26,7 @@ char	*get_next_line(int fd)
 	out[0] = 0;
 	while (1)
 	{
-		flag = ft_read_attach(fd, &out, &buf);
+		flag = ft_read_attach(fd, &out, &buf_arr[fd]);
 		if (flag == 1 || (flag == 0 && *out != 0))
 			return (out);
 		else if (flag == -1 || flag == 0)
