@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:46:40 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/26 21:12:01 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/28 17:31:16 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,10 @@ void	handle_malloc_error(void *mem)
 		ft_printf("malloc error\n");
 		exit(1);
 	}
+}
+
+void	map_file_error(void)
+{
+	ft_printf("map column error\n");
+	exit(1);
 }

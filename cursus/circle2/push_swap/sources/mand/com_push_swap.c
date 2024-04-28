@@ -6,15 +6,15 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:51:30 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/16 12:15:19 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 15:31:50 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void swap_sub(t_mte *mte, int a, int b);
+static void	swap_sub(t_mte *mte, int a, int b);
 
-void push(int to, t_mte *mte)
+void	push(int to, t_mte *mte)
 {
 	if (to == 0)
 	{
@@ -29,7 +29,7 @@ void push(int to, t_mte *mte)
 	print_command(0, to);
 }
 
-void swap(int stack, t_mte *mte)
+void	swap(int stack, t_mte *mte)
 {
 	const int	divide = mte->divide;
 
@@ -40,7 +40,7 @@ void swap(int stack, t_mte *mte)
 	print_command(1, stack);
 }
 
-static void swap_sub(t_mte *mte, int a, int b)
+static void	swap_sub(t_mte *mte, int a, int b)
 {
 	const t_data	temp_data = mte->arr[a];
 
@@ -48,7 +48,7 @@ static void swap_sub(t_mte *mte, int a, int b)
 	mte->arr[b] = temp_data;
 }
 
-void print_command(int command, int stack)
+void	print_command(int command, int stack)
 {
 	if (command == 0)
 		ft_printf("p");

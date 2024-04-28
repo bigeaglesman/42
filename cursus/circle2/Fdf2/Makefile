@@ -36,6 +36,7 @@ SRCS_LIST = fdf.c\
 		utils.c\
 		parsing.c\
 
+
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
 
 OBJ_DIR = ./objects/

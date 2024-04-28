@@ -6,14 +6,14 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 15:43:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/20 19:32:57 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 18:46:10 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-static void check_int(long long num);
+static void	check_int_range(long long num);
 
 int	ft_atoi(const char *str)
 {
@@ -40,11 +40,11 @@ int	ft_atoi(const char *str)
 		}
 		i++;
 	}
-	check_int(num);
+	check_int_range(num);
 	return ((int)(sign * num));
 }
 
-static void check_int(long long num)
+static void	check_int_range(long long num)
 {
 	if (num > 2147483647 || num < -2147483648)
 	{

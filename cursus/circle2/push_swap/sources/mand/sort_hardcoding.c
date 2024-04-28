@@ -6,17 +6,17 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:16:44 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/20 23:48:57 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 17:43:35 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void hard_sort_3(t_mte *mte)
+void	hard_sort_3(t_mte *mte)
 {
-	if (mte->arr[mte->divide-1].label == 0)
+	if (mte->arr[mte->divide -1].label == 0)
 	{
-		if (mte->arr[mte->divide-2].label == 2)
+		if (mte->arr[mte->divide -2].label == 2)
 		{
 			swap(0, mte);
 			rotate(0, mte);
@@ -41,15 +41,15 @@ void hard_sort_3(t_mte *mte)
 	}
 }
 
-void hard_sort_5(t_mte *mte)
+void	hard_sort_5(t_mte *mte)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 5)
 	{
-		if (mte->arr[mte->divide -1].label == 3 ||
-			mte->arr[mte->divide -1].label == 4)
+		if (mte->arr[mte->divide -1].label == 3
+			|| mte->arr[mte->divide -1].label == 4)
 			push(1, mte);
 		else
 			rotate(0, mte);

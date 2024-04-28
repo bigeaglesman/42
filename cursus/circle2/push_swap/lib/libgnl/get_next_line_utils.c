@@ -6,11 +6,15 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:03:40 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/18 18:05:12 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 13:50:36 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len);
+static int	ft_strlen(const char *str);
+static void	ft_strlcat(char *dest, const char *src, int size);
 
 int	ft_read_line(int fd, t_buf *buf_case)
 {
@@ -54,7 +58,7 @@ int	ft_attach_nl(char **pout, t_buf *buf_case)
 	return (2);
 }
 
-char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len)
+static char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len)
 {
 	int		out_len;
 	char	*concat_str;
@@ -70,7 +74,7 @@ char	*ft_strjoin(char *out, t_buf *buf_case, int attach_len)
 	return (concat_str);
 }
 
-int	ft_strlen(const char *str)
+static int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -80,7 +84,7 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-void	ft_strlcat(char *dest, const char *src, int size)
+static void	ft_strlcat(char *dest, const char *src, int size)
 {
 	int	i;
 	int	dest_len;

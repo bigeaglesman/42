@@ -6,15 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:45:55 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/18 18:11:30 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 12:57:06 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-int	ft_read_attach(int fd, char **pout, t_buf *buf_case);
-int	ft_read_line(int fd, t_buf *buf_case);
-int	ft_attach_nl(char **pout, t_buf *buf_case);
 
 char	*get_next_line(int fd)
 {

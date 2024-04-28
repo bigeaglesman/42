@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/26 21:29:05 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/28 17:45:20 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@
 
 # ifndef PI
 #  define PI 3.1415926
-# endif
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 1024
 # endif
 
 // mlx 구조체
@@ -63,17 +55,17 @@ typedef struct s_mat
 // 좌표 구조체
 typedef struct s_dot
 {
-	int	z_val;
-	int	color;
+	int				z_val;
+	int				color;
+	struct s_dot	*next;
 }t_dot;
 
 typedef struct s_map
 {
 	int		col;
 	int		row;
-	t_dot	*dot_arr;
-}t_dot;
-
+	t_dot	*dot_list;
+}t_map;
 
 // draw
 // void	draw_rectangle(t_data *data, const int x_c, const int y_c, const int width);
@@ -88,11 +80,12 @@ int		key_hook(int keycode, t_vars *vars);
 void	prtimage();
  
 // error
-void	fd_error();
+void	fd_error(void);
+void	map_file_error(void);
 
 // parsing & checking
 int		extension_validity(char *file);
-t_dot	**read_map(char *argv);
+t_map	*parse_map(int fd);
 
 //mat_utils 
 t_mat	*mat_create(int row, int col);

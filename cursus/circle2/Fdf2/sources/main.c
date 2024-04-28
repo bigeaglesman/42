@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:27:03 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/26 12:07:02 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/28 19:19:24 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,28 @@
 
 int	main(int argc, char **argv)
 {
-	t_dot	**map;
+	t_map	*map;
+	int		fd;
 
 	if (argc != 2 || extension_validity(argv[1]))
 	{
-		perror("wrong argument");
+		ft_printf("wrong argument\n");
 		exit(1);
 	}
-	map = read_map(argv[1]);
-	for (int i = 0; i < 11; i++)
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		fd_error();
+	map = parse_map(fd);
+	t_dot *dot = map->dot_list;
+	int i = 1;
+	while (dot)
 	{
-		for (int j = 0; j < 19; j++)
-			printf("[%d][%d]=%d %d  ",i, j, (int)map[i][j].coord->mat[2][0], (int)map[i][j].color);
-		printf("\n");
+		ft_printf("z_val: %d , color: %x\n", dot->z_val, dot->color);
+		dot = dot->next;
+		if (i % map->col == 0)
+			ft_printf("new row\n");
+		i++;
 	}
-	prtimage();
+	ft_printf("%d\n", map->col);
 	return (0);
 }

@@ -1,25 +1,25 @@
-cc = cc
+CC = cc
 CFLAGS = -c -Wall -Werror -Wextra
-TARGET = gnlft.a
+TARGET = libgnl.a
 
 SOURCES =	get_next_line.c\
-			get_next_line_utils.c\
+			get_next_line_utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
 all : $(TARGET)
 
 %.o : %.c
-	$(cc) $(CFALGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
-$(NAME) : $ (OBJECTS)
+$(TARGET) : $(OBJECTS)
 	ar cr $@ $^
 
 clean :
 	rm -f $(OBJECTS)
 
 fclean : clean
-	rm 0f $(TARGET)
+	rm -f $(TARGET)
 
 re : fclean all
 
