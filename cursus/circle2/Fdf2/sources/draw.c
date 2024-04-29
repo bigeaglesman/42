@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/30 03:32:58 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/30 03:45:42 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ void draw_test(t_map *map)
 	int		row;
 	int		col;
 	t_cnvdot	**cnv_map;
-	const double cos30 = cos(1/6 * PI);
-	const double sin30 = sin(1/6 * PI);
-	const double cos45 = cos(1/4 * PI);
-	const double sin45 = sin(1/4 * PI);
+	const double cos30 = cos(PI/6);
+	const double sin30 = sin(PI/6);
+	const double cos45 = cos(PI/4);
+	const double sin45 = sin(PI/6);
 
 	row = 0;
 	cnv_map = (t_cnvdot **)malloc(sizeof(t_cnvdot *) * map->row);
-	ft_printf("%f %f %f %f\n", cos30, sin30, cos45, sin45);
+	printf("%f %f %f %f\n", cos30, sin30, cos45, sin45);
 	while (row < map->row)
 	{
 		col = 0;
@@ -93,19 +93,17 @@ void draw_test(t_map *map)
 		while (col < map->col)
 		{
 			cnv_map[row][col].x_val = ((double)map->mat[row][col].x_val)*cos30 - ((double)map->mat[row][col].y_val)*sin30;
-			ft_printf("x %f ", cnv_map[row][col].x_val);
 			cnv_map[row][col].y_val = map->mat[row][col].x_val*sin30*cos45 + map->mat[row][col].y_val*cos45*cos30 - map->mat[row][col].z_val * sin45;
-			ft_printf("y %f ", cnv_map[row][col].y_val);
 			col++;
 		}
-		ft_printf("\n");
+		printf("\n");
 		row++;
 	}
 	for (int row = 0; row < map->row; row++)
 	{
 		for (int col = 0; col < map->col; col++)
-			ft_printf("%f %f ", cnv_map[row][col].x_val, cnv_map[row][col].y_val);
-		ft_printf("\n");
+			printf("x %f y %f ", cnv_map[row][col].x_val, cnv_map[row][col].y_val);
+		printf("\n");
 	}
 	// draw_map(data, cnv_map);
 }
