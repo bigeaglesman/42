@@ -6,11 +6,13 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:45:55 by ycho2             #+#    #+#             */
-/*   Updated: 2024/01/18 18:11:19 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/29 15:51:35 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+#include <fcntl.h>
+#include <stdio.h>
 
 int	ft_read_attach(int fd, char **pout, t_buf *buf_case);
 int	ft_read_line(int fd, t_buf *buf_case);

@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/28 17:45:20 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/29 22:57:16 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,37 +55,50 @@ typedef struct s_mat
 // 좌표 구조체
 typedef struct s_dot
 {
-	int				z_val;
-	int				color;
-	struct s_dot	*next;
+	int	x_val;
+	int	y_val;
+	int	z_val;
+	int	color;
 }t_dot;
+
+typedef struct s_cnvdot
+{
+	double	x_val;
+	double	y_val;
+	int		color;
+}t_cnvdot;
 
 typedef struct s_map
 {
 	int		col;
 	int		row;
-	t_dot	*dot_list;
+	t_dot	**mat;
 }t_map;
 
 // draw
+void draw_test(t_map *map);
+
+
 // void	draw_rectangle(t_data *data, const int x_c, const int y_c, const int width);
 void	draw_line(t_data *data, t_mat *a, t_mat *b);
 void	draw_line_y(t_data *data, t_mat *a, t_mat *b);
 void	draw_line_x(t_data *data, t_mat *a, t_mat *b);
-void	draw_cube(t_data *data);
+// void	draw_cube(t_data *data);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		exit_hook();
 int		key_hook(int keycode, t_vars *vars);
-void	prtimage();
+// void	prtimage();
  
 // error
-void	fd_error(void);
 void	map_file_error(void);
+
+//utils
+int		file_open (char	*file_name);
 
 // parsing & checking
 int		extension_validity(char *file);
-t_map	*parse_map(int fd);
+t_map	*parse_map(char *map_file);
 
 //mat_utils 
 t_mat	*mat_create(int row, int col);
