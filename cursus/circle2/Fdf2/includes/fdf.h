@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/30 03:40:14 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/07 22:33:22 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,6 @@ typedef struct s_data
 	int		endian;
 }t_data;
 
-// 행렬 구조체
-typedef struct s_mat
-{
-	int		row;
-	int		col;
-	double	**mat;
-}t_mat;
-
 // 좌표 구조체
 typedef struct s_dot
 {
@@ -61,13 +53,7 @@ typedef struct s_dot
 	int	color;
 }t_dot;
 
-typedef struct s_cnvdot
-{
-	double	x_val;
-	double	y_val;
-	int		color;
-}t_cnvdot;
-
+// map구조체
 typedef struct s_map
 {
 	int		col;
@@ -75,15 +61,29 @@ typedef struct s_map
 	t_dot	**mat;
 }t_map;
 
+// 변형 후 맵
+typedef struct s_cnv_dot
+{
+	double	x_val;
+	double	y_val;
+	int		color;
+}t_cnv_dot;
+
+typedef struct s_line_utils
+{
+	int	w;
+	int	h;
+	int	final_x;
+	int	final_y;
+}t_line_utils;
+
+void	prtimage(t_map *map);
+
 // draw
-void draw_test(t_map *map);
+void		draw_test(t_data *data, t_map *map);
 
+void	draw_line(t_data *data, t_cnv_dot start, t_cnv_dot end);
 
-// void	draw_rectangle(t_data *data, const int x_c, const int y_c, const int width);
-void	draw_line(t_data *data, t_mat *a, t_mat *b);
-void	draw_line_y(t_data *data, t_mat *a, t_mat *b);
-void	draw_line_x(t_data *data, t_mat *a, t_mat *b);
-// void	draw_cube(t_data *data);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		exit_hook();
@@ -99,16 +99,5 @@ int		file_open (char	*file_name);
 // parsing & checking
 int		extension_validity(char *file);
 t_map	*parse_map(char *map_file);
-
-//mat_utils 
-t_mat	*mat_create(int row, int col);
-t_mat	*unit_mat_create(int n);
-t_mat	*mat_multiple(t_mat *a, t_mat *b);
-// t_mat	*n_rot_mat(t_mat *p_mat, int theta, char n);
-t_mat	*x_rot_mat(t_mat *p_mat, int theta);
-t_mat	*y_rot_mat(t_mat *p_mat, int theta);
-t_mat	*z_rot_mat(t_mat *p_mat, int theta);
-t_mat	*n_mat_proj(t_mat *p_mat, char n);
-t_mat	*mat_par_mov(t_mat *p_mat, int x, int y, int z);
 
 #endif

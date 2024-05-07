@@ -3,6 +3,10 @@
 		"fcntl.h": "c",
 		"libft.h": "c",
 		"fdf.h": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	}
 }

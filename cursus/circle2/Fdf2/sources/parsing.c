@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:57:05 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/29 23:32:09 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/07 13:53:38 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,4 @@ static void	save_dot(t_dot *row, char **line, int col, int y)
 		split_free(mte);
 		i++;
 	}
-	ft_printf("\n");
 }

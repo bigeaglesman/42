@@ -6,97 +6,147 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/30 03:45:42 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/07 22:33:06 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_line(t_data *data, t_mat *a, t_mat *b) //선 그려주는 함수
-{
-	const int	w = (int)(b->mat[0][0] - a->mat[0][0]);
-	const int	h = (int)(b->mat[1][0] - a->mat[1][0]);
+static void	draw_line_h(t_data *data, t_line_utils line_utils, int final_y_val);
+static void	draw_line_w(t_data *data, t_line_utils line_utils, int final_x_val);
+static void	draw_map(t_data *data, t_cnv_dot **cnv_map, int row, int col);
 
-	if (w >= h)
-		draw_line_x(data, a, b);
+void	draw_line(t_data *data, t_cnv_dot from, t_cnv_dot to)
+{
+	double			gradient;
+
+	gradient = fabs((to.y_val -from.y_val) / (to.x_val - from.y_val));
+	if (gradient < 0)
+		line_desc(data, from, to, gradient);
 	else
-		draw_line_y(data, a, b);
+		line_asc(data, from, to, gradient);
 }
 
-void	draw_line_y(t_data *data, t_mat *a, t_mat *b)
+static void	line_desc(t_data *data, t_cnv_dot from, t_cnv_dot to, double gradient)
 {
-	const int	w = (int)(b->mat[0][0] - a->mat[0][0]);
-	const int	h = (int)(b->mat[1][0] - a->mat[1][0]);
-	int			m;
-	int			y;
-	int			x;
+	t_line_utils	line_utils;
 
-	x = (int)(a->mat[0][0]);
-	y = (int)(a->mat[1][0]);
-	m = h - 2 * w;
-	while (y <= (int)(b->mat[1][0]))
+	if (gradient < -1)
 	{
-		my_mlx_pixel_put(data, x, y, 0xffffff);
-		if (m > 0)
-			m -= 2 * w;
+		line_utils.w = 
+	}
+	else
+	{
+
+	}
+}
+
+
+
+// 선의 기울기에 따라 w를 기준으로 선을 그릴지 h를 기준으로 선을 그릴지 정한다
+void	draw_line(t_data *data, t_cnv_dot from, t_cnv_dot to)
+{
+	t_line_utils	line_utils;
+	double			gradient;
+
+	printf("from: (%f,%f) to: (%f,%f)\n", from.x_val, from.y_val, to.x_val, to.y_val);
+	if (from.x_val > to.x_val && from.y_val < to.y_val)
+	{
+		line_utils.w = from.x_val - to.x_val;
+		line_utils.h = to.y_val - from.y_val;
+		line_utils.x = to.x_val;
+		line_utils.y = to.y_val;
+		gradient = fabs((double)line_utils.h / line_utils.w);
+		printf("gradient 1: %f\n", gradient);
+		if (gradient >= 1)
+			draw_line_h(data, line_utils, (int)(from.y_val));
+		else
+			draw_line_w(data, line_utils, (int)(from.x_val));
+	}
+	else
+	{
+		line_utils.w = (to.x_val - from.x_val);
+		line_utils.h = (to.y_val - from.y_val);
+		line_utils.x = (from.x_val);
+		line_utils.y = (from.y_val);
+		gradient = fabs((double)line_utils.h / line_utils.w);
+		printf("gradient 2: %f\n", gradient);
+		if (gradient >= 1)
+			draw_line_h(data, line_utils, (int)(to.y_val));
+		else
+			draw_line_w(data, line_utils, (int)(to.x_val));
+	}
+}
+
+static void	draw_line_h(t_data *data, t_line_utils line_utils, int final_y_val) // 선을 그릴 때 height가 더 긴 경우
+{
+	int	m;
+	int	y;
+	int	x;
+
+	y = line_utils.y;
+	x = line_utils.x;
+	m = 2 * line_utils.w - line_utils.h;
+	while (y <= final_y_val)
+	{
+		my_mlx_pixel_put(data, x, y, 0x0000ff);
+		if (m < 0)
+			m += 2 * line_utils.w;
 		else
 		{
-			m += 2 *(h - w);
-			x++;
+			m += 2 *(line_utils.w - line_utils.h);
+			x++; //왼쪽 아래로 내려가는 경우에는 x값이 감소해야하는데 이를 핸들ㄹ링 해주지 않음
 		}
 		y++;
 	}
 }
 
-void	draw_line_x(t_data *data, t_mat *a, t_mat *b)
+static void	draw_line_w(t_data *data, t_line_utils line_utils, int final_x_val) // 선을 그릴 때 width가 더 긴 경우
 {
-	const int	w = (int)(b->mat[0][0] - a->mat[0][0]);
-	const int	h = (int)(b->mat[1][0] - a->mat[1][0]);
 	int			m;
 	int			y;
 	int			x;
 
-	x = (int)(a->mat[0][0]);
-	y = (int)(a->mat[1][0]);
-	m = w - 2 * h;
-	while (x <= (int)(b->mat[0][0]))
+	x = line_utils.x;
+	y = line_utils.y;
+	m = line_utils.w - 2 * line_utils.h;
+	while (x <= final_x_val)
 	{
 		my_mlx_pixel_put(data, x, y, 0xff0000);
 		if (m > 0)
-			m -= 2 * h;
+			m -= 2 * line_utils.h;
 		else
 		{
-			m += 2 * (w - h);
+			m += 2 * (line_utils.w - line_utils.h);
 			y++;
 		}
 		x++;
 	}
 }
 
-void draw_test(t_map *map)
+void draw_test(t_data *data, t_map *map)
 {
 	int		row;
 	int		col;
-	t_cnvdot	**cnv_map;
+	t_cnv_dot	**cnv_map;
 	const double cos30 = cos(PI/6);
 	const double sin30 = sin(PI/6);
 	const double cos45 = cos(PI/4);
 	const double sin45 = sin(PI/6);
 
 	row = 0;
-	cnv_map = (t_cnvdot **)malloc(sizeof(t_cnvdot *) * map->row);
+	cnv_map = (t_cnv_dot **)malloc(sizeof(t_cnv_dot *) * map->row);
 	printf("%f %f %f %f\n", cos30, sin30, cos45, sin45);
 	while (row < map->row)
 	{
 		col = 0;
-		cnv_map[row] = (t_cnvdot *)malloc(sizeof(t_cnvdot) * map->col);
+		cnv_map[row] = (t_cnv_dot *)malloc(sizeof(t_cnv_dot) * map->col);
 		while (col < map->col)
 		{
-			cnv_map[row][col].x_val = ((double)map->mat[row][col].x_val)*cos30 - ((double)map->mat[row][col].y_val)*sin30;
-			cnv_map[row][col].y_val = map->mat[row][col].x_val*sin30*cos45 + map->mat[row][col].y_val*cos45*cos30 - map->mat[row][col].z_val * sin45;
+			cnv_map[row][col].x_val = (((double)map->mat[row][col].x_val)*cos30 - ((double)map->mat[row][col].y_val)*sin30)*30 + 500;
+			cnv_map[row][col].y_val = (map->mat[row][col].x_val*sin30*cos45 + map->mat[row][col].y_val*cos45*cos30 - map->mat[row][col].z_val * sin45) * 30 + 500;
 			col++;
 		}
-		printf("\n");
 		row++;
 	}
 	for (int row = 0; row < map->row; row++)
@@ -105,7 +155,49 @@ void draw_test(t_map *map)
 			printf("x %f y %f ", cnv_map[row][col].x_val, cnv_map[row][col].y_val);
 		printf("\n");
 	}
-	// draw_map(data, cnv_map);
+	draw_map(data, cnv_map, map->row, map->col);
+}
+
+static void	draw_map(t_data *data, t_cnv_dot **cnv_map, int row, int col)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < row)
+	{
+		x = 0;
+		while (x < col)
+		{
+			if (x != col-1)
+			{
+				draw_line(data, cnv_map[y][x], cnv_map[y][x+1]);
+				printf("\n");
+			}
+			if (y != row-1)
+			{
+				draw_line(data, cnv_map[y][x], cnv_map[y+1][x]);
+				printf("\n");
+			}
+
+			x++;
+		}
+		y++;
+	}
+				printf("\n");
+				printf("\n");
+				printf("\n");
+	y = 0;
+	while (y < row)
+	{
+		x = 0;
+		while (x < col)
+		{
+			my_mlx_pixel_put(data, cnv_map[y][x].x_val, cnv_map[y][x].y_val, 0xffffff);
+			x++;
+		}
+		y++;
+	}
 }
 
 // void draw_cube(t_data *data)
@@ -200,6 +292,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color) //img에 점 찍어
 {
 	char	*dst;
 
+	printf("(%d, %d) ", x, y);
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
