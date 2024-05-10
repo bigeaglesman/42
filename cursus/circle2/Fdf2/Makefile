@@ -36,7 +36,7 @@ SRCS_LIST = fdf.c\
 		mat_utils.c\
 		utils.c\
 		parsing.c\
-		# trans_coord.c\
+		trans_coord.c\
 
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))

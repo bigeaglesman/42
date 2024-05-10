@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/10 20:29:27 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/10 22:27:30 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,16 @@ typedef struct s_line_utils
 
 typedef struct s_trans
 {
-	int rot_x;
-	int rot_y;
-	int rot_z;
-	int sca_xy;
-	int sca_z;
-	int par_x;
-	int par_y;
+	double	x_cos;
+	double	x_sin;
+	double	y_cos;
+	double	y_sin;
+	double	z_cos;
+	double	z_sin;
+	int		sca_xy;
+	int		sca_z;
+	int		par_x;
+	int		par_y;
 }t_trans;
 
 void	prtimage(t_map *map);

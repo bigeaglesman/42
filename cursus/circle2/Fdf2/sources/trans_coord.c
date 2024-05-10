@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:14:35 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/10 22:19:36 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/10 22:30:26 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@ t_cnv_dot	**trans_map(t_map *map, t_trans *trans)
 
 double trans_x(t_dot dot, t_trans *trans)
 {
-	
+	const int	x = dot.x_val;
+	const int	y = dot.y_val;
+	double		trans_x;
+
+	trans_x = trans->sca_xy*
+
 }
