@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/07 22:33:22 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/10 20:29:27 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,32 @@ typedef struct s_line_utils
 {
 	int	w;
 	int	h;
-	int	final_x;
-	int	final_y;
+	int	start_x;
+	int	start_y;
 }t_line_utils;
+
+typedef struct s_trans
+{
+	int rot_x;
+	int rot_y;
+	int rot_z;
+	int sca_xy;
+	int sca_z;
+	int par_x;
+	int par_y;
+}t_trans;
 
 void	prtimage(t_map *map);
 
 // draw
-void		draw_test(t_data *data, t_map *map);
-
+void	draw_test(t_data *data, t_map *map);
 void	draw_line(t_data *data, t_cnv_dot start, t_cnv_dot end);
+
+void	draw_line_desc_h(t_data *data, t_line_utils line_utils, int final_y);
+void	draw_line_desc_w(t_data *data, t_line_utils line_utils, int final_x);
+void	draw_line_asc_h(t_data *data, t_line_utils line_utils, int final_y);
+void	draw_line_asc_w(t_data *data, t_line_utils line_utils, int final_x);
+
 
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

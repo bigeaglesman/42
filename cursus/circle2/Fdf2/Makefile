@@ -29,12 +29,14 @@ SRC_DIR = ./sources/
 SRCS_LIST = fdf.c\
 		main.c\
 		event.c\
-		draw.c\
+		draw_line.c\
+		draw_asc_desc.c\
 		error.c\
 		file_check.c\
 		mat_utils.c\
 		utils.c\
 		parsing.c\
+		# trans_coord.c\
 
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
