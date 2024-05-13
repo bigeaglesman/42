@@ -26,8 +26,7 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(LIBGNL_DIR)
 
 SRC_DIR = ./sources/
-SRCS_LIST = fdf.c\
-		main.c\
+SRCS_LIST = main.c\
 		event.c\
 		draw_line.c\
 		draw_asc_desc.c\
@@ -36,7 +35,8 @@ SRCS_LIST = fdf.c\
 		mat_utils.c\
 		utils.c\
 		parsing.c\
-		trans_coord.c\
+		trans_map.c\
+		draw_map.c\
 
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))

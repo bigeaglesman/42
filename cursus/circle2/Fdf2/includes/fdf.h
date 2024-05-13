@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/10 22:27:30 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/14 04:25:04 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 #  define PI 3.1415926
 # endif
 
+# ifndef ROOT2
+#  define ROOT2 1.4
+# endif
 // mlx 구조체
 typedef struct s_vars {
 	void		*mlx;
@@ -79,35 +82,35 @@ typedef struct s_line_utils
 
 typedef struct s_trans
 {
-	double	x_cos;
-	double	x_sin;
-	double	y_cos;
-	double	y_sin;
-	double	z_cos;
-	double	z_sin;
+	double	cosx;
+	double	sinx;
+	double	cosy;
+	double	siny;
+	double	cosz;
+	double	sinz;
 	int		sca_xy;
 	int		sca_z;
 	int		par_x;
 	int		par_y;
+	int		win_width;
+	int		win_height;
 }t_trans;
 
 void	prtimage(t_map *map);
 
 // draw
-void	draw_test(t_data *data, t_map *map);
-void	draw_line(t_data *data, t_cnv_dot start, t_cnv_dot end);
+void	draw_map(t_data *data, t_map *map, t_trans *trans);
+void	draw_line(t_data *data, t_cnv_dot start, t_cnv_dot end, t_trans *trans);
+t_cnv_dot	**trans_map(t_map *map, t_trans *trans);
 
-void	draw_line_desc_h(t_data *data, t_line_utils line_utils, int final_y);
-void	draw_line_desc_w(t_data *data, t_line_utils line_utils, int final_x);
-void	draw_line_asc_h(t_data *data, t_line_utils line_utils, int final_y);
-void	draw_line_asc_w(t_data *data, t_line_utils line_utils, int final_x);
-
-
+void	draw_line_desc_h(t_data *data, t_line_utils line_utils, int final_y, t_trans *trans);
+void	draw_line_desc_w(t_data *data, t_line_utils line_utils, int final_x, t_trans *trans);
+void	draw_line_asc_h(t_data *data, t_line_utils line_utils, int final_y, t_trans *trans);
+void	draw_line_asc_w(t_data *data, t_line_utils line_utils, int final_x, t_trans *trans);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		exit_hook();
 int		key_hook(int keycode, t_vars *vars);
-// void	prtimage();
  
 // error
 void	map_file_error(void);
