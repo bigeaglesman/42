@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/14 04:25:04 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/14 10:35:19 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ typedef struct s_line_utils
 	int	h;
 	int	start_x;
 	int	start_y;
+	int	start_color;
+	int	final_color;
 }t_line_utils;
 
 typedef struct s_trans

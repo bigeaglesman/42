@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:14:35 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/13 17:03:41 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/14 10:47:23 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_cnv_dot	**trans_map(t_map *map, t_trans *trans)
 		{
 			cnv_map[row][col].x_val = trans_x(map->mat[row][col], trans);
 			cnv_map[row][col].y_val = trans_y(map->mat[row][col], trans);
+			cnv_map[row][col].color = map->mat[row][col].color;
 			col++;
 		}
 		row++;

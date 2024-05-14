@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/13 21:35:02 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/14 10:36:40 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	line_desc(t_data *data, t_cnv_dot start, t_cnv_dot dest, double grad
 	line_utils.h = start.y_val - dest.y_val ;
 	line_utils.start_x = start.x_val;
 	line_utils.start_y = start.y_val;
+	line_utils.start_color = start.color;
+	line_utils.final_color = dest.color;
 	if (gradient < -1)
 		draw_line_desc_h(data, line_utils, dest.y_val, trans);
 	else
@@ -60,6 +62,8 @@ static void line_asc(t_data *data, t_cnv_dot start, t_cnv_dot dest, double gradi
 	line_utils.h = dest.y_val - start.y_val;
 	line_utils.start_x = start.x_val;
 	line_utils.start_y = start.y_val;
+	line_utils.start_color = start.color;
+	line_utils.final_color = dest.color;
 	if (gradient < 1)
 		draw_line_asc_w(data, line_utils, dest.x_val, trans);
 	else
