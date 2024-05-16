@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 18:50:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/15 15:07:32 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/16 17:35:53 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 void	ft_malloc_err(void)
 {
-	perror("malloc error");
+	ft_printf("malloc error");
 	exit(1);
 }

@@ -6,14 +6,14 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 15:43:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/22 20:59:02 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/16 23:32:45 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-static void	check_int_range(long long num);
+static void			print_err(void);
+static long long	increase_num(char a, long long num);
 
 int	ft_atoi(const char *str)
 {
@@ -28,29 +28,31 @@ int	ft_atoi(const char *str)
 	{
 		if (str[i++] == '-')
 			sign *= -1;
+		if (!str[i])
+			print_err();
 	}
 	while (str[i])
 	{
-		if (str[i] >= '0' && str [i] <= '9')
-			num = num * 10 + (str[i] - '0');
-		else
-		{
-			ft_printf("Error\n");
-			exit(1);
-		}
+		num = increase_num(str[i], num);
 		i++;
 	}
-	check_int_range(num);
-	return ((int)(sign * num));
+	num *= sign;
+	if (num > 2147483647 || num < -2147483648)
+		print_err();
+	return ((int)num);
 }
 
-static void	check_int_range(long long num)
+static long long	increase_num(char a, long long num)
 {
-	if (num > 2147483647 || num < -2147483648)
-	{
-		ft_printf("Error\n");
-		exit(1);
-	}
+	const long long	temp = num;
+
+	if (a >= '0' && a <= '9')
+		num = num * 10 + (a - '0');
+	else
+		print_err();
+	if (num / 10 != temp)
+		print_err();
+	return (num);
 }
 
 int	ft_atoi16(const char *str)
@@ -71,4 +73,10 @@ int	ft_atoi16(const char *str)
 		i++;
 	}
 	return ((int)num);
+}
+
+static void	print_err(void)
+{
+	ft_printf("Error\n");
+	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 20:14:29 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/22 13:52:05 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/16 17:36:04 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <stdarg.h>
 
 typedef struct s_list
