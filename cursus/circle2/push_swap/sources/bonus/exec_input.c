@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:42:00 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/22 18:41:33 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 20:23:20 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	exec_input_sub(char *input, t_mte *mte)
 		reverse(2, mte);
 	else
 	{
-		ft_printf("Error wrong input\n");
+		ft_printf("Error\n");
 		exit(1);
 	}
 }

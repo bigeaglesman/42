@@ -30,10 +30,13 @@ SRC_DIR_MAND = ./sources/mand/
 SRCS_LIST_MAND = com_push_swap.c\
 			com_reverse.c\
 			com_rotate.c\
-			sort_hardcoding.c\
-			sort_n.c\
-			sort_optimize.c\
-			push_swap.c
+			init_mte.c\
+			push_swap.c\
+			sort_a.c\
+			sort_a_optimize.c\
+			sort_b.c\
+			sort_b_optimize.c\
+			sort_hardcoding.c
 SRCS_MAND = $(addprefix $(SRC_DIR_MAND), $(SRCS_LIST_MAND))
 
 SRC_DIR_BONUS = ./sources/bonus/

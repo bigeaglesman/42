@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   init_mte.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/21 03:18:24 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/22 20:22:41 by ycho2            ###   ########.fr       */
+/*   Created: 2024/04/23 00:02:05 by ycho2             #+#    #+#             */
+/*   Updated: 2024/04/23 11:31:37 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_bonus.h"
+#include "push_swap.h"
 
-static void		check_sorted(t_mte *mte);
-static t_mte	*init_mte(int argc, char **argv);
-static void		init_arr(int size, char **arr, t_mte *mte, const int flag);
-static void		arr_labeling(int i, int arr_i, t_mte *mte);
-
-int	main(int argc, char **argv)
-{
-	t_mte	*mte;
-	char	*input;
-
-	if (argc == 1)
-		exit (1);
-	mte = init_mte(argc, argv);
-	input = get_next_line(0);
-	while (input)
-	{
-		exec_input(input, mte);
-		free(input);
-		input = get_next_line(0);
-	}
-	check_sorted(mte);
-	exit(0);
-}
-
-static t_mte	*init_mte(int argc, char **argv)
+t_mte	*init_mte(int argc, char **argv)
 {
 	t_mte	*mte;
 	char	**arr_string;
@@ -58,7 +34,7 @@ static t_mte	*init_mte(int argc, char **argv)
 	return (mte);
 }
 
-static void	init_arr(int size, char **arr, t_mte *mte, const int flag)
+void	init_arr(int size, char **arr, t_mte *mte, const int flag)
 {
 	int	i;
 	int	arr_i;
@@ -85,7 +61,7 @@ static void	init_arr(int size, char **arr, t_mte *mte, const int flag)
 		split_free(arr);
 }
 
-static void	arr_labeling(int i, int arr_i, t_mte *mte)
+void	arr_labeling(int i, int arr_i, t_mte *mte)
 {
 	if (mte->arr[i].number == mte->arr[arr_i].number)
 	{
@@ -96,30 +72,4 @@ static void	arr_labeling(int i, int arr_i, t_mte *mte)
 		mte->arr[i].label++;
 	else
 		mte->arr[arr_i].label++;
-}
-
-static void	check_sorted(t_mte *mte)
-{
-	int	i;
-
-	i = 0;
-	while (i < mte->size -1)
-	{
-		if (mte->arr[i].label != mte->arr[i +1].label +1)
-		{
-			ft_printf("KO\n");
-			exit(0);
-		}
-		i++;
-	}
-	if (i == mte->size -1 && mte->size == mte->divide)
-	{
-		ft_printf("OK\n");
-		exit(0);
-	}
-	else
-	{
-		ft_printf("KO\n");
-		exit(0);
-	}
 }

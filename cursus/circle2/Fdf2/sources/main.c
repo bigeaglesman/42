@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:27:03 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/14 11:12:27 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/16 17:14:39 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void get_win_size(t_map *map, t_trans *trans)
 		trans->sca_xy = 3;
 	if (trans->sca_z > 15)
 		trans->sca_z = 15;
-	if (trans->sca_z < 3)
-		trans->sca_z = 3;
+	if (trans->sca_z < 5)
+		trans->sca_z = 5;
 	trans->par_y = (trans->win_height - win_size * trans->sca_xy) / 4;
 }

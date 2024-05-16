@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 15:43:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/04/22 18:46:10 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/04/22 20:59:02 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_atoi(const char *str)
 			num = num * 10 + (str[i] - '0');
 		else
 		{
-			ft_printf("Error non numeric parameter\n");
+			ft_printf("Error\n");
 			exit(1);
 		}
 		i++;
@@ -48,7 +48,7 @@ static void	check_int_range(long long num)
 {
 	if (num > 2147483647 || num < -2147483648)
 	{
-		ft_printf("Error int range\n");
+		ft_printf("Error\n");
 		exit(1);
 	}
 }
