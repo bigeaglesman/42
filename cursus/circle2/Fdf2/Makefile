@@ -12,7 +12,7 @@ LIBGNL_DIR = $(LIB_DIR)libgnl/
 LIBGNL = $(LIBGNL_DIR)libgnl.a
 
 MLX_DIR = $(LIB_DIR)mlx/
-MLX = $(MLX_DIR)libmlx.dylib
+MLX = libmlx.dylib
 
 LIBRARIES = -lmlx -lft -lgnl -L$(MLX_DIR) -L$(LIBFT_DIR) -L$(LIBGNL_DIR) \
 	-framework OpenGL -framework Appkit
@@ -29,14 +29,11 @@ SRC_DIR = ./sources/
 SRCS_LIST = main.c\
 		event.c\
 		draw_line.c\
-		draw_asc_desc.c\
 		error.c\
 		file_check.c\
-		mat_utils.c\
 		utils.c\
 		parsing.c\
 		trans_map.c\
-		draw_map.c\
 
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
@@ -61,6 +58,7 @@ $(LIBFT) :
 
 $(MLX) :
 	make -C $(MLX_DIR)
+	cp $(MLX_DIR)$(MLX) ./
 
 $(LIBGNL) :
 	make -C $(LIBGNL_DIR)
@@ -74,8 +72,9 @@ clean :
 fclean : clean
 	$(RM) $(LIBFT)
 	$(RM) $(LIBGNL)
-	$(RM) $(MLX)
+	$(RM) $(MLX_DIR)$(MLX)
 	$(RM) $(NAME)
+	$(RM) $(MLX)
 
 re : fclean all
 

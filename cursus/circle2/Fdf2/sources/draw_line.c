@@ -6,75 +6,120 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:15:17 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/14 10:36:40 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/17 10:22:04 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	line_desc(t_data *data, t_cnv_dot from, t_cnv_dot to, double gradient, t_trans *trans);
-static void line_asc(t_data *data, t_cnv_dot from, t_cnv_dot to, double gradient, t_trans *trans);
+static void	draw_line_w (t_data *data, t_draw_utils draw_utils, int is_ascend);
+static void	draw_line_h (t_data *data, t_draw_utils draw_utils, int is_ascend);
+static void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+static void	draw_line_sub(t_data *data, t_draw_utils draw_utils, t_cnv_dot from, t_cnv_dot to);
 
 void	draw_line(t_data *data, t_cnv_dot from, t_cnv_dot to, t_trans *trans)
 {
-	double		gradient;
-	t_cnv_dot	start;
-	t_cnv_dot	dest;
+	t_draw_utils	draw_utils;
 
 	if (from.x_val <= to.x_val)
 	{
-		start = from;
-		dest = to;
+		draw_utils.start = from;
+		draw_utils.dest = to;
 	}
 	else
 	{
-		start = to;
-		dest = from;
+		draw_utils.start = to;
+		draw_utils.dest = from;
 	}
-	gradient = (double)(dest.y_val - start.y_val) / (dest.x_val - start.x_val);
-	if (gradient < 0)
-		line_desc(data, start, dest, gradient, trans);
+	draw_utils.gradient = (double)(draw_utils.dest.y_val - draw_utils.start.y_val) / (draw_utils.dest.x_val - draw_utils.start.x_val);
+	draw_utils.win_height = trans->win_height;
+	draw_utils.win_width = trans->win_width;
+	draw_utils.w = draw_utils.dest.x_val - draw_utils.start.x_val;
+	if (draw_utils.gradient < 0)
+		draw_utils.h = draw_utils.start.y_val - draw_utils.dest.y_val;
 	else
-		line_asc(data, start, dest, gradient, trans);
+		draw_utils.h = draw_utils.dest.y_val - draw_utils.start.y_val;
+	draw_line_sub(data, draw_utils, from, to);
 }
 
-static void	line_desc(t_data *data, t_cnv_dot start, t_cnv_dot dest, double gradient, t_trans *trans)
+static void	draw_line_sub(t_data *data, t_draw_utils draw_utils, t_cnv_dot from, t_cnv_dot to)
 {
-	t_line_utils	line_utils;
-
-	line_utils.w = dest.x_val - start.x_val;
-	line_utils.h = start.y_val - dest.y_val ;
-	line_utils.start_x = start.x_val;
-	line_utils.start_y = start.y_val;
-	line_utils.start_color = start.color;
-	line_utils.final_color = dest.color;
-	if (gradient < -1)
-		draw_line_desc_h(data, line_utils, dest.y_val, trans);
+	if (from.color == 0 && to.color == 0)
+		draw_utils.color = 0;
+	else if (from.color != 0)
+		draw_utils.color = from.color;
 	else
-		draw_line_desc_w(data, line_utils, dest.x_val, trans);
+		draw_utils.color = to.color;
+	if (draw_utils.gradient > 0 && draw_utils.gradient < 1)
+		draw_line_w(data, draw_utils, 1);
+	else if (draw_utils.gradient >= 1)
+		draw_line_h(data, draw_utils, 1);
+	else if (draw_utils.gradient <= 0 && draw_utils.gradient > -1)
+		draw_line_w(data, draw_utils, -1);
+	else
+		draw_line_h(data, draw_utils, -1);
 }
 
-static void line_asc(t_data *data, t_cnv_dot start, t_cnv_dot dest, double gradient, t_trans *trans)
+static void	draw_line_w (t_data *data, t_draw_utils draw_utils, int is_ascend)
 {
-	t_line_utils	line_utils;
+	int	m;
+	int	x;
+	int y;
+	int dest_x;
 
-	line_utils.w = dest.x_val - start.x_val;
-	line_utils.h = dest.y_val - start.y_val;
-	line_utils.start_x = start.x_val;
-	line_utils.start_y = start.y_val;
-	line_utils.start_color = start.color;
-	line_utils.final_color = dest.color;
-	if (gradient < 1)
-		draw_line_asc_w(data, line_utils, dest.x_val, trans);
-	else
-		draw_line_asc_h(data, line_utils, dest.y_val, trans);
+	x = draw_utils.start.x_val;
+	y = draw_utils.start.y_val;
+	dest_x = draw_utils.dest.x_val;
+	m = draw_utils.w - 2 * draw_utils.h;
+	while (x <= dest_x)
+	{
+		if (x >= 0 && x < draw_utils.win_width && y >= 0 && y < draw_utils.win_height)
+			my_mlx_pixel_put(data, x, y, draw_utils.color);
+		if (m > 0)
+			m -= 2 * draw_utils.h;
+		else
+		{
+			m += 2 * (draw_utils.w - draw_utils.h);
+			if (is_ascend == 1)
+				y++;
+			else
+				y--;
+		}
+		x++;
+	}
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color) //img에 점 찍어주는 함수
+static void	draw_line_h (t_data *data, t_draw_utils draw_utils, int is_ascend)
+{
+	int	m;
+	int	x;
+	int	y;
+	int	y_leng;
+
+	x = draw_utils.start.x_val;
+	y = draw_utils.start.y_val;
+	y_leng = fabs(draw_utils.dest.y_val - y);
+	m = 2 * draw_utils.w - draw_utils.h;
+	while (y_leng >= 0)
+	{
+		if (x >= 0 && x < draw_utils.win_width && y >= 0 && y < draw_utils.win_height)
+			my_mlx_pixel_put(data, x, y, draw_utils.color);
+		if (m < 0)
+			m += 2 * draw_utils.w;
+		else
+		{
+			m += 2 * (draw_utils.w - draw_utils.h);
+			x++;
+		}
+		y += is_ascend;
+		y_leng--;
+	}
+}
+
+static void	my_mlx_pixel_put(t_data *data, int x, int y, int color) //img에 점 찍어주는 함수
 {
 	char	*dst;
 
-	// printf("(%d, %d) ", x, y);
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
