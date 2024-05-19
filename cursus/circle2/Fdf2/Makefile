@@ -29,7 +29,6 @@ SRC_DIR = ./sources/
 SRCS_LIST = main.c\
 		event.c\
 		draw_line.c\
-		error.c\
 		file_check.c\
 		utils.c\
 		parsing.c\
@@ -46,6 +45,7 @@ all : $(NAME)
 
 $(NAME) : $(LIBFT) $(MLX) $(LIBGNL) $(OBJ_DIR) $(OBJS)
 	$(cc) $(CFLAGS) $(INCLUDES) $(LIBRARIES) $(OBJS) -o $(NAME)
+	install_name_tool -change libmlx.dylib ./lib/mlx/libmlx.dylib fdf
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
@@ -58,7 +58,6 @@ $(LIBFT) :
 
 $(MLX) :
 	make -C $(MLX_DIR)
-	cp $(MLX_DIR)$(MLX) ./
 
 $(LIBGNL) :
 	make -C $(LIBGNL_DIR)

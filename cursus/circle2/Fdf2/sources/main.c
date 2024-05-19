@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:27:03 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/17 10:35:12 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/19 21:04:32 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	main(int argc, char **argv)
 	draw_map(&image, map, trans);
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_hook(vars.win, 17, 0, exit_hook, 0); // close button press event
+	mlx_hook(vars.win, 17, 0, exit_hook, 0);
 	mlx_loop(vars.mlx);
-	return (0);
+	exit(0);
 }
 
 static t_trans	*set_trans(t_map *map)
@@ -58,24 +58,24 @@ static t_trans	*set_trans(t_map *map)
 
 static void get_size_val(t_map *map, t_trans *trans)
 {
-	double	win_size;
+	double	img_size;
 
 	if (map->col > map->row)
-		win_size = map->col * ROOT2;
+		img_size = map->col * ROOT2;
 	else
-		win_size = map->row * ROOT2;
+		img_size = map->row * ROOT2;
 	trans->win_height = 2000;
 	trans->win_width = 2500;
 	trans->par_x = 1250;
-	trans->sca_xy = 1500 / win_size;
-	trans->sca_z = 900 / win_size;
+	trans->sca_xy = 1500 / img_size;
+	trans->sca_z = 900 / img_size;
 	if (trans->sca_xy < 3)
 		trans->sca_xy = 3;
 	if (trans->sca_z > 15)
 		trans->sca_z = 15;
 	if (trans->sca_z < 3)
 		trans->sca_z = 3;
-	trans->par_y = (trans->win_height - win_size * trans->sca_xy) / 4;
+	trans->par_y = (trans->win_height - img_size * trans->sca_xy) / 4;
 }
 
 static void	draw_map(t_data *data, t_map *map, t_trans *trans)

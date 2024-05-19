@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/17 10:30:03 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/19 21:04:24 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-# include <stdio.h>
-
 # ifndef PI
 #  define PI 3.1415926
 # endif
@@ -31,13 +29,12 @@
 # ifndef ROOT2
 #  define ROOT2 1.4
 # endif
-// mlx 구조체
+
 typedef struct s_vars {
 	void		*mlx;
 	void		*win;
 }t_vars;
 
-// image data 구조체
 typedef struct s_data
 {
 	void	*img;
@@ -47,7 +44,6 @@ typedef struct s_data
 	int		endian;
 }t_data;
 
-// 좌표 구조체
 typedef struct s_dot
 {
 	int	x_val;
@@ -56,7 +52,6 @@ typedef struct s_dot
 	int	color;
 }t_dot;
 
-// map구조체
 typedef struct s_map
 {
 	int		col;
@@ -64,7 +59,6 @@ typedef struct s_map
 	t_dot	**mat;
 }t_map;
 
-// 변형 후 맵
 typedef struct s_cnv_dot
 {
 	double	x_val;
@@ -100,20 +94,16 @@ typedef struct s_trans
 	int		win_height;
 }t_trans;
 
-// draw
 void	draw_line(t_data *data, t_cnv_dot start, t_cnv_dot end, t_trans *trans);
 t_cnv_dot	**trans_map(t_map *map, t_trans *trans);
 
 int		exit_hook();
 int		key_hook(int keycode, t_vars *vars);
  
-// error
 void	map_file_error(void);
 
-//utils
 int		file_open (char	*file_name);
 
-// parsing & checking
 int		extension_validity(char *file);
 t_map	*parse_map(char *map_file);
 
