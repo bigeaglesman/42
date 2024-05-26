@@ -6,20 +6,21 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:57:05 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/07 13:53:38 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/21 14:05:01 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 static void	count_row(char *map_file, t_map *map);
-static void	save_mat(char *map_file, t_map *map);
-static void	save_dot(t_dot *row, char **line, int col, int y);
+static void	save_mat(t_map *map, int fd);
+static void	save_dot(t_map *map, char **line, int y);
 static char	**seperate_line(int fd);
 
 t_map	*parse_map(char *map_file)
 {
 	t_map	*map;
+	int		fd;
 
 	map = (t_map *)malloc(sizeof(t_map));
 	map->row = 0;
@@ -27,18 +28,9 @@ t_map	*parse_map(char *map_file)
 	map->mat = (t_dot **)malloc(sizeof(t_dot *) * map->row);
 	if (!map->mat)
 		exit(1);
-	save_mat(map_file, map);
+	fd = file_open(map_file);
+	save_mat(map, fd);
 	return (map);
-}
-
-static char	**seperate_line(int fd)
-{
-		char	*line;
-
-		line = get_next_line(fd);
-		if (!line)
-			return (NULL);
-		return (ft_split(line, 32));
 }
 
 static void	count_row(char *map_file, t_map *map)
@@ -62,18 +54,18 @@ static void	count_row(char *map_file, t_map *map)
 		}
 		read_byte = read(fd, buf, BUFFER_SIZE);
 		if (read_byte == 0)
-			break;
+			break ;
 	}
+	free(buf);
 	close(fd);
 }
 
-static void	save_mat(char *map_file, t_map *map)
+static void	save_mat(t_map *map, int fd)
 {
-	int		fd;
 	char	**seperated_line;
 	int		i;
+	int		col_chk;
 
-	fd = file_open(map_file);
 	seperated_line = seperate_line(fd);
 	map->col = 0;
 	while (seperated_line[map->col])
@@ -83,30 +75,49 @@ static void	save_mat(char *map_file, t_map *map)
 	i = 0;
 	while (i < map->row)
 	{
+		col_chk = 0;
+		while (seperated_line[col_chk])
+			col_chk++;
+		if (seperated_line[col_chk - 1][0] == '\n')
+			col_chk--;
+		check_col(map->col, col_chk);
 		map->mat[i] = (t_dot *)malloc(sizeof(t_dot) * map->col);
-		save_dot(map->mat[i], seperated_line, map->col, i);
+		save_dot(map, seperated_line, i);
 		split_free(seperated_line);
 		seperated_line = seperate_line(fd);
 		i++;
 	}
 }
 
-static void	save_dot(t_dot *row, char **line, int col, int y)
+static char	**seperate_line(int fd)
 {
-	int	i;
+	char	*line;
+	char	**seperated_line;
+
+	line = get_next_line(fd);
+	if (!line)
+		return (NULL);
+	seperated_line = ft_split(line, 32);
+	free(line);
+	return (seperated_line);
+}
+
+static void	save_dot(t_map *map, char **line, int y)
+{
+	int		i;
 	char	**mte;
 
 	i = 0;
-	while (i < col)
+	while (i < map->col)
 	{
 		mte = ft_split(line[i], ',');
-		row[i].x_val = i;
-		row[i].y_val = y;
-		row[i].z_val = ft_atoi(mte[0]);
+		map->mat[y][i].x_val = i;
+		map->mat[y][i].y_val = y;
+		map->mat[y][i].z_val = ft_atoi(mte[0]);
 		if (mte[1])
-			row[i].color = ft_atoi16(mte[1]);
+			map->mat[y][i].color = ft_atoi16(mte[1]);
 		else
-			row[i].color = 0xffffff;
+			map->mat[y][i].color = 0xffffff;
 		split_free(mte);
 		i++;
 	}

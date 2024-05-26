@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:07:18 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/19 21:04:24 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/21 13:50:27 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_cnv_dot
 	int		color;
 }t_cnv_dot;
 
-typedef struct s_draw_utils
+typedef struct s_draw
 {
 	double		gradient;
 	t_cnv_dot	start;
@@ -76,7 +76,7 @@ typedef struct s_draw_utils
 	int			w;
 	int			h;
 	int			color;
-}t_draw_utils;
+}t_draw;
 
 typedef struct s_trans
 {
@@ -94,17 +94,16 @@ typedef struct s_trans
 	int		win_height;
 }t_trans;
 
-void	draw_line(t_data *data, t_cnv_dot start, t_cnv_dot end, t_trans *trans);
+void		draw_line(t_data *data, t_cnv_dot s, t_cnv_dot e, t_trans *t);
 t_cnv_dot	**trans_map(t_map *map, t_trans *trans);
 
-int		exit_hook();
-int		key_hook(int keycode, t_vars *vars);
- 
-void	map_file_error(void);
+int			exit_hook(void);
+int			key_hook(int keycode, t_vars *vars);
 
-int		file_open (char	*file_name);
+int			file_open(char	*file_name);
+void		check_col(int col, int col_chk);
 
-int		extension_validity(char *file);
-t_map	*parse_map(char *map_file);
+int			extension_validity(char *file);
+t_map		*parse_map(char *map_file);
 
 #endif

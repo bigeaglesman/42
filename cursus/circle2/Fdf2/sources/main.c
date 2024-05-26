@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:27:03 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/19 21:04:32 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/05/21 13:38:12 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ int	main(int argc, char **argv)
 	map = parse_map(argv[1]);
 	vars.mlx = mlx_init();
 	trans = set_trans(map);
-	vars.win = mlx_new_window(vars.mlx, trans->win_width, trans->win_height, "fdf");
+	vars.win = mlx_new_window
+		(vars.mlx, trans->win_width, trans->win_height, "fdf");
 	image.img = mlx_new_image(vars.mlx, trans->win_width, trans->win_height);
-	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian);
+	image.addr = mlx_get_data_addr
+		(image.img, &image.bits_per_pixel, &image.line_length, &image.endian);
 	draw_map(&image, map, trans);
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
@@ -44,19 +46,20 @@ int	main(int argc, char **argv)
 
 static t_trans	*set_trans(t_map *map)
 {
-	t_trans *trans = (t_trans *)malloc(sizeof(t_trans));
-	
+	t_trans	*trans;
+
+	trans = (t_trans *)malloc(sizeof(t_trans));
 	get_size_val(map, trans);
-	trans->cosx = cos(PI/6);
-	trans->sinx = sin(PI/6);
+	trans->cosx = cos(PI / 6);
+	trans->sinx = sin(PI / 6);
 	trans->siny = sin(0);
 	trans->cosy = cos(0);
-	trans->cosz = cos(PI/4);
-	trans->sinz = sin(PI/4);
+	trans->cosz = cos(PI / 4);
+	trans->sinz = sin(PI / 4);
 	return (trans);
 }
 
-static void get_size_val(t_map *map, t_trans *trans)
+static void	get_size_val(t_map *map, t_trans *trans)
 {
 	double	img_size;
 
@@ -71,8 +74,8 @@ static void get_size_val(t_map *map, t_trans *trans)
 	trans->sca_z = 900 / img_size;
 	if (trans->sca_xy < 3)
 		trans->sca_xy = 3;
-	if (trans->sca_z > 15)
-		trans->sca_z = 15;
+	if (trans->sca_z > 12)
+		trans->sca_z = 12;
 	if (trans->sca_z < 3)
 		trans->sca_z = 3;
 	trans->par_y = (trans->win_height - img_size * trans->sca_xy) / 4;
@@ -83,6 +86,7 @@ static void	draw_map(t_data *data, t_map *map, t_trans *trans)
 	int			x;
 	int			y;
 	t_cnv_dot	**cnv_map;
+	int			i;
 
 	cnv_map = trans_map(map, trans);
 	y = 0;
@@ -91,12 +95,16 @@ static void	draw_map(t_data *data, t_map *map, t_trans *trans)
 		x = 0;
 		while (x < map->col)
 		{
-			if (x != map->col-1)
-				draw_line(data, cnv_map[y][x], cnv_map[y][x+1], trans);
-			if (y != map->row-1)
-				draw_line(data, cnv_map[y][x], cnv_map[y+1][x], trans);
+			if (x != map->col - 1)
+				draw_line(data, cnv_map[y][x], cnv_map[y][x + 1], trans);
+			if (y != map->row - 1)
+				draw_line(data, cnv_map[y][x], cnv_map[y + 1][x], trans);
 			x++;
 		}
 		y++;
 	}
+	i = 0;
+	while (i < map->row)
+		free(cnv_map[i++]);
+	free(cnv_map);
 }
