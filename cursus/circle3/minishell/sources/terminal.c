@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   terminal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/26 15:20:51 by ycho2             #+#    #+#             */
-/*   Updated: 2024/05/28 22:49:40 by ycho2            ###   ########.fr       */
+/*   Created: 2024/05/28 22:46:49 by ycho2             #+#    #+#             */
+/*   Updated: 2024/05/29 12:21:21 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include <termios.h>
-#include <unistd.h>
+void	set_terminal()
+{
+	struct termios t;
 
-// signal
-void	set_signals(void);
-
-// terminal
-void	set_terminal(void);
-
-#endif
+	tcgetattr(STDIN_FILENO, &t);
+	t.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &t);
+}

@@ -18,7 +18,10 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR)
 
 SRC_DIR = ./sources/
-SRCS_LIST = main.c
+SRCS_LIST = main.c\
+		signal.c\
+		terminal.c
+
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
 
