@@ -20,10 +20,18 @@ INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR)
 SRC_DIR = ./sources/
 SRCS_LIST = main.c\
 		signal.c\
-		terminal.c
+		terminal.c\
+		error.c\
 
+BUILTIN_DIR = $(SRC_DIR)builtin
+BUILTIN_LIST = cd.c\
+			echo.c\
+			env.c\
+			export.c\
+			pwd.c\
+			unset.c\
 
-SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
+SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST)) $(addprefix $(BUILTIN_DIR), $(BUILTIN_LIST)) 
 
 OBJ_DIR = ./objects/
 OBJ_LIST = $(SRCS_LIST:.c=.o)
