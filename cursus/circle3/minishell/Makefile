@@ -1,6 +1,6 @@
 NAME = minishell
 cc = cc
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -g 
 RM = rm -rf
 
 LIB_DIR = ./lib/
@@ -22,16 +22,15 @@ SRCS_LIST = main.c\
 		signal.c\
 		terminal.c\
 		error.c\
+		cd.c\
+		echo.c\
+		env.c\
+		export.c\
+		pwd.c\
+		unset.c\
+		exit.c\
 
-BUILTIN_DIR = $(SRC_DIR)builtin
-BUILTIN_LIST = cd.c\
-			echo.c\
-			env.c\
-			export.c\
-			pwd.c\
-			unset.c\
-
-SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST)) $(addprefix $(BUILTIN_DIR), $(BUILTIN_LIST)) 
+SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
 
 OBJ_DIR = ./objects/
 OBJ_LIST = $(SRCS_LIST:.c=.o)
