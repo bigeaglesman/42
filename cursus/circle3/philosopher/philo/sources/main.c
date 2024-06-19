@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/18 21:55:24 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/06/19 23:38:06 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,21 @@ int	main(int argc, char **argv)
 	t_arg	arg;
 
 	parsing_arg(&arg, argc - 1, argv);
-	ready_thread(arg);
+	set_threads(arg);
 	
 }
 
 
-void	ready_thread(t_arg arg)
+void	set_threads(t_arg arg)
 {
-	t_mutex	mut;
+	int i;
 
-	pthread_mutex_init(&(mut.start_lock), NULL);
-	mut.fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * arg.philo_num);
+	i = 0;
+	pthread_mutex_init(&(arg.start_lock), 0);
+	pthread_mutex_lock(&arg.start_lock);
+	while (i < arg.philo_num)
+	{
+		pthread_create(arg.philo[i], 0, void *(*start_fun)(void *), 0);
+		i++;
+	}
 }
