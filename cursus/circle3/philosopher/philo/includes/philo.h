@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:03:06 by youngho           #+#    #+#             */
-/*   Updated: 2024/06/19 23:24:56 by youngho          ###   ########.fr       */
+/*   Updated: 2024/06/20 19:22:28 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,23 @@
 
 typedef struct s_arg
 {
-	int				philo_num;
+	int				number_of_philos;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				min_eat_times;
+	int				*philo_stat;
+	int				philo_nth;
+	int				die_flag;
 	pthread_mutex_t	start_lock;
+	pthread_mutex_t	print_lock;
 	pthread_mutex_t	*fork;
 	pthread_t		*philo;
+	pthread_mutex_t	*stat_lock;
 }t_arg;
 
 int		ft_atoi(char *str);
 void	parsing_arg(t_arg *arg, int num_arg, char **argv);
+void	print_status(int action, t_arg *arg, struct timeval tv);
 
 #endif
