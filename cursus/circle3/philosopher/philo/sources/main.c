@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/20 21:23:01 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/06/20 22:31:52 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int argc, char **argv)
 	parsing_arg(arg, argc - 1, argv);
 	set_threads(arg);
 }
-
 
 void	set_threads(t_arg *arg)
 {

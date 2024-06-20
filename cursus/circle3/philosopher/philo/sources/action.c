@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:31:45 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/20 19:27:56 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/06/20 22:31:50 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,20 @@ void	philo_sleeping(t_arg *arg)
 	usleep(rest);
 }
 
+int	grab_fork(t_arg *arg)
+{
+	const int		left_fork = arg->philo_nth;
+	int				right_fork;
+	struct timeval	tv;
 
+	if (arg->philo_nth == arg->number_of_philos)
+		right_fork = 0;
+	else
+		right_fork = arg->philo_nth + 1;
+	pthread_mutex_lock(&arg->fork[left_fork]);
+	gettimeofday(&tv, 0);
+	print_status(0, arg, tv);
+	pthread_mutex_lock(&arg->fork[right_fork]);
+	gettimeofday(&tv, 0);
+	print_status(0, arg, tv);
+}
