@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/20 22:31:52 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/06/23 11:50:10 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,70 @@
 
 int	main(int argc, char **argv)
 {
-	t_arg	*arg;
+	t_shared	*shared;
 
-	arg = (t_arg *)malloc(sizeof(t_arg));
-	parsing_arg(arg, argc - 1, argv);
-	set_threads(arg);
+	shared = (t_shared *)malloc(sizeof(t_shared));
+	parsing_arg(shared, argc - 1, argv);
+	set_threads(shared);
 }
 
-void	set_threads(t_arg *arg)
+void	set_threads(t_shared *shared)
 {
-	int i;
+	int			i;
+	t_thread	thread;
 
 	i = 0;
-	pthread_mutex_init(&arg->start_lock, 0);
-	pthread_mutex_init(&arg->print_lock, 0);
-	pthread_mutex_lock(&arg->start_lock);
-	while (i < arg->number_of_philos)
+	pthread_mutex_init(&shared->start_lock, 0);
+	pthread_mutex_init(&shared->print_lock, 0);
+	pthread_mutex_lock(&shared->start_lock);
+	while (i < shared->number_of_philos)
 	{
-		arg->philo_nth = i;
-		pthread_create(arg->philo[i], 0, (void *)&thread_func, &arg);
+		thread.eat_cnt = 0;
+		thread.philo_nth = i;
+		thread.shared = shared;
+		pthread_create(shared->philo[i], 0, (void *)&thread_func, &thread);
 		i++;
 	} 
-	pthread_mutex_unlock(&arg->start_lock);
-	check_philos(arg);
+	pthread_mutex_unlock(&shared->start_lock);
+	check_philos(shared);
 }
 
-void	thread_func(t_arg *arg)
+void	thread_func(t_thread *thread)
 {
-	philo_thinking(arg);
-	pthread_mutex_lock(&arg->start_lock);
-	pthread_mutex_unlock(&arg->start_lock);
-	philo_thinking(arg);
-	if (arg->philo_nth / 2)
-		usleep(1000 * arg->time_to_eat);
+	t_shared *shared;
+
+	shared = thread->shared;
+	philo_thinking(shared);
+	pthread_mutex_lock(&shared->start_lock);
+	pthread_mutex_unlock(&shared->start_lock);
+	philo_thinking(shared);
+	if (thread->philo_nth / 2)
+		usleep(1000 * shared->time_to_eat);
 	while (1)
 	{
-		philo_eating(arg);
-		philo_sleeping(arg);
-		philo_thinking(arg);
+		if (philo_eating(thread) == -1)
+			return (-1);
+		check_eat_cnt(thread);
+			return (0);
+			// 만약 다 먹었으면 그냥 스레드 종료시키면 된다 따로 메시지 출력할 필요 없음
+		if (philo_sleeping(shared) == -1)
+			return (-1);
+		if (philo_thinking(shared) == -1)
+			return (-1);
 	}
 }
 
-void	check_philo(t_arg *arg)
+void	check_philos(t_shared *shared)
 {
+
 	// TODO 계속 돌면서 철학자 상태 확인하기
 	// TODO 철학자가 죽으면 쓰레드 회수하기, 모든 철학자가 밥을 다 먹었으면 쓰레드는 이미 회수 완료된 상태
+}
+
+int	check_eat_cnt(t_thread *thread)
+{
+	if (shared->min_eat_times != -1 && shared->eat_cnt == shared->min_eat_times -1)
+		return (1);
+	else
+		return (0);
 }

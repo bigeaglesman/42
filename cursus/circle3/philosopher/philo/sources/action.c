@@ -6,64 +6,76 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:31:45 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/20 22:31:50 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/06/23 11:53:33 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	philo_thinking(t_arg *arg)
+int	philo_thinking(t_shared *shared)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, 0);
-	print_status(3, arg, tv);
+	if (print_status(3, shared, tv))
+		return (-1);
+	return (0);
 }
 
-void	philo_eating(t_arg *arg)
+int	philo_eating(t_thread *thread)
 {
 	struct timeval	start;
 	struct timeval	mid;
 	unsigned int	rest;
+	t_shared		*shared;
 
-
-	if (grab_fork(arg) == -1)
+	shared = thread->shared;
+	if (grab_fork(shared, thread->philo_nth) == -1)
 		return (-1);
 	gettimeofday(&start, 0);
-	print_status(1, arg, start);
-	arg->philo_stat[arg->philo_nth]++;
+	if (print_status(EATING, shared, start) == -1)
+		return (-1);
+	shared->philo_stat[thread->philo_nth]++;
 	gettimeofday(&mid, 0);
-	rest = arg->time_to_eat * 1000 -1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_sec - start.tv_sec) / 1000;
+	rest = shared->time_to_eat * 1000 -1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_sec - start.tv_sec) / 1000;
 	usleep(rest);
+	return (0);
 }
 
-void	philo_sleeping(t_arg *arg)
+int	philo_sleeping(t_shared *shared)
 {
 	struct timeval	start;
 	struct timeval	mid;
 	unsigned int	rest;
 
 	gettimeofday(&start, 0);
-	print_status(2, arg, start);
+	if (print_status(SLEEPING, shared, start) == -1)
+		return (-1);
 	gettimeofday(&mid, 0);
-	rest = arg->time_to_sleep * 1000 -1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_sec - start.tv_sec) / 1000;
+	rest = shared->time_to_sleep * 1000 -1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_sec - start.tv_sec) / 1000;
 	usleep(rest);
+	return (0);
 }
 
-int	grab_fork(t_arg *arg)
+int	grab_fork(t_shared *shared, int philo_nth)
 {
-	const int		left_fork = arg->philo_nth;
+	const int		left_fork = philo_nth;
 	int				right_fork;
 	struct timeval	tv;
 
-	if (arg->philo_nth == arg->number_of_philos)
+	if (philo_nth == shared->number_of_philos)
 		right_fork = 0;
 	else
-		right_fork = arg->philo_nth + 1;
-	pthread_mutex_lock(&arg->fork[left_fork]);
+		right_fork = philo_nth + 1;
+	pthread_mutex_lock(&shared->fork[left_fork]);
+	update_status(LEFT_FORK, shared);
 	gettimeofday(&tv, 0);
-	print_status(0, arg, tv);
-	pthread_mutex_lock(&arg->fork[right_fork]);
+	if (print_status(LEFT_FORK, shared, tv) == -1)
+		return (-1);
+	pthread_mutex_lock(&shared->fork[right_fork]);
+	update_status(RIGHT_FORK, shared);
 	gettimeofday(&tv, 0);
-	print_status(0, arg, tv);
+	if (print_status(RIGHT_FORK, shared, tv) == -1)
+		return (-1);
+	return (0);
 }
