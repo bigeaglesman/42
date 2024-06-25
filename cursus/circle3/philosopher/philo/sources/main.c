@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/23 11:50:10 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/06/25 18:12:21 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ void	check_philos(t_shared *shared)
 
 int	check_eat_cnt(t_thread *thread)
 {
-	if (shared->min_eat_times != -1 && shared->eat_cnt == shared->min_eat_times -1)
+	t_shared	*shared;
+
+	shared = thread->shared;
+	if (shared->min_eat_times != -1 && thread->eat_cnt == shared->min_eat_times -1)
 		return (1);
 	else
 		return (0);
