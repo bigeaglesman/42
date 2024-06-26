@@ -6,35 +6,27 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:01:42 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/25 18:12:18 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/06/26 19:20:18 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	update_status(int action, t_thread *thread)
-{
-	t_shared *shared;
-
-	shared = thread->shared;
-	pthread_mutex_lock(&shared->stat_lock[thread->philo_nth]);
-	shared->philo_stat[thread->philo_nth] = action;
-	pthread_mutex_unlock(&shared->stat_lock[thread->philo_nth]);
-}
-
-int	print_status(int action, t_thread *thread, struct timeval tv)
+int	print_status(int action, t_thread *thread)
 {
 	const char		**act_char = {"has taken a fork", "has taken a fork", "is eating",
 		"is sleeping", "is thinking", "died"};
 	long long		time;
 	t_shared	*shared;
+	struct timeval tv;
 
+	gettimeofday(&tv, 0);
 	shared = thread->shared;
 	if (die_check())
 		return (-1);
 	time = 1000 * tv.tv_sec + tv.tv_usec / 1000;
 	pthread_mutex_lock(&shared->print_lock);
-	printf("%lld %d %s\n", time, thread->philo_nth, act_char[action]);
+	printf("%lld %d %s\n", time, thread->philo_nth + 1, act_char[action]);
 	pthread_mutex_unlock(&shared->print_lock);
 	return (0);
 }

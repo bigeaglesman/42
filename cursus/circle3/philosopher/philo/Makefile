@@ -13,13 +13,11 @@ INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(LIBGNL_DIR)
 
 SRC_DIR = ./sources/
 SRCS_LIST = main.c\
-		event.c\
-		draw_line.c\
-		file_check.c\
+		action.c\
+		error.c\
 		utils.c\
 		parsing.c\
-		trans_map.c\
-
+		thread_status.c\
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
 
