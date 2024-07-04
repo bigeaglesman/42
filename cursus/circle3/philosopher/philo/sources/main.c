@@ -3,58 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/26 19:15:35 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/07/04 12:37:46 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	set_threads(t_shared *shared);
-static void	thread_func(t_thread *thread);
+static void	set_threads(t_shared *shared, t_thread *threads);
+static int	thread_func(t_thread *thread);
 static int	check_philos(t_shared *shared);
 static void	join_threads(t_shared *shared);
 
 int	main(int argc, char **argv)
 {
 	t_shared	*shared;
+	t_thread	*threads;
 
 	shared = (t_shared *)malloc(sizeof(t_shared));
-	parsing_arg(shared, argc - 1, argv);
-	set_threads(shared);
+	if (parsing_arg(shared, argc - 1, argv) == -1)
+		return (-1);
+	threads = (t_thread *)malloc(sizeof(t_thread)*shared->number_of_philos);
+	set_threads(shared, threads);
 	check_philos(shared);
 	join_threads(shared);
 }
 
-static void	set_threads(t_shared *shared)
+static void	set_threads(t_shared *shared, t_thread *threads)
 {
 	int			i;
-	t_thread	thread;
 
 	i = 0;
 	pthread_mutex_lock(&shared->start_lock);
 	while (i < shared->number_of_philos)
 	{
-		thread.eat_cnt = 0;
-		thread.philo_nth = i;
-		thread.shared = shared;
-		pthread_create(shared->philo[i], 0, (void *)&thread_func, &thread);
+		threads[i].eat_cnt = 0;
+		threads[i].philo_nth = i;
+		threads[i].shared = shared;
+		pthread_create(&shared->philo[i], 0, (void *)&thread_func, &threads[i]);
 		i++;
 	} 
+	printf("setcomp\n");
 	pthread_mutex_unlock(&shared->start_lock);
 }
 
-static void	thread_func(t_thread *thread)
+static int	thread_func(t_thread *thread)
 {
 	t_shared *shared;
 
 	shared = thread->shared;
-	philo_thinking(shared);
 	pthread_mutex_lock(&shared->start_lock);
 	pthread_mutex_unlock(&shared->start_lock);
-	philo_thinking(shared);
+	philo_thinking(thread);
 	if (thread->philo_nth / 2)
 		usleep(1000 * shared->time_to_eat);
 	while (1)

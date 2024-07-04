@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:03:06 by youngho           #+#    #+#             */
-/*   Updated: 2024/06/26 20:13:33 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/07/04 22:53:56 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct s_shared
 	int				min_eat_times;
 	int				eat_finish_philos;
 	int				die_flag;
-	struct timeval	*last_eat_time;
+	struct timeval	*last_eat_time; //eattime에 각 스레드와 모니터링 스레드 모두 접근하므로 뮤텍스락 걸어줘야 함
+	pthread_mutex_t	*eat_time_lock;
 	pthread_mutex_t	start_lock;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	*fork;
@@ -60,12 +61,12 @@ typedef struct s_thread
 }t_thread;
 
 int		ft_atoi(char *str);
-void	parsing_arg(t_shared *shared, int num_arg, char **argv);
+int		parsing_arg(t_shared *shared, int num_arg, char **argv);
 int		print_status(int action, t_thread *thread);
 
-int	philo_thinking(t_thread *thread);
+int	philo_eating(t_thread *thread);
 int	philo_thinking(t_thread *thread);
 int	philo_sleeping(t_thread *thread);
-int	grab_fork(t_shared *shared, int philo_nth);
+int	grab_fork(t_thread *thread, int philo_nth);
 int	check_eat_cnt(t_thread *thread);
 #endif

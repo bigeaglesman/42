@@ -3,32 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   thread_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:01:42 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/26 19:20:18 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/07/03 21:07:12 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static int	die_check(t_shared *shared);
+
 int	print_status(int action, t_thread *thread)
 {
-	const char		**act_char = {"has taken a fork", "has taken a fork", "is eating",
+	char	*act_char[] = {"has taken a fork",
+		"has taken a fork", "is eating",
 		"is sleeping", "is thinking", "died"};
-	long long		time;
+	long long	time;
 	t_shared	*shared;
-	struct timeval tv;
+	struct		timeval tv;
 
 	gettimeofday(&tv, 0);
 	shared = thread->shared;
-	if (die_check())
+	if (die_check(shared))
 		return (-1);
 	time = 1000 * tv.tv_sec + tv.tv_usec / 1000;
 	pthread_mutex_lock(&shared->print_lock);
 	printf("%lld %d %s\n", time, thread->philo_nth + 1, act_char[action]);
 	pthread_mutex_unlock(&shared->print_lock);
 	return (0);
+}
+
+static int	die_check(t_shared *shared)
+{
+	pthread_mutex_lock(&shared->die_lock);
+	if (shared->die_flag == 1)
+	{
+		pthread_mutex_unlock(&shared->die_lock);
+		return (1);
+	}
+	else
+	{
+		pthread_mutex_unlock(&shared->die_lock);
+		return (0);
+	}
 }
 
 // 먹는거

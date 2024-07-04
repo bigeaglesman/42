@@ -9,7 +9,7 @@ HEADERS_LIST = philo.h
 
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(LIBGNL_DIR)
+INCLUDES = -I$(HEADERS_DIR)
 
 SRC_DIR = ./sources/
 SRCS_LIST = main.c\
