@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:58:50 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/04 23:10:53 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/08 12:42:37 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	set_arg(t_shared *shared, int num_arg, char **argv)
 		shared->min_eat_times = -1;
 	shared->die_flag = 0;
 	shared->eat_finish_philos = 0;
+	shared->last_eat_time = (struct timeval *)malloc(sizeof(pthread_mutex_t) * shared->number_of_philos);
 }
 
 static void	set_mutex(t_shared *shared)
@@ -54,10 +55,10 @@ static void	set_mutex(t_shared *shared)
 		i++;
 	}
 	i = 0;
-	shared->last_eat_time = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * shared->number_of_philos);
+	shared->eat_time_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * shared->number_of_philos);
 	while (i < shared->number_of_philos)
 	{
-		pthread_mutex_init(&shared->last_eat_time[i], 0);
+		pthread_mutex_init(&shared->eat_time_lock[i], 0);
 		i++;
 	}
 	shared->philo = (pthread_t *)malloc(sizeof(pthread_t) * shared->number_of_philos);

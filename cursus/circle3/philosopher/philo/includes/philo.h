@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:03:06 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/04 22:53:56 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/08 19:38:06 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ int		print_status(int action, t_thread *thread);
 int	philo_eating(t_thread *thread);
 int	philo_thinking(t_thread *thread);
 int	philo_sleeping(t_thread *thread);
-int	grab_fork(t_thread *thread, int philo_nth);
+int	grab_fork(t_thread *thread, int left_fork, int right_fork);
 int	check_eat_cnt(t_thread *thread);
 #endif

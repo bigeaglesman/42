@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:31:45 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/04 12:36:29 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/08 19:46:54 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,14 @@ int	philo_eating(t_thread *thread)
 	struct timeval	mid;
 	unsigned int	rest;
 	t_shared		*shared;
+	int				right_fork;
 
 	shared = thread->shared;
-	if (grab_fork(thread, thread->philo_nth) == -1)
+	if (thread->philo_nth == shared->number_of_philos - 1)
+		right_fork = 0;
+	else
+		right_fork = thread->philo_nth + 1;
+	if (grab_fork(thread, thread->philo_nth, right_fork) == -1)
 		return (-1);
 	thread->status = EATING;
 	gettimeofday(&start, 0);
@@ -39,6 +44,8 @@ int	philo_eating(t_thread *thread)
 	rest = shared->time_to_eat * 1000 -1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_usec - start.tv_usec) / 1000;
 	usleep(rest);
 	thread->eat_cnt++;
+	pthread_mutex_unlock(&shared->fork[thread->philo_nth]);
+	pthread_mutex_unlock(&shared->fork[right_fork]);
 	return (0);
 }
 
@@ -60,17 +67,11 @@ int	philo_sleeping(t_thread *thread)
 	return (0);
 }
 
-int	grab_fork(t_thread *thread, int philo_nth)
+int	grab_fork(t_thread *thread, int left_fork, int right_fork)
 {
-	const int	left_fork = philo_nth;
-	int			right_fork;
 	t_shared	*shared;
 
 	shared = thread ->shared;
-	if (philo_nth == shared->number_of_philos)
-		right_fork = 0;
-	else
-		right_fork = philo_nth + 1;
 	pthread_mutex_lock(&shared->fork[left_fork]);
 	thread->status = LEFT_FORK;
 	if (print_status(LEFT_FORK, thread) == -1)

@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/04 12:37:46 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/08 21:36:16 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	set_threads(t_shared *shared, t_thread *threads)
 {
 	int			i;
 
-	i = 0;
+	i = 0; 
 	pthread_mutex_lock(&shared->start_lock);
 	while (i < shared->number_of_philos)
 	{
@@ -52,17 +52,25 @@ static void	set_threads(t_shared *shared, t_thread *threads)
 static int	thread_func(t_thread *thread)
 {
 	t_shared *shared;
+	struct timeval	birth;
 
 	shared = thread->shared;
 	pthread_mutex_lock(&shared->start_lock);
 	pthread_mutex_unlock(&shared->start_lock);
+	pthread_mutex_lock(&shared->eat_time_lock[thread->philo_nth]);
+	gettimeofday(&birth, 0);
+	shared->last_eat_time[thread->philo_nth] = birth;
+	pthread_mutex_unlock(&shared->eat_time_lock[thread->philo_nth]);
 	philo_thinking(thread);
 	if (thread->philo_nth / 2)
 		usleep(1000 * shared->time_to_eat);
 	while (1)
 	{
 		if (philo_eating(thread) == -1)
+		{
+			// return_fork(thread);
 			return (-1);
+		}
 		if (check_eat_cnt(thread) == 1)
 			return (1);
 			// 만약 다 먹었으면 그냥 스레드 종료시키면 된다 따로 메시지 출력할 필요 없음
@@ -72,7 +80,7 @@ static int	thread_func(t_thread *thread)
 			return (-1);
 	}
 }
-
+// eating 중에 종료되면 포크 회수 하고 종료해야됨
 static int	check_philos(t_shared *shared)
 {
 	int	i;
@@ -98,7 +106,7 @@ static int	check_philos(t_shared *shared)
 			// die check
 			pthread_mutex_lock(&shared->eat_finish_lock);
 			if (shared->eat_finish_philos == shared->number_of_philos)
-				return (0);
+				return (1);
 			pthread_mutex_unlock(&shared->eat_finish_lock);
 			// eat finish 확인
 			usleep(30);
