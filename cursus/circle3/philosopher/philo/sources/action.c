@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:31:45 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/08 19:46:54 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/10 20:48:38 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,9 @@ int	philo_eating(t_thread *thread)
 	struct timeval	mid;
 	unsigned int	rest;
 	t_shared		*shared;
-	int				right_fork;
 
 	shared = thread->shared;
-	if (thread->philo_nth == shared->number_of_philos - 1)
-		right_fork = 0;
-	else
-		right_fork = thread->philo_nth + 1;
-	if (grab_fork(thread, thread->philo_nth, right_fork) == -1)
+	if (grab_fork(thread, thread->philo_nth, thread->right_fork) == -1)
 		return (-1);
 	thread->status = EATING;
 	gettimeofday(&start, 0);
@@ -44,26 +39,20 @@ int	philo_eating(t_thread *thread)
 	rest = shared->time_to_eat * 1000 -1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_usec - start.tv_usec) / 1000;
 	usleep(rest);
 	thread->eat_cnt++;
+	pthread_mutex_unlock(&shared->fork[thread->right_fork]);
 	pthread_mutex_unlock(&shared->fork[thread->philo_nth]);
-	pthread_mutex_unlock(&shared->fork[right_fork]);
 	return (0);
 }
 
 int	philo_sleeping(t_thread *thread)
 {
 	t_shared		*shared;
-	struct timeval	start;
-	struct timeval	mid;
-	unsigned int	rest;
 
 	shared = thread->shared;
 	thread->status = SLEEPING;
-	gettimeofday(&start, 0);
 	if (print_status(SLEEPING, thread) == -1)
 		return (-1);
-	gettimeofday(&mid, 0);
-	rest = shared->time_to_sleep * 1000 -1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_sec - start.tv_sec) / 1000;
-	usleep(rest);
+	usleep(shared->time_to_sleep * 1000);
 	return (0);
 }
 

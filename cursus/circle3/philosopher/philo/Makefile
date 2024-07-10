@@ -18,6 +18,8 @@ SRCS_LIST = main.c\
 		utils.c\
 		parsing.c\
 		thread_status.c\
+		monitoring.c\
+		thread.c\
 
 SRCS = $(addprefix $(SRC_DIR), $(SRCS_LIST))
 

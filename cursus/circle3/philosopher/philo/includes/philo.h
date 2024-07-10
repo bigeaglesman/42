@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:03:06 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/08 19:38:06 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/10 23:13:01 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_thread
 	int	philo_nth;
 	int	eat_cnt;
 	int	status;
+	int	right_fork;
 	// 자신의 상태 저장해 놨다가 나중에 자원 회수해야됨 
 	// 행동->상태 업데이트->프린트락 획득-> 다이플래그확인-> 다이플래그on->상태 확인하고 자원 회수
 	// status는 다른 스레드와 공유하지 않음-> 뮤텍스걸필요 없음
@@ -64,9 +65,12 @@ int		ft_atoi(char *str);
 int		parsing_arg(t_shared *shared, int num_arg, char **argv);
 int		print_status(int action, t_thread *thread);
 
+int	check_philos(t_shared *shared);
+
 int	philo_eating(t_thread *thread);
 int	philo_thinking(t_thread *thread);
 int	philo_sleeping(t_thread *thread);
 int	grab_fork(t_thread *thread, int left_fork, int right_fork);
 int	check_eat_cnt(t_thread *thread);
+int	thread_func(t_thread *thread);
 #endif

@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:01:42 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/03 21:07:12 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/10 20:48:42 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ int	print_status(int action, t_thread *thread)
 
 	gettimeofday(&tv, 0);
 	shared = thread->shared;
-	if (die_check(shared))
-		return (-1);
 	time = 1000 * tv.tv_sec + tv.tv_usec / 1000;
 	pthread_mutex_lock(&shared->print_lock);
+	if (die_check(shared))
+	{
+	 	pthread_mutex_unlock(&shared->print_lock);
+		return (-1);
+	}
 	printf("%lld %d %s\n", time, thread->philo_nth + 1, act_char[action]);
 	pthread_mutex_unlock(&shared->print_lock);
 	return (0);

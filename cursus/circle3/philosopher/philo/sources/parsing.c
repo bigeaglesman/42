@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:58:50 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/08 12:42:37 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/09 20:06:20 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static void	set_mutex(t_shared *shared);
 
 int	parsing_arg(t_shared *shared, int num_arg, char **argv)
 {
+	int i;
+	struct timeval	start;
+
 	if (num_arg == 4 || num_arg == 5)
 		set_arg(shared, num_arg, argv);
 	else
@@ -25,6 +28,15 @@ int	parsing_arg(t_shared *shared, int num_arg, char **argv)
 		return (-1);
 	}
 	set_mutex(shared);
+	i = 0;
+	gettimeofday(&start, 0);
+	while (i < shared->number_of_philos)
+	{
+		pthread_mutex_lock(&shared->eat_time_lock[i]);
+		shared->last_eat_time[i] = start;
+		pthread_mutex_unlock(&shared->eat_time_lock[i]);
+		i++;
+	}
 	return (0);
 }
 
