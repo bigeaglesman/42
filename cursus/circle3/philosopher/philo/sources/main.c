@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/10 23:43:27 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/11 21:18:59 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,18 @@ static void	set_threads(t_shared *shared, t_thread *threads);
 static void	join_threads(t_shared *shared);
 static void	free_memory(t_thread *threads);
 
-void leak()
-{
-	system("leaks philo");
-}
-
 int	main(int argc, char **argv)
 {
 	t_shared	*shared;
 	t_thread	*threads;
 	
-	atexit(leak);
 	shared = (t_shared *)malloc(sizeof(t_shared));
 	if (parsing_arg(shared, argc - 1, argv) == -1)
+	{
+		printf ("arg error\n");
+		free(shared);
 		return (-1);
+	}
 	threads = (t_thread *)malloc(sizeof(t_thread)*shared->number_of_philos);
 	set_threads(shared, threads);
 	check_philos(shared);

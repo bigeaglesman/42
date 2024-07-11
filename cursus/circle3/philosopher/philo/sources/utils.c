@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:53:25 by ycho2             #+#    #+#             */
-/*   Updated: 2024/06/18 20:02:14 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/07/11 20:59:35 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include "philo.h"
 
 int	ft_atoi(char *str)
 {
@@ -21,8 +21,15 @@ int	ft_atoi(char *str)
 	num = 0;
 	while(str[i])
 	{
-		num = num * 10 + (str[i] - '0');
-		i++;
+		if (str[i] >= '0' && str[i] <= '9')
+		{
+			num = num * 10 + (str[i] - '0');
+			i++;
+		}
+		else
+			return (-1);
 	}
+	if (num == 0)
+		return (-1);
 	return (num);
 }

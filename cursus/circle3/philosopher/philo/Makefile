@@ -1,6 +1,6 @@
 NAME = philo
 cc = cc
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -g -fsanitize=thread -Wall -Werror -Wextra
 RM = rm -rf
 
 HEADERS_DIR = ./includes/

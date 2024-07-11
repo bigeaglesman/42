@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:31:45 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/10 20:48:38 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/11 22:34:24 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,25 @@ int	philo_eating(t_thread *thread)
 		return (-1);
 	thread->status = EATING;
 	gettimeofday(&start, 0);
+	pthread_mutex_lock(&shared->eat_time_lock[thread->philo_nth]);
 	shared->last_eat_time[thread->philo_nth] = start;
+	pthread_mutex_unlock(&shared->eat_time_lock[thread->philo_nth]);
 	if (print_status(EATING, thread) == -1)
 		return (-1);
 	gettimeofday(&mid, 0);
 	rest = shared->time_to_eat * 1000 -1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_usec - start.tv_usec) / 1000;
 	usleep(rest);
 	thread->eat_cnt++;
-	pthread_mutex_unlock(&shared->fork[thread->right_fork]);
-	pthread_mutex_unlock(&shared->fork[thread->philo_nth]);
+	if (thread->philo_nth != shared->number_of_philos -1)
+	{
+		pthread_mutex_unlock(&shared->fork[thread->philo_nth]);
+		pthread_mutex_unlock(&shared->fork[thread->right_fork]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&shared->fork[thread->right_fork]);
+		pthread_mutex_unlock(&shared->fork[thread->philo_nth]);
+	}
 	return (0);
 }
 
@@ -61,16 +71,31 @@ int	grab_fork(t_thread *thread, int left_fork, int right_fork)
 	t_shared	*shared;
 
 	shared = thread ->shared;
-	pthread_mutex_lock(&shared->fork[left_fork]);
-	thread->status = LEFT_FORK;
-	if (print_status(LEFT_FORK, thread) == -1)
-		return (-1);
-	pthread_mutex_lock(&shared->fork[right_fork]);
-	thread->status = RIGHT_FORK;
-	if (print_status(RIGHT_FORK, thread) == -1)
-		return (-1);
+	if (thread->philo_nth != shared->number_of_philos -1)
+	{
+		pthread_mutex_lock(&shared->fork[left_fork]);
+		thread->status = LEFT_FORK;
+		if (print_status(LEFT_FORK, thread) == -1)
+			return (-1);
+		pthread_mutex_lock(&shared->fork[right_fork]);
+		thread->status = RIGHT_FORK;
+		if (print_status(RIGHT_FORK, thread) == -1)
+			return (-1);
+	}
+	else
+	{
+		pthread_mutex_lock(&shared->fork[right_fork]);
+		thread->status = RIGHT_FORK;
+		if (print_status(RIGHT_FORK, thread) == -1)
+			return (-1);
+		pthread_mutex_lock(&shared->fork[left_fork]);
+		thread->status = LEFT_FORK;
+		if (print_status(LEFT_FORK, thread) == -1)
+			return (-1);
+	}
 	return (0);
 }
+
 
 int	check_eat_cnt(t_thread *thread)
 {

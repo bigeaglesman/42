@@ -6,7 +6,7 @@
 /*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:32:32 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/10 20:38:58 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/11 20:51:14 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int	check_philos(t_shared *shared)
 		i = 0;
 		while (i < shared->number_of_philos)
 		{
+			pthread_mutex_lock(&shared->eat_time_lock[i]);
 			last = shared->last_eat_time[i];
+			pthread_mutex_unlock(&shared->eat_time_lock[i]);
 			gettimeofday(&current, 0);
 			gap = (current.tv_sec - last.tv_sec) * 1000 + (current.tv_usec - last.tv_usec) / 1000;
 			if (gap > shared->time_to_die)
@@ -45,7 +47,7 @@ int	check_philos(t_shared *shared)
 				return (1);
 			pthread_mutex_unlock(&shared->eat_finish_lock);
 			// eat finish 확인
-			usleep(30);
+			usleep(40);
 		}
 	}
 	// TODO 계속 돌면서 철학자 상태 확인하기
