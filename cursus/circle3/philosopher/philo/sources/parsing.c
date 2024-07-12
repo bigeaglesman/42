@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:58:50 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/11 21:09:45 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/12 13:26:22 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 static int	set_arg(t_shared *shared, int num_arg, char **argv);
 static void	set_mutex(t_shared *shared);
 
-int	parsing_arg(t_shared *shared, int num_arg, char **argv)
+int	parsing_arg(t_shared *shared, int num_arg, char **av, long long st)
 {
 	int				i;
-	struct timeval	start;
 	int				arg_err;
 
 	if (num_arg == 4 || num_arg == 5)
 	{
-		arg_err = set_arg(shared, num_arg, argv);
+		arg_err = set_arg(shared, num_arg, av);
 		if (arg_err == -1)
 			return (-1);
 	}
@@ -31,11 +30,10 @@ int	parsing_arg(t_shared *shared, int num_arg, char **argv)
 		return (-1);
 	set_mutex(shared);
 	i = 0;
-	gettimeofday(&start, 0);
 	while (i < shared->number_of_philos)
 	{
 		pthread_mutex_lock(&shared->eat_time_lock[i]);
-		shared->last_eat_time[i] = start;
+		shared->last_eat_time[i] = st;
 		pthread_mutex_unlock(&shared->eat_time_lock[i]);
 		i++;
 	}
@@ -58,7 +56,7 @@ static int	set_arg(t_shared *shared, int num_arg, char **argv)
 		return (-1);
 	shared->die_flag = 0;
 	shared->eat_finish_philos = 0;
-	shared->last_eat_time = (struct timeval *)malloc(sizeof(pthread_mutex_t) * shared->number_of_philos);
+	shared->last_eat_time = (long long *)malloc(sizeof(long long) * shared->number_of_philos);
 	return (0);
 }
 

@@ -1,6 +1,6 @@
 NAME = philo
 cc = cc
-CFLAGS = -g -fsanitize=thread -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 
 HEADERS_DIR = ./includes/
@@ -14,7 +14,6 @@ INCLUDES = -I$(HEADERS_DIR)
 SRC_DIR = ./sources/
 SRCS_LIST = main.c\
 		action.c\
-		error.c\
 		utils.c\
 		parsing.c\
 		thread_status.c\

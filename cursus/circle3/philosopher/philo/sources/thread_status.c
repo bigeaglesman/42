@@ -3,36 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   thread_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:01:42 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/10 20:48:42 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/12 15:41:02 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+// 필로소퍼 -> 데이터레이스가 안나게 밥을 잘 맥여라 -> 기아상태
+// -> 데드락(교착상태) -> 상호배제된 거에 의해서 프로세스가 대기 상태로 죽는다. 
+// -> 라이브락 -> 프로세스가 대기는 안하는데 다른 프로세스가 사용 자원을 놓지 않아서 그냥 무한히 확인만 하다 뒤지는거
+// -> 이걸 해결할 떄 방법이 -> 효용, 무시, 예방(일부), 회피(대부분 사용)
+// -> 스레드가 시작할 때 홀수번째 철학자는 100us 걍 대기를 시켜버려
+// -> 포크를 잡는 순서를 다르게 한다.
+
+// 포크 flag -> 1 | 0 -> 스핀락 -> 뮤텍스에 의해서 프로세스 대기하진 않는다.
 
 static int	die_check(t_shared *shared);
 
-int	print_status(int action, t_thread *thread)
+int	print_status(int action, t_thread *thread) // -> 시간을 리턴값으로 뱉는다.
 {
 	char	*act_char[] = {"has taken a fork",
 		"has taken a fork", "is eating",
 		"is sleeping", "is thinking", "died"};
-	long long	time;
+	int	time;
 	t_shared	*shared;
-	struct		timeval tv;
 
-	gettimeofday(&tv, 0);
 	shared = thread->shared;
-	time = 1000 * tv.tv_sec + tv.tv_usec / 1000;
-	pthread_mutex_lock(&shared->print_lock);
+	pthread_mutex_lock(&shared->print_lock); // -> 순서를 보장안해줘..
 	if (die_check(shared))
 	{
-	 	pthread_mutex_unlock(&shared->print_lock);
+		pthread_mutex_unlock(&shared->print_lock);
 		return (-1);
 	}
-	printf("%lld %d %s\n", time, thread->philo_nth + 1, act_char[action]);
+	time = get_current_time() - thread->start;
+	printf("%d %d %s\n", time, thread->philo_nth + 1, act_char[action]);
 	pthread_mutex_unlock(&shared->print_lock);
 	return (0);
 }

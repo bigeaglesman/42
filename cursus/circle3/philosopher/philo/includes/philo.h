@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:03:06 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/10 23:13:01 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/12 15:19:49 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 typedef struct s_shared
 {
+	long long		start;
 	int				number_of_philos;
 	int				time_to_die;
 	int				time_to_eat;
@@ -37,7 +38,7 @@ typedef struct s_shared
 	int				min_eat_times;
 	int				eat_finish_philos;
 	int				die_flag;
-	struct timeval	*last_eat_time; //eattime에 각 스레드와 모니터링 스레드 모두 접근하므로 뮤텍스락 걸어줘야 함
+	long long		*last_eat_time;//eattime에 각 스레드와 모니터링 스레드 모두 접근하므로 뮤텍스락 걸어줘야 함
 	pthread_mutex_t	*eat_time_lock;
 	pthread_mutex_t	start_lock;
 	pthread_mutex_t	print_lock;
@@ -53,6 +54,7 @@ typedef struct s_thread
 	int	eat_cnt;
 	int	status;
 	int	right_fork;
+	long long	start;
 	// 자신의 상태 저장해 놨다가 나중에 자원 회수해야됨 
 	// 행동->상태 업데이트->프린트락 획득-> 다이플래그확인-> 다이플래그on->상태 확인하고 자원 회수
 	// status는 다른 스레드와 공유하지 않음-> 뮤텍스걸필요 없음
@@ -61,11 +63,13 @@ typedef struct s_thread
 	t_shared	*shared;
 }t_thread;
 
-int		ft_atoi(char *str);
-int		parsing_arg(t_shared *shared, int num_arg, char **argv);
-int		print_status(int action, t_thread *thread);
+int			ft_atoi(char *str);
+long long	get_current_time(void);
 
-int	check_philos(t_shared *shared);
+int	parsing_arg(t_shared *shared, int num_arg, char **av, long long st);
+int	print_status(int action, t_thread *thread);
+
+int	check_philos(t_shared *shared, long long start);
 
 int	philo_eating(t_thread *thread);
 int	philo_thinking(t_thread *thread);

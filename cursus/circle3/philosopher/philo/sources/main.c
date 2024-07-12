@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/11 21:18:59 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/12 14:08:17 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	set_threads(t_shared *shared, t_thread *threads);
+static void	set_threads(t_shared *shared, t_thread *threads, long long st);
 static void	join_threads(t_shared *shared);
 static void	free_memory(t_thread *threads);
 
@@ -20,22 +20,24 @@ int	main(int argc, char **argv)
 {
 	t_shared	*shared;
 	t_thread	*threads;
-	
+	long long	start;
+
+	start = get_current_time();
 	shared = (t_shared *)malloc(sizeof(t_shared));
-	if (parsing_arg(shared, argc - 1, argv) == -1)
+	if (parsing_arg(shared, argc - 1, argv, start) == -1)
 	{
 		printf ("arg error\n");
 		free(shared);
 		return (-1);
 	}
 	threads = (t_thread *)malloc(sizeof(t_thread)*shared->number_of_philos);
-	set_threads(shared, threads);
-	check_philos(shared);
+	set_threads(shared, threads, start);
+	check_philos(shared, start);
 	join_threads(shared);
 	free_memory(threads);
 }
 
-static void	set_threads(t_shared *shared, t_thread *threads)
+static void	set_threads(t_shared *shared, t_thread *threads, long long st)
 {
 	int			i;
 
@@ -46,6 +48,7 @@ static void	set_threads(t_shared *shared, t_thread *threads)
 		threads[i].eat_cnt = 0;
 		threads[i].philo_nth = i;
 		threads[i].shared = shared;
+		threads[i].start = st;
 		if (i == shared->number_of_philos - 1)
 			threads[i].right_fork = 0;
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 23:11:53 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/11 17:59:49 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/12 15:50:56 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ static void	return_fork(t_thread *thread)
 	t_shared	*shared;
 
 	shared = thread->shared;
-	if (thread->status == 0 || thread->status == 1)
-	{
+	if (thread->status == 0)
 		pthread_mutex_unlock(&shared->fork[thread->philo_nth]);
-		if (thread->status == 1)
-			pthread_mutex_unlock(&shared->fork[thread->right_fork]);
-	}
+	if (thread->status == 1)
+		pthread_mutex_unlock(&shared->fork[thread->right_fork]);
 }

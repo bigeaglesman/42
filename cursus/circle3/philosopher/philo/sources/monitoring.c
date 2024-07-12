@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:32:32 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/11 20:51:14 by youngho          ###   ########.fr       */
+/*   Updated: 2024/07/12 15:22:03 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_philos(t_shared *shared)
+int	check_philos(t_shared *shared, long long start)
 {
-	int	i;
-	struct timeval	current;
-	struct timeval	last;
-	int	gap;
-	long long		time;
+	int			i;
+	long long	last;
+	int			gap;
+	int			time;
+	int			sleep_time;
 
+	sleep_time = 9000 / shared->number_of_philos;
 	while (1)
 	{
 		i = 0;
@@ -28,18 +29,20 @@ int	check_philos(t_shared *shared)
 			pthread_mutex_lock(&shared->eat_time_lock[i]);
 			last = shared->last_eat_time[i];
 			pthread_mutex_unlock(&shared->eat_time_lock[i]);
-			gettimeofday(&current, 0);
-			gap = (current.tv_sec - last.tv_sec) * 1000 + (current.tv_usec - last.tv_usec) / 1000;
-			if (gap > shared->time_to_die)
+			if (last != -1)
 			{
-				pthread_mutex_lock(&shared->die_lock);
-				shared->die_flag = 1;
-				pthread_mutex_unlock(&shared->die_lock);
-				time = 1000 * current.tv_sec + current.tv_usec/1000;
-				pthread_mutex_lock(&shared->print_lock);
-				printf("%lld %d died\n", time, i+1);
-				pthread_mutex_unlock(&shared->print_lock);
-				return (0);
+				gap = get_current_time() - last;
+				if (gap > shared->time_to_die)
+				{
+					pthread_mutex_lock(&shared->print_lock);
+					pthread_mutex_lock(&shared->die_lock);
+					shared->die_flag = 1;
+					pthread_mutex_unlock(&shared->die_lock);
+					time = get_current_time() - start;
+					printf("%d %d died\n", time, i+1);
+					pthread_mutex_unlock(&shared->print_lock);
+					return (0);
+				}
 			}
 			// die check
 			pthread_mutex_lock(&shared->eat_finish_lock);
@@ -47,7 +50,8 @@ int	check_philos(t_shared *shared)
 				return (1);
 			pthread_mutex_unlock(&shared->eat_finish_lock);
 			// eat finish 확인
-			usleep(40);
+			i++;
+			usleep(sleep_time);
 		}
 	}
 	// TODO 계속 돌면서 철학자 상태 확인하기
