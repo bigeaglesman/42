@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:31:45 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/12 16:43:57 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/07/13 02:14:40 by youngho          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ int	philo_thinking(t_thread *thread)
 
 int	philo_eating(t_thread *thread)
 {
-	long long		start;
-	unsigned int	rest;
-	t_shared		*shared;
+	long long	start;
+	t_shared	*shared;
 
 	shared = thread->shared;
 	if (grab_fork(thread, thread->philo_nth, thread->right_fork) == -1)
@@ -36,12 +35,9 @@ int	philo_eating(t_thread *thread)
 	pthread_mutex_unlock(&shared->eat_time_lock[thread->philo_nth]);
 	if (print_status(EATING, thread) == -1)
 		return (-1);
-	rest = get_current_time() - start;
-	while (rest > 0)
-	{
+	usleep(800*shared->time_to_eat);
+	while (get_current_time() - start < shared->time_to_eat)
 		usleep(50);
-		rest -= 50;
-	}
 	// rest = shared->time_to_eat * 1000 - (1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_usec - start.tv_usec) / 1000);
 	// usleep(rest); // -> ㅇㅠ스ㄹ립을 크게 걸면 무조건 오차가 발생해서 1ms
 	// 여기 고쳐야됨 usleep은 시간이 보장이 안되서 최대한 잘게 넣는게 좋음 차라리 80프로까지는 크게주고 나머지를 잘게주는형식으로 하는게 좋을것
@@ -54,12 +50,16 @@ int	philo_eating(t_thread *thread)
 int	philo_sleeping(t_thread *thread)
 {
 	t_shared	*shared;
+	long long	start;
 
 	shared = thread->shared;
+	start = get_current_time();
 	thread->status = SLEEPING;
 	if (print_status(SLEEPING, thread) == -1)
 		return (-1);
-	// usleep(shared->time_to_sleep * 1000);
+	usleep(800*shared->time_to_sleep);
+	while (get_current_time() - start < shared->time_to_sleep)
+		usleep(50);
 	// 여기도 위의 usleep과 똑같음 while문 돌려야됨
 	return (0);
 }
@@ -72,6 +72,8 @@ int	grab_fork(t_thread *thread, int left_fork, int right_fork)
 	pthread_mutex_lock(&shared->fork[left_fork]);
 	thread->status = LEFT_FORK;
 	if (print_status(LEFT_FORK, thread) == -1)
+		return (-1);
+	if (shared->number_of_philos == 1)
 		return (-1);
 	pthread_mutex_lock(&shared->fork[right_fork]);
 	thread->status = RIGHT_FORK;
