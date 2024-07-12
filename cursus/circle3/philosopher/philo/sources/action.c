@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:31:45 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/12 16:31:39 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/07/12 16:43:57 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	philo_thinking(t_thread *thread)
 
 int	philo_eating(t_thread *thread)
 {
-	struct timeval	start;
-	struct timeval	mid;
+	long long		start;
 	unsigned int	rest;
 	t_shared		*shared;
 
@@ -31,13 +30,18 @@ int	philo_eating(t_thread *thread)
 	if (grab_fork(thread, thread->philo_nth, thread->right_fork) == -1)
 		return (-1);
 	thread->status = EATING;
-	gettimeofday(&start, 0);
+	start = get_current_time();
 	pthread_mutex_lock(&shared->eat_time_lock[thread->philo_nth]);
 	shared->last_eat_time[thread->philo_nth] = get_current_time();
 	pthread_mutex_unlock(&shared->eat_time_lock[thread->philo_nth]);
 	if (print_status(EATING, thread) == -1)
 		return (-1);
-	gettimeofday(&mid, 0);
+	rest = get_current_time() - start;
+	while (rest > 0)
+	{
+		usleep(50);
+		rest -= 50;
+	}
 	// rest = shared->time_to_eat * 1000 - (1000 * (mid.tv_sec - start.tv_sec) + (mid.tv_usec - start.tv_usec) / 1000);
 	// usleep(rest); // -> ㅇㅠ스ㄹ립을 크게 걸면 무조건 오차가 발생해서 1ms
 	// 여기 고쳐야됨 usleep은 시간이 보장이 안되서 최대한 잘게 넣는게 좋음 차라리 80프로까지는 크게주고 나머지를 잘게주는형식으로 하는게 좋을것

@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:32:32 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/12 15:22:03 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/07/12 16:40:58 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int	check_philos(t_shared *shared, long long start)
 	long long	last;
 	int			gap;
 	int			time;
-	int			sleep_time;
 
-	sleep_time = 9000 / shared->number_of_philos;
 	while (1)
 	{
 		i = 0;
@@ -51,7 +49,7 @@ int	check_philos(t_shared *shared, long long start)
 			pthread_mutex_unlock(&shared->eat_finish_lock);
 			// eat finish 확인
 			i++;
-			usleep(sleep_time);
+			usleep(100);
 		}
 	}
 	// TODO 계속 돌면서 철학자 상태 확인하기
