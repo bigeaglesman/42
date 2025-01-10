@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:58:50 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/12 13:26:22 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/09/02 17:14:57 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,35 +50,39 @@ static int	set_arg(t_shared *shared, int num_arg, char **argv)
 		shared->min_eat_times = ft_atoi(argv[5]);
 	else
 		shared->min_eat_times = -2;
-	if (shared->number_of_philos == -1 || shared->time_to_die == -1 ||
-		shared->time_to_eat == -1 || shared->time_to_sleep == -1 ||
-		shared->min_eat_times == -1)
+	if (shared->number_of_philos == -1 || shared->time_to_die == -1
+		|| shared->time_to_eat == -1 || shared->time_to_sleep == -1
+		|| shared->min_eat_times == -1)
 		return (-1);
 	shared->die_flag = 0;
 	shared->eat_finish_philos = 0;
-	shared->last_eat_time = (long long *)malloc(sizeof(long long) * shared->number_of_philos);
+	shared->last_eat_time = (long long *)malloc(sizeof(long long)
+			* shared->number_of_philos);
 	return (0);
 }
 
 static void	set_mutex(t_shared *shared)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	shared->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * shared->number_of_philos);
+	shared->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* shared->number_of_philos);
 	while (i < shared->number_of_philos)
 	{
 		pthread_mutex_init(&shared->fork[i], 0);
 		i++;
 	}
 	i = 0;
-	shared->eat_time_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * shared->number_of_philos);
+	shared->eat_time_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* shared->number_of_philos);
 	while (i < shared->number_of_philos)
 	{
 		pthread_mutex_init(&shared->eat_time_lock[i], 0);
 		i++;
 	}
-	shared->philo = (pthread_t *)malloc(sizeof(pthread_t) * shared->number_of_philos);
+	shared->philo = (pthread_t *)malloc(sizeof(pthread_t)
+			* shared->number_of_philos);
 	pthread_mutex_init(&shared->start_lock, 0);
 	pthread_mutex_init(&shared->print_lock, 0);
 	pthread_mutex_init(&shared->die_lock, 0);

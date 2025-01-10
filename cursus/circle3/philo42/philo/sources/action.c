@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:31:45 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/13 14:48:56 by youngho          ###   ########.fr       */
+/*   Updated: 2024/09/02 17:19:06 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	philo_eating(t_thread *thread)
 	pthread_mutex_unlock(&shared->eat_time_lock[thread->philo_nth]);
 	if (print_status(EATING, thread) == -1)
 		return (-1);
-	usleep(800*shared->time_to_eat);
+	usleep(800 * shared->time_to_eat);
 	while (get_current_time() - start < shared->time_to_eat)
 		usleep(50);
 	thread->eat_cnt++;
@@ -54,7 +54,7 @@ int	philo_sleeping(t_thread *thread)
 	thread->status = SLEEPING;
 	if (print_status(SLEEPING, thread) == -1)
 		return (-1);
-	usleep(800*shared->time_to_sleep);
+	usleep(800 * shared->time_to_sleep);
 	while (get_current_time() - start < shared->time_to_sleep)
 		usleep(50);
 	return (0);
@@ -77,7 +77,6 @@ int	grab_fork(t_thread *thread, int left_fork, int right_fork)
 		return (-1);
 	return (0);
 }
-
 
 int	check_eat_cnt(t_thread *thread)
 {

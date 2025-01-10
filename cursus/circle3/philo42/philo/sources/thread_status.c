@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:01:42 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/13 14:48:53 by youngho          ###   ########.fr       */
+/*   Updated: 2024/09/02 17:17:10 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static int	die_check(t_shared *shared);
 
 int	print_status(int action, t_thread *thread)
 {
-	char	*act_char[] = {"has taken a fork",
+	const char	*act_char[] = {"has taken a fork",
 		"has taken a fork", "is eating",
 		"is sleeping", "is thinking", "died"};
-	int	time;
+	int			time;
 	t_shared	*shared;
 
 	shared = thread->shared;

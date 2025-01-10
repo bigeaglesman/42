@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youngho <youngho@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 20:32:32 by youngho           #+#    #+#             */
-/*   Updated: 2024/07/13 14:48:55 by youngho          ###   ########.fr       */
+/*   Updated: 2024/09/02 17:12:24 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_philos(t_shared *shared, long long start)
 					shared->die_flag = 1;
 					pthread_mutex_unlock(&shared->die_lock);
 					time = get_current_time() - start;
-					printf("%d %d died\n", time, i+1);
+					printf("%d %d died\n", time, i + 1);
 					pthread_mutex_unlock(&shared->print_lock);
 					return (0);
 				}

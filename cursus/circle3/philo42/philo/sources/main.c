@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:29:53 by ycho2             #+#    #+#             */
-/*   Updated: 2024/07/12 14:08:17 by ycho2            ###   ########.fr       */
+/*   Updated: 2024/09/02 17:12:09 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		free(shared);
 		return (-1);
 	}
-	threads = (t_thread *)malloc(sizeof(t_thread)*shared->number_of_philos);
+	threads = (t_thread *)malloc(sizeof(t_thread) * shared->number_of_philos);
 	set_threads(shared, threads, start);
 	check_philos(shared, start);
 	join_threads(shared);
@@ -39,9 +39,9 @@ int	main(int argc, char **argv)
 
 static void	set_threads(t_shared *shared, t_thread *threads, long long st)
 {
-	int			i;
+	int	i;
 
-	i = 0; 
+	i = 0;
 	pthread_mutex_lock(&shared->start_lock);
 	while (i < shared->number_of_philos)
 	{
@@ -55,7 +55,7 @@ static void	set_threads(t_shared *shared, t_thread *threads, long long st)
 			threads[i].right_fork = i + 1;
 		pthread_create(&shared->philo[i], 0, (void *)&thread_func, &threads[i]);
 		i++;
-	} 
+	}
 	pthread_mutex_unlock(&shared->start_lock);
 }
 
