@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/10 18:04:37 by ycho2            ###   ########.fr        #
+#    Updated: 2025/01/13 11:48:58 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ RM = rm -rf
 HEADER = phonebook.hpp\
 	contact.hpp
 SRC = phonebook.cpp\
-	contact.cpp
+	contact.cpp\
+	main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 NAME = phonebook
