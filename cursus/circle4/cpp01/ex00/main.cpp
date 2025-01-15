@@ -5,37 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 18:41:49 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/15 14:30:53 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/15 14:36:46 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/15 19:30:50 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
-#include "Contact.hpp"
+#include "Zombie.hpp"
 
-int main(void)
+int	main(void)
 {
-	PhoneBook phoneBook;
-	std::string command;
-
-	while(true)
-	{
-		std::cout<<"Please input command ADD, SEARCH, EXIT"<<std::endl;
-		std::cout<<"Enter command: ";
-		if (!std::getline(std::cin, command))
-			return (1);
-		if (command.compare("ADD") == 0)
-		{
-			phoneBook.addContact();
-		}
-		else if (command.compare("SEARCH") == 0)
-		{
-			phoneBook.searchContact();
-		}
-		else if (command.compare("EXIT") == 0)
-			break ;
-		else
-			std::cout<<"Wrong command"<<std::endl;
-	}
-	return (0);
+	Zombie stackZom1("stackZom1");
+	Zombie* heapZom = newZombie("heapZom");
+	heapZom->announce();
+	delete(heapZom);
+	randomChump("stackZom2");
+	return(0);
 }

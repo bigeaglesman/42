@@ -5,37 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 18:41:49 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/15 14:30:53 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/15 20:28:21 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/15 20:36:11 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
-#include "Contact.hpp"
+#include "Zombie.hpp"
 
 int main(void)
 {
-	PhoneBook phoneBook;
-	std::string command;
-
-	while(true)
-	{
-		std::cout<<"Please input command ADD, SEARCH, EXIT"<<std::endl;
-		std::cout<<"Enter command: ";
-		if (!std::getline(std::cin, command))
-			return (1);
-		if (command.compare("ADD") == 0)
-		{
-			phoneBook.addContact();
-		}
-		else if (command.compare("SEARCH") == 0)
-		{
-			phoneBook.searchContact();
-		}
-		else if (command.compare("EXIT") == 0)
-			break ;
-		else
-			std::cout<<"Wrong command"<<std::endl;
-	}
+	Zombie* zomHorde1 = zombieHorde(3, "ZOM1");
+	delete[] zomHorde1;
+	Zombie* zomHorde2 = zombieHorde(7, "ZOM2");
+	delete[] zomHorde2;
 	return (0);
 }

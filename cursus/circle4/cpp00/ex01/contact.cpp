@@ -6,11 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:40:22 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/13 10:02:27 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/15 14:29:18 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "contact.hpp"
+#include "Contact.hpp"
 
 Contact::Contact()
 {

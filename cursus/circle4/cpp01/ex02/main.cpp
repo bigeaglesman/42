@@ -5,37 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 18:41:49 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/15 14:30:53 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/15 20:47:54 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/15 21:18:00 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
-#include "Contact.hpp"
+#include <iostream>
+#include <string>
 
 int main(void)
 {
-	PhoneBook phoneBook;
-	std::string command;
-
-	while(true)
-	{
-		std::cout<<"Please input command ADD, SEARCH, EXIT"<<std::endl;
-		std::cout<<"Enter command: ";
-		if (!std::getline(std::cin, command))
-			return (1);
-		if (command.compare("ADD") == 0)
-		{
-			phoneBook.addContact();
-		}
-		else if (command.compare("SEARCH") == 0)
-		{
-			phoneBook.searchContact();
-		}
-		else if (command.compare("EXIT") == 0)
-			break ;
-		else
-			std::cout<<"Wrong command"<<std::endl;
-	}
-	return (0);
+	std::string	str = "HI THIS IS BRAIN";
+	std::string	*stringPTR = &str;
+	std::string	&stringREF = str;
+	
+	std::cout<<"string address:		"<<&str<<std::endl;
+	std::cout<<"stringPTR address:	"<<stringPTR<<std::endl;
+	std::cout<<"stringREF address:	"<<&stringREF<<std::endl;
+	std::cout<<std::endl;
+	std::cout<<"string value:		"<<str<<std::endl;
+	std::cout<<"stringPTR value:	"<<*stringPTR<<std::endl;
+	std::cout<<"stringREF value:	"<<stringREF<<std::endl;
 }

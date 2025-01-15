@@ -6,11 +6,11 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 18:04:50 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/13 11:49:22 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/15 14:30:51 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 PhoneBook::PhoneBook()
 {
@@ -66,11 +66,19 @@ void		PhoneBook::addContact()
 	phone_num = getInput("Input phone num: ");
 	secret = getInput("Input secret: ");
 	if ((add_index = getNumContact()) == MAX_CONTACT)
-		add_index = getOldestContact();
-	contact_list[add_index] =
+	{
+		contact_list[getOldestContact()] =
 		Contact(first_name, last_name, nick_name,
 		phone_num, secret);
-	_num_contact++;
+	}
+	else
+	{
+		contact_list[add_index] =
+		Contact(first_name, last_name, nick_name,
+		phone_num, secret);
+		_num_contact++;
+	}
+
 }
 
 void		PhoneBook::printText(std::string text, bool newline)
@@ -91,13 +99,15 @@ void		PhoneBook::printText(std::string text, bool newline)
 void		PhoneBook::printTitles()
 {
 	printText("INDEX", false);
-	printText("FIRST NAME",false);
-	printText("LAST NAME", false);
+	printText("FIRSTNAME",false);
+	printText("LASTNAME", false);
 	printText("NICKNAME", true);
 }
 
 void		PhoneBook::searchContact()
 {
+	int index;
+
 	printTitles();
 	for (int i = 0; i < _num_contact; i++)
 	{
@@ -106,4 +116,18 @@ void		PhoneBook::searchContact()
 		printText(contact_list[i].getLastName(), false);
 		printText(contact_list[i].getNickName(), true);
 	}
+	while (true)
+	{
+		index = atoi(getInput("Input Index: ").c_str());
+		if (index >= 1 && index <= getNumContact())
+			break ;
+		else
+			std::cout<<"Invalid Index"<<std::endl;
+	}
+	index--;
+	std::cout<<"FirstName: "<<contact_list[index].getFirstName()<<std::endl;
+	std::cout<<"LastName: "<<contact_list[index].getLastName()<<std::endl;
+	std::cout<<"NickName: "<<contact_list[index].getNickName()<<std::endl;
+	std::cout<<"PhoneName: "<<contact_list[index].getPhoneNum()<<std::endl;
+	std::cout<<"Secret: "<<contact_list[index].getSecret()<<std::endl;
 }
