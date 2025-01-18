@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 22:07:02 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/17 19:12:18 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/18 23:00:27 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/18 23:10:49 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WEAPON_HPP
-# define WEAPON_HPP
+#include "Harl.hpp"
 
-# include <string>
-
-class Weapon
+int main(void)
 {
-private:
-	std::string	_type;
-public:
-	Weapon();
-	Weapon(std::string type);
-	~Weapon();
-	const std::string	&getType();
-	void				setType(std::string type);
-};
-#endif
+	Harl harl;
+	std::cout<<"DEBUG: ";
+	harl.complain("DEBUG");
+	std::cout<<"INFO: ";
+	harl.complain("INFO");
+	std::cout<<"WARNING: ";
+	harl.complain("WARNING");
+	std::cout<<"ERROR: ";
+	harl.complain("ERROR");
+}

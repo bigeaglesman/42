@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/17 18:35:01 by ycho2            ###   ########.fr        #
+#    Updated: 2025/01/19 04:12:46 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,11 @@ FLAG = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 
 SRC = main.cpp\
-	HumanA.cpp\
-	HumanB.cpp\
-	Weapon.cpp
-
-HEADER = HumanA.hpp\
-		HumanB.hpp\
-		Weapon.hpp
+	Fixed.cpp
+HEADER = Fixed.hpp
 
 OBJ = $(SRC:.cpp=.o)
-NAME = Unnecessary_violence
+NAME = ex00
 
 all: $(NAME)
 
