@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 04:14:54 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/19 11:30:46 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/19 11:31:31 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/19 11:57:03 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ class Fixed
 		~Fixed();
 		Fixed(const Fixed& original);
 		Fixed& operator=(const Fixed& original);
+		Fixed& operator>(const Fixed& original);
+		Fixed& operator<(const Fixed& original);
+		Fixed& operator>=(const Fixed& original);
+		Fixed& operator<=(const Fixed& original);
+		Fixed& operator==(const Fixed& original);
+		Fixed& operator!=(const Fixed& original);
+		Fixed& operator+(const Fixed& original);
+		Fixed& operator-(const Fixed& original);
+		Fixed& operator*(const Fixed& original);
+		Fixed& operator/(const Fixed& original);
 		int getRawBits(void) const;
 		void setRawBits(int const raw);
 		float toFloat(void) const;
