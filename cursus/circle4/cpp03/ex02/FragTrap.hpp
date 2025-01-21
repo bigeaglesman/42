@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 11:47:14 by ycho              #+#    #+#             */
-/*   Updated: 2025/01/21 14:49:05 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/21 20:41:35 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/21 21:00:52 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FRAGTRAP_HPP
+# define FRAGTRAP_HPP
+
 #include "ClapTrap.hpp"
 
-int main(void)
+class FragTrap : public ClapTrap
 {
-	ClapTrap ct1("ct1");
-	ClapTrap ct2("ct2");
-	ClapTrap ct1_copy(ct1);
-	ClapTrap ct2_copy;
+	public:
+		FragTrap();
+		FragTrap(const std::string name);
+		FragTrap(const FragTrap& original);
+		~FragTrap();
+		FragTrap& operator=(const FragTrap& original);
+		void highFivesGuys(void);
+};
 
-	ct2_copy = ct2;
-	ct1.attack("ct2");
-	ct2.takeDamage(5);
-	ct2.beRepaired(1);
-	ct2.takeDamage(10);
-	ct2.beRepaired(5);
-	for (int i = 0; i < 10; i++)
-		ct1.attack("ct2");
-	return (0);
-}
+#endif

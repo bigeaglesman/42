@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 11:47:11 by ycho              #+#    #+#             */
-/*   Updated: 2025/01/21 17:19:37 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/21 17:19:54 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ class ClapTrap
 		int getHitPoints() const;
 		int getEnergyPoint() const;
 		int getAttackDamage() const;
+		void setName(const std::string newName);
+		void setHitPoint(const int newHp);
+		void setEnergyPoint(const int newEp);
+		void setAttackDamage(const int newAd);
 		ClapTrap& operator=(const ClapTrap& original);
 		void attack(const std::string& target);
 		void takeDamage(unsigned int amount);

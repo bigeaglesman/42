@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 11:47:14 by ycho              #+#    #+#             */
-/*   Updated: 2025/01/21 14:49:05 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/21 14:57:35 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/21 18:21:35 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SCAVTRAP_HPP
+# define SCAVTRAP_HPP
+
 #include "ClapTrap.hpp"
 
-int main(void)
+class ScavTrap : public ClapTrap
 {
-	ClapTrap ct1("ct1");
-	ClapTrap ct2("ct2");
-	ClapTrap ct1_copy(ct1);
-	ClapTrap ct2_copy;
+	public:
+		ScavTrap();
+		ScavTrap(const std::string name);
+		ScavTrap(const ScavTrap& original);
+		~ScavTrap();
+		ScavTrap& operator=(const ScavTrap& original);
+		void attack(const std::string& target);
+		void guardGate();
+};
 
-	ct2_copy = ct2;
-	ct1.attack("ct2");
-	ct2.takeDamage(5);
-	ct2.beRepaired(1);
-	ct2.takeDamage(10);
-	ct2.beRepaired(5);
-	for (int i = 0; i < 10; i++)
-		ct1.attack("ct2");
-	return (0);
-}
+#endif
