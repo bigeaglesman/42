@@ -1,45 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 02:04:29 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/24 13:39:10 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/24 15:00:47 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/24 15:04:19 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "WrongCat.hpp"
 
-Dog::Dog()
+WrongCat::WrongCat()
 {
-	_type = "Dog";
-	std::cout<<"Dog default constructor called"<<std::endl;
+	_type = "WrongCat";
+	std::cout<<"WrongCat default constructor called"<<std::endl;
 }
 
-Dog::Dog(const Dog& original)
+WrongCat::WrongCat(const WrongCat& original)
 {
-	std::cout<<"Dog copy constructor called"<<std::endl;
+	std::cout<<"WrongCat copy constructor called"<<std::endl;
 	*this = original;
 }
 
-Dog::~Dog()
+WrongCat::~WrongCat()
 {
-	std::cout<<"Dog destructor called"<<std::endl;
+	std::cout<<"WrongCat destructor called"<<std::endl;
 }
 
-
-Dog& Dog::operator=(const Dog& original)
+WrongCat& WrongCat::operator=(const WrongCat& original)
 {
-	std::cout<<"Dog copy assignment operator called"<<std::endl;
+	std::cout<<"WrongCat copy assignment operator called"<<std::endl;
 	if (this == &original)
 		return (*this);
 	this->_type = original._type;
 	return (*this);
 }
 
-void Dog::makeSound(void) const
+
+void WrongCat::makeSound(void) const
 {
-	std::cout<<"Dog make sound: BARK BARK"<<std::endl;
+	std::cout<<"WrongCat make sound: WEOM WEOM"<<std::endl;
 }

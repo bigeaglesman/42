@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 00:11:20 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/22 02:12:00 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/24 22:55:31 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <string>
 # include <iostream>
+# include "Brain.hpp"
 
 class Animal
 {
@@ -23,11 +24,12 @@ class Animal
 	public:
 		Animal();
 		Animal(const Animal& original);
-		~Animal();
+		virtual ~Animal();
 
 		Animal& operator=(const Animal& original);
 
-		void makeSound(void);
+		virtual void makeSound(void) const;
+		std::string getType(void) const;
 };
 
 #endif

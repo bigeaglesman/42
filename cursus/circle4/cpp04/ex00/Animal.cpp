@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 02:04:53 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/22 02:34:27 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/24 23:00:14 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ Animal& Animal::operator=(const Animal& original)
 	return (*this);
 }
 
-void Animal::makeSound(void)
+void Animal::makeSound(void) const
 {
-	std::cout<<"Animal make sound: HI"<<std::endl;
+	// std::cout<<"Animal make sound: HI HI"<<std::endl;
+}
+
+std::string Animal::getType(void) const
+{
+	return (this->_type);
 }

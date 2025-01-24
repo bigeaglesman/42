@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/22 02:24:24 by ycho2            ###   ########.fr        #
+#    Updated: 2025/01/24 15:07:20 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,14 @@ RM = rm -rf
 SRC = Animal.cpp\
 	Dog.cpp\
 	Cat.cpp\
+	WrongAnimal.cpp\
+	WrongCat.cpp\
 	main.cpp
 HEADER = Animal.hpp\
 	Dog.hpp\
 	Cat.hpp\
+	WrongAnimal.hpp\
+	WrongCat.hpp\
 	main.hpp
 
 OBJ = $(SRC:.cpp=.o)

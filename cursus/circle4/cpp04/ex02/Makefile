@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/24 15:20:48 by ycho2            ###   ########.fr        #
+#    Updated: 2025/01/24 22:47:07 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ HEADER = Animal.hpp\
 	main.hpp
 
 OBJ = $(SRC:.cpp=.o)
-NAME = ex01
+NAME = ex02
 
 all: $(NAME)
 
