@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 02:04:53 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/24 23:00:26 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/26 18:45:02 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ Animal::Animal() : _type("Animal")
 
 Animal::Animal(const Animal& original)
 {
-	std::cout<<"Animal copy constructor called"<<std::endl;
 	*this = original;
+	std::cout<<"Animal copy constructor called"<<std::endl;
 }
 
 Animal::~Animal()
