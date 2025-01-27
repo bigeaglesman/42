@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 23:28:37 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/26 23:53:51 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/27 10:22:05 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ ICharacter::ICharacter()
 
 ICharacter::ICharacter(const std::string name)
 {
-	this->_name = name;
 	std::cout<<"ICharacter name parameter constructor called"<<std::endl;
 }
 
 ICharacter::ICharacter(const ICharacter& original)
 {
-	*this = original;
 	std::cout<<"ICharacter copy constructor called"<<std::endl;
 }
 
@@ -37,7 +35,4 @@ ICharacter::~ICharacter()
 ICharacter& ICharacter::operator=(const ICharacter& original)
 {
 	std::cout<<"ICharacter copy assignment operator called"<<std::endl;
-	if (this != &original)
-		this->_name = original.getName();
-	return (*this);
 }

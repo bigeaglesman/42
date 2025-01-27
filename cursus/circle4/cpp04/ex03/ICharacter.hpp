@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:40:59 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/26 18:17:57 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/27 10:26:17 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ class AMateria;
 
 class ICharacter
 {
-	protected:
-		std::string _name;
 	public:
 		ICharacter();
 		ICharacter(const std::string name);
