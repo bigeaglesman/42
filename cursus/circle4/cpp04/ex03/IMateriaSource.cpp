@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ICharacter.cpp                                     :+:      :+:    :+:   */
+/*   IMateriaSource.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 23:28:37 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/30 20:50:37 by ycho2            ###   ########.fr       */
+/*   Created: 2025/01/30 17:23:13 by ycho2             #+#    #+#             */
+/*   Updated: 2025/01/30 22:48:05 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ICharacter.hpp"
+#include "IMateriaSource.hpp"
 
-ICharacter::ICharacter()
+IMateriaSource::IMateriaSource()
 {
-	std::cout<<"ICharacter default constructor called"<<std::endl;
+	std::cout<<"IMateriaSource default constructor called"<<std::endl;
 }
 
-ICharacter::~ICharacter()
+IMateriaSource::~IMateriaSource()
 {
-	std::cout<<"ICharacter destructor called"<<std::endl;
+	std::cout<<"IMateriaSource destructor called"<<std::endl;
 }
-
