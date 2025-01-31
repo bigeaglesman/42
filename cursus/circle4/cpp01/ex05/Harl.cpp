@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 20:13:02 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/18 23:11:22 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/31 01:58:30 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ Harl::~Harl()
 void Harl::complain(std::string level)
 {
 
-	void (Harl::*fun_ptr[4])() = {
+	void (Harl::*fun_ptr[4])() = 
+	{
 		&Harl::_debug,
 		&Harl::_warning,
 		&Harl::_info,
 		&Harl::_error
-		};
-	std::string fun_str[4] = {
+	};
+	std::string fun_str[4] = 
+	{
 		"DEBUG", "INFO", "WARNING", "ERROR"
-		};
+	};
 	for (int i = 0; i < 4; i++)
 	{
 		if (level == fun_str[i])

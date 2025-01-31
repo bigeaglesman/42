@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:37:47 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/15 18:05:44 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/31 00:50:31 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define ZOMBIE_HPP
 
 #include <iostream>
-#include <string>
 
 class	Zombie
 {

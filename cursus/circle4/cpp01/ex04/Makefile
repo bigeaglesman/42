@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/18 18:30:13 by ycho2            ###   ########.fr        #
+#    Updated: 2025/01/31 01:47:35 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RM = rm -rf
 SRC = main.cpp
 
 OBJ = $(SRC:.cpp=.o)
-NAME = Sed_is_for_losers
+NAME = ex04
 
 all: $(NAME)
 

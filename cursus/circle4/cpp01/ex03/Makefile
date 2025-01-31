@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/17 18:35:01 by ycho2            ###   ########.fr        #
+#    Updated: 2025/01/31 01:37:34 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,8 @@ SRC = main.cpp\
 	HumanB.cpp\
 	Weapon.cpp
 
-HEADER = HumanA.hpp\
-		HumanB.hpp\
-		Weapon.hpp
-
 OBJ = $(SRC:.cpp=.o)
-NAME = Unnecessary_violence
+NAME = ex03
 
 all: $(NAME)
 

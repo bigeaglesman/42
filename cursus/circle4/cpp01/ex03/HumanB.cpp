@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:54:04 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/17 22:17:11 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/01/31 01:44:43 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ HumanB::HumanB(std::string name)
 }
 HumanB::~HumanB()
 {
-
 }
 
 void	HumanB::attack()

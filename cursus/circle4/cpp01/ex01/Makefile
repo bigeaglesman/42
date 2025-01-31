@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/15 20:35:15 by ycho2            ###   ########.fr        #
+#    Updated: 2025/01/31 01:24:57 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,12 @@ C++ = c++
 FLAG = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 
-HEADER = Zombie.hpp
-
 SRC = Zombie.cpp\
 	ZombieHorde.cpp\
 	main.cpp
 
 OBJ = $(SRC:.cpp=.o)
-NAME = Moar_brainz
+NAME = ex01
 
 all: $(NAME)
 

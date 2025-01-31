@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/15 19:36:19 by ycho2            ###   ########.fr        #
+#    Updated: 2025/01/31 00:41:09 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = Zombie.cpp\
 	main.cpp
 
 OBJ = $(SRC:.cpp=.o)
-NAME = BraiiiiiiinnnzzzZ
+NAME = ex00
 
 all: $(NAME)
 
