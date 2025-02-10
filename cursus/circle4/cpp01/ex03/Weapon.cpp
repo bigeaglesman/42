@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:20:35 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/17 19:12:41 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/10 15:21:44 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ Weapon::Weapon()
 
 Weapon::Weapon(std::string type)
 {
-	_type = type;
+	this->_type = type;
 }
 
 Weapon::~Weapon()
 {
 }
-const std::string	&Weapon::getType()
+const std::string &Weapon::getType() const
 {
-	return (_type);
+	return (this->_type);
 }
 
-void				Weapon::setType(std::string type)
+void Weapon::setType(std::string type)
 {
-	_type = type;
+	this->_type = type;
 }

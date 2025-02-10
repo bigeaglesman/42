@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:00:27 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/18 23:10:49 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/10 15:33:44 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ int main(void)
 	harl.complain("WARNING");
 	std::cout<<"ERROR: ";
 	harl.complain("ERROR");
+	return (0);
 }

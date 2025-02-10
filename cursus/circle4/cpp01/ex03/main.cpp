@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:20:11 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/31 01:41:37 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/10 15:30:10 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 #include "HumanB.hpp"
 #include "Weapon.hpp"
 
-// void leaks()
-// {
-//     system("leaks ex03");
-// }
-
 int main()
 {
-  // atexit(leaks);
   {
     Weapon club = Weapon("crude spiked club");
     HumanA bob("Bob", club);
