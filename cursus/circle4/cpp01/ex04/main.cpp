@@ -45,13 +45,8 @@ int main(int argc, char** argv)
 		if (out_file.is_open())
 		{
 			std::string line;
-			int startFlag = 0;
 			while (std::getline(in_file, line))
 			{
-				if (startFlag)
-					out_file<<std::endl;
-				else
-					startFlag = 1;
 				size_t pos = 0;
 				while ((pos = line.find(s1, pos)) != std::string::npos)
 				{
