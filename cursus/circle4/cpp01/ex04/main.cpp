@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:20:17 by ycho2             #+#    #+#             */
-/*   Updated: 2025/02/10 16:59:21 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/12 11:58:15 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 
 int main(int argc, char** argv)
 {
-	if (argc != 4 || std::strlen(argv[1]) == 0
-		|| std::strlen(argv[2]) == 0 || std::strlen(argv[3]) == 0)
+	if (argc != 4)
 	{
 		std::cout<<"Wrong Argument"<<std::endl;
+		return (1);
+	}
+
+	std::string av1 = argv[1];
+	std::string av2 = argv[2];
+	std::string av3 = argv[3];
+	if (av1.length() == 0 || av2.length() == 0|| av3.length() == 0)
+	{
+		std::cout<<"argv length 0"<<std::endl;
 		return (1);
 	}
 	std::ifstream inFile(argv[1]);
@@ -30,7 +38,7 @@ int main(int argc, char** argv)
 	}
 	else
 	{
-		std::ofstream outFile(std::string(argv[1]).append(".replace"));
+		std::ofstream outFile((std::string(argv[1]).append(".replace")).c_str());
 		if (outFile.is_open())
 		{
 			std::string line;
