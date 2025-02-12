@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:20:17 by ycho2             #+#    #+#             */
-/*   Updated: 2025/02/12 11:58:15 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/12 12:38:02 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,51 +21,58 @@ int main(int argc, char** argv)
 		return (1);
 	}
 
-	std::string av1 = argv[1];
-	std::string av2 = argv[2];
-	std::string av3 = argv[3];
-	if (av1.length() == 0 || av2.length() == 0|| av3.length() == 0)
+	std::string filename = argv[1];
+	std::string s1 = argv[2];
+	std::string s2 = argv[3];
+	int s1_len = s1.length();
+	int s2_len = s2.length();
+	int filename_len = filename.length();
+	if (filename_len == 0 || s1_len == 0|| s2_len == 0)
 	{
 		std::cout<<"argv length 0"<<std::endl;
 		return (1);
 	}
-	std::ifstream inFile(argv[1]);
+	std::ifstream in_file(argv[1]);
 	
-	if (!inFile.is_open())
+	if (!in_file.is_open())
 	{
 		std::cout<<"Unable to open file"<<std::endl;
 		return (1);
 	}
 	else
 	{
-		std::ofstream outFile((std::string(argv[1]).append(".replace")).c_str());
-		if (outFile.is_open())
+		std::ofstream out_file((std::string(argv[1]).append(".replace")).c_str());
+		if (out_file.is_open())
 		{
 			std::string line;
-			std::string s1 = std::string(argv[2]);
-			int s1Len = s1.length();
-			std::string s2 = std::string(argv[3]);
 			int startFlag = 0;
-			while (std::getline(inFile, line))
+			while (std::getline(in_file, line))
 			{
 				if (startFlag)
-					outFile<<std::endl;
+					out_file<<std::endl;
 				else
 					startFlag = 1;
 				size_t pos = 0;
-				std::string newLine;
-				int lineIndex = 0;
-				while ((pos = line.find(s1, lineIndex)) != std::string::npos)
+				while ((pos = line.find(s1, pos)) != std::string::npos)
 				{
-					newLine += line.substr(lineIndex, pos - lineIndex);
-					lineIndex = pos + s1Len;
-					newLine += s2;
+					line.erase(pos, s1_len);
+					line.insert(pos, s2);
+					pos += s2_len;
 				}
-				newLine += line.substr(lineIndex, line.length() - lineIndex +1);
-				outFile<<newLine;
+				out_file<<line;
+				if (in_file.eof())
+					break;
+				out_file<<std::endl;
 			}
-			outFile.close();
+			out_file.close();
+		}
+		else
+		{
+			std::cout<<"out_file open error"<<std::endl;
+			in_file.close();
+			return (1);
 		}
 	}
-	inFile.close();
+	in_file.close();
+	return (0);
 }
