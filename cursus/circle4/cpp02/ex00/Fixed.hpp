@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 23:30:56 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/19 03:18:37 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/14 14:14:28 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ class Fixed
 {
 	private:
 		int _value;
-		static const int _bits = 8;
+		static const int _1bits = 8;
 	public:
 		Fixed();
 		~Fixed();

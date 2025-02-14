@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycho <ycho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 11:31:31 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/20 11:13:38 by ycho             ###   ########.fr       */
+/*   Updated: 2025/02/14 21:16:50 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ class Fixed
 		Fixed operator*(const Fixed& other) const;
 		Fixed operator/(const Fixed& other) const;
 
-		Fixed operator++(void); // 전위
-		Fixed operator--(void);
-		Fixed operator++(int); // 후위
-		Fixed operator--(int);
+		Fixed& operator++(void); // 전위
+		Fixed& operator--(void);
+		const Fixed operator++(int); // 후위
+		const Fixed operator--(int);
 
 		static Fixed& min(Fixed& a, Fixed& b);
 		static const Fixed& min(const Fixed& a, const Fixed& b);

@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/19 04:12:46 by ycho2            ###   ########.fr        #
+#    Updated: 2025/02/14 13:46:48 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ RM = rm -rf
 
 SRC = main.cpp\
 	Fixed.cpp
-HEADER = Fixed.hpp
 
 OBJ = $(SRC:.cpp=.o)
 NAME = ex00
