@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 05:32:16 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/19 05:32:41 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/14 22:43:43 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int main( void ) {
   std::cout << "b is " << b.toInt() << " as integer" << std::endl;
   std::cout << "c is " << c.toInt() << " as integer" << std::endl;
   std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+  std::cout << "a is " << a.toFloat() << " as float" << std::endl;
+  std::cout << "b is " << b.toFloat() << " as float" << std::endl;
+  std::cout << "c is " << c.toFloat() << " as float" << std::endl;
+  std::cout << "d is " << d.toFloat() << " as float" << std::endl;
 
   return 0;
 }
