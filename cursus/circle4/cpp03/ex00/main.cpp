@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 11:47:14 by ycho              #+#    #+#             */
-/*   Updated: 2025/01/21 14:49:05 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:34:10 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ int main(void)
 	ClapTrap ct1("ct1");
 	ClapTrap ct2("ct2");
 	ClapTrap ct1_copy(ct1);
-	ClapTrap ct2_copy;
 
-	ct2_copy = ct2;
 	ct1.attack("ct2");
 	ct2.takeDamage(5);
 	ct2.beRepaired(1);

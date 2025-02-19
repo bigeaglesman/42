@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 11:47:14 by ycho              #+#    #+#             */
-/*   Updated: 2025/01/21 22:35:46 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:40:15 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int main(void)
 	ClapTrap ct1("ct1");
 	ClapTrap ct2("ct2");
 	ClapTrap ct1_copy(ct1);
-	ClapTrap ct2_copy;
 
-	ct2_copy = ct2;
 	ct1.attack("ct2");
 	ct2.takeDamage(5);
 	ct2.beRepaired(1);
@@ -38,8 +36,6 @@ int main(void)
 	ScavTrap st1("st1");
 	ScavTrap st2("st2");
 	ScavTrap st1_copy(st1);
-	ScavTrap st2_copy;
-	st2_copy = st2;
 	st1.attack("st2");
 	st2.takeDamage(5);
 	st2.beRepaired(1);
@@ -55,15 +51,15 @@ int main(void)
 	FragTrap ft1("ft1");
 	FragTrap ft2("ft2");
 	FragTrap ft1_copy(ft1);
-	FragTrap ft2_copy;
-	ft2_copy = ft2;
 	ft1.attack("ft2");
-	ft2.takeDamage(5);
+	ft2.takeDamage(30);
 	ft2.beRepaired(1);
-	ft2.takeDamage(10);
 	ft2.beRepaired(5);
 	for (int i = 0; i < 10; i++)
-		ft1.attack("st2");
+	{
+		ft1.attack("ft2");
+		ft2.takeDamage(30);
+	}
 	ft2.beRepaired(1);
 	ft1.highFivesGuys();
 

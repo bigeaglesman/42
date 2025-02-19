@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/21 20:41:22 by ycho2            ###   ########.fr        #
+#    Updated: 2025/02/19 17:02:27 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ SRC = ClapTrap.cpp\
 	FragTrap.cpp\
 	main.cpp
 HEADER = ClapTrap.hpp\
-	ScavTrap.hpp\
-	FragTrap.hpp
+	FragTrap.hpp\
+	ScavTrap.hpp
 
 OBJ = $(SRC:.cpp=.o)
 NAME = ex02
@@ -29,7 +29,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(C++) $(FLAG) $(OBJ) -o $(NAME)
-%.o: %.cpp
+%.o: %.cpp %.hpp
 	$(C++) $(FLAG) -c $< -o $@
 
 clean :

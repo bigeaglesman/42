@@ -6,16 +6,14 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 11:47:10 by ycho              #+#    #+#             */
-/*   Updated: 2025/01/21 22:25:50 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/19 20:15:43 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap()
-	:_hit_points(10), _energy_points(10), _attack_damage(0)
 {
-	this->_name = "Default";
 	std::cout<<"Default Constructor called"<<std::endl;
 }
 
@@ -28,10 +26,7 @@ ClapTrap::ClapTrap(std::string name)
 ClapTrap::ClapTrap(const ClapTrap& original)
 {
 	std::cout<<"ClapTrap copy constructor called"<<std::endl;
-	this->_name = original.getName();
-	this->_hit_points = original.getHitPoints();
-	this->_energy_points = original.getEnergyPoint();
-	this->_hit_points = original.getHitPoints();
+	*this = original;
 }
 
 ClapTrap::~ClapTrap()
@@ -59,10 +54,13 @@ int ClapTrap::getAttackDamage() const
 ClapTrap& ClapTrap::operator=(const ClapTrap& original)
 {
 	std::cout<<"ClapTrap copy assignment operator called"<<std::endl;
-	this->_name = original.getName();
-	this->_hit_points = original.getHitPoints();
-	this->_energy_points = original.getEnergyPoint();
-	this->_hit_points = original.getHitPoints();
+	if (this != &original)
+	{
+		this->_name = original.getName();
+		this->_hit_points = original.getHitPoints();
+		this->_energy_points = original.getEnergyPoint();
+		this->_hit_points = original.getHitPoints();
+	}
 	return (*this);
 }
 
@@ -100,6 +98,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 		this->_hit_points += amount;
 		std::cout<<"ClapTrap "<<this->_name<<" is repaired. Hit point is "
 			<<this->_hit_points<<" now"<<std::endl;
+		this->_energy_points--;
 	}
 	else
 		std::cout<<"ClapTrap "<<this->_name<<" can't be repaired because energy point or hit point is 0"<<std::endl;

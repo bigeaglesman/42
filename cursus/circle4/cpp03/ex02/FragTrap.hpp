@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:41:35 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/21 21:00:52 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:03:29 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 
 class FragTrap : public ClapTrap
 {
-	public:
+	private:
 		FragTrap();
+	public:
 		FragTrap(const std::string name);
 		FragTrap(const FragTrap& original);
 		~FragTrap();

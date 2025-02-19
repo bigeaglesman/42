@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 21:02:02 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/21 22:30:56 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/19 17:06:49 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 FragTrap::FragTrap()
 {
-	this->setHitPoint(100);
-	this->setEnergyPoint(100);
-	this->setAttackDamage(30);
 	std::cout<<"FragTrap default constructor called"<<std::endl;
 }
 
@@ -31,11 +28,8 @@ FragTrap::FragTrap(const std::string name)
 
 FragTrap::FragTrap(const FragTrap& original)
 {
-	this->setName(original.getName());
-	this->setHitPoint(original.getHitPoints());
-	this->setEnergyPoint(original.getEnergyPoint());
-	this->setAttackDamage(original.getAttackDamage());
 	std::cout<<"FragTrap copy constructor called."<<std::endl;
+	*this = original;
 }
 
 FragTrap::~FragTrap()
@@ -46,10 +40,13 @@ FragTrap::~FragTrap()
 FragTrap& FragTrap::operator=(const FragTrap& original)
 {
 	std::cout<<"FragTrap copy assignment operator called"<<std::endl;
-	this->setName(original.getName());
-	this->setHitPoint(original.getHitPoints());
-	this->setEnergyPoint(original.getEnergyPoint());
-	this->setAttackDamage(original.getAttackDamage());
+	if (this != &original)
+	{
+		this->setName(original.getName());
+		this->setHitPoint(original.getHitPoints());
+		this->setEnergyPoint(original.getEnergyPoint());
+		this->setAttackDamage(original.getAttackDamage());
+	}
 	return (*this);
 }
 

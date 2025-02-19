@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:57:30 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/21 18:30:56 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/19 20:27:06 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 ScavTrap::ScavTrap()
 {
-	this->setHitPoint(100);
-	this->setEnergyPoint(50);
-	this->setAttackDamage(20);
 	std::cout<<"ScavTrap default constructor called"<<std::endl;
 }
 
@@ -31,11 +28,8 @@ ScavTrap::ScavTrap(const std::string name)
 
 ScavTrap::ScavTrap(const ScavTrap& original)
 {
-	this->setName(original.getName());
-	this->setHitPoint(original.getHitPoints());
-	this->setEnergyPoint(original.getEnergyPoint());
-	this->setAttackDamage(original.getAttackDamage());
 	std::cout<<"ScavTrap copy constructor called."<<std::endl;
+	*this = original;
 }
 
 ScavTrap::~ScavTrap()
@@ -46,12 +40,16 @@ ScavTrap::~ScavTrap()
 ScavTrap& ScavTrap::operator=(const ScavTrap& original)
 {
 	std::cout<<"ScavTrap copy assignment operator called"<<std::endl;
-	this->setName(original.getName());
-	this->setHitPoint(original.getHitPoints());
-	this->setEnergyPoint(original.getEnergyPoint());
-	this->setAttackDamage(original.getAttackDamage());
+	if (this != &original)
+	{
+		this->setName(original.getName());
+		this->setHitPoint(original.getHitPoints());
+		this->setEnergyPoint(original.getEnergyPoint());
+		this->setAttackDamage(original.getAttackDamage());
+	}
 	return (*this);
 }
+
 void ScavTrap::attack(const std::string& target)
 {
 	if (this->getEnergyPoint() > 0 && this->getHitPoints() > 0)

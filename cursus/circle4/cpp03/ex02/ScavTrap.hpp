@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:57:35 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/21 18:21:35 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/19 20:06:58 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 
 class ScavTrap : public ClapTrap
 {
-	public:
+	private:
 		ScavTrap();
+	public:
 		ScavTrap(const std::string name);
 		ScavTrap(const ScavTrap& original);
 		~ScavTrap();
