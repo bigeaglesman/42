@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/23 00:04:47 by ycho2             #+#    #+#              #
-#    Updated: 2025/02/27 20:31:09 by ycho2            ###   ########.fr        #
+#    Updated: 2025/02/28 00:50:32 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,14 @@ RM = rm -rf
 
 SRC = main.cpp\
 	Bureaucrat.cpp\
-	Form.cpp
+	AForm.cpp\
+	ShrubberyCreationForm.cpp
 HEADER = Bureaucrat.hpp\
-	Form.hpp
+	AForm.hpp\
+	ShrubberyCreationForm.hpp
 
 OBJ = $(SRC:.cpp=.o)
-NAME = ex01
+NAME = ex02
 
 all: $(NAME)
 

@@ -6,16 +6,17 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 00:09:02 by ycho2             #+#    #+#             */
-/*   Updated: 2025/02/27 21:15:19 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/28 01:25:44 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-// Bureaucrat::Bureaucrat()
-// {
-// 	std::cout<<"Bureaucrat default constructor called"<<std::endl;
-// }
+Bureaucrat::Bureaucrat()
+:_name("name")
+{
+	std::cout<<"Bureaucrat default constructor called"<<std::endl;
+}
 
 Bureaucrat::Bureaucrat(const Bureaucrat& original)
 : _name(original.getName()), _grade(original.getGrade())
@@ -23,13 +24,13 @@ Bureaucrat::Bureaucrat(const Bureaucrat& original)
 	std::cout<<"Bureaucrat copy constructor called"<<std::endl;
 }
 
-// Bureaucrat& Bureaucrat::operator=(const Bureaucrat& original)
-// {
-// 	std::cout<<"Bureaucrat copy assignment operator called"<<std::endl;
-// 	if (this != &original)
-// 		this->_grade = original.getGrade();
-// 	return (*this);
-// }
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& original)
+{
+	std::cout<<"Bureaucrat copy assignment operator called"<<std::endl;
+	if (this != &original)
+		return (*this);
+	return (*this);
+}
 
 Bureaucrat::~Bureaucrat()
 {
@@ -71,18 +72,32 @@ void Bureaucrat::decGrade()
 	this->_grade++;
 }
 
-void Bureaucrat::signForm(Form& form) const
+void Bureaucrat::signForm(AForm& aform) const
 {
 	try
 	{
-		form.beSigned(*this);
+		aform.beSigned(*this);
 	}
 	catch(const std::exception& e)
 	{
-		std::cout<<this->getName()<<" couldn't sign "<<form.getName()<<" because "<<e.what()<<std::endl;
+		std::cout<<this->getName()<<" couldn't sign "<<aform.getName()<<" because "<<e.what()<<std::endl;
 		return ;
 	}
-	std::cout<<this->getName()<<" signed "<<form.getName()<<std::endl;
+	std::cout<<this->getName()<<" signed "<<aform.getName()<<std::endl;
+}
+
+void Bureaucrat::executeForm(AForm const & aform)
+{
+	try
+	{
+		aform.execute(*this);
+	}
+	catch(const std::exception& e)
+	{
+		std::cout<<this->getName()<<" couldn't execute "<<aform.getName()<<" because "<<e.what()<<std::endl;
+		return ;
+	}
+	std::cout<<this->getName()<<" executed "<<aform.getName()<<std::endl;
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
