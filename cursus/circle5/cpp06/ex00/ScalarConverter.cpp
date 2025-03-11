@@ -15,6 +15,17 @@
 void ScalarConverter::convert(const std::string& input)
 {
 	double val;
-	val = std::strtod(input.c_str());
+	char *ptr = NULL;
+	try
+	{
+		val = std::strtod(input.c_str(), &ptr);
+		if ()
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
+	
 
 }

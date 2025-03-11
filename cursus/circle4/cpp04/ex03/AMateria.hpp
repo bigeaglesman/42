@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 18:21:28 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/30 21:56:06 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/22 18:43:14 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ class AMateria
 	private:
 		AMateria(const AMateria& original);
 		AMateria& operator=(const AMateria &original);
-		AMateria();
 	protected:
+		AMateria();
 		std::string _type;
 	public:
 		AMateria(std::string const & type);

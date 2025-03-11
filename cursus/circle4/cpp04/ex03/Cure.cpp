@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 22:14:07 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/30 21:46:32 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/22 18:43:56 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ Cure* Cure::clone() const
 	if (DEBUG)
 		std::cout<<"Cure clone called"<<std::endl;
 	return (new Cure());
+}
+
+Cure& Cure::operator=(const Cure &original)
+{
+	std::cout<<"Cure copy assignment oprator called"<<std::endl;
+	this->_type = original.getType();
+	return (*this);
+}
+
+Cure::Cure(Cure const &original)
+{
+	std::cout<<"Cure copy constructor called"<<std::endl;
+	*this = original;
 }
 
 void Cure::use(ICharacter &target)

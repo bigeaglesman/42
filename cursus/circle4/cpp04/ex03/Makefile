@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/24 22:47:07 by ycho2             #+#    #+#              #
-#    Updated: 2025/01/30 21:39:33 by ycho2            ###   ########.fr        #
+#    Updated: 2025/02/22 21:57:14 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,19 +18,27 @@ SRC = AMateria.cpp\
 	Character.cpp\
 	Cure.cpp\
 	Ice.cpp\
-	ICharacter.cpp\
-	IMateriaSource.cpp\
 	MateriaSource.cpp\
 	main.cpp
+
+HEADER = AMateria.hpp\
+		Character.hpp\
+		Cure.hpp\
+		Ice.hpp\
+		MateriaSource.hpp
+
+IHEADER = Debug.hpp\
+		IMateriaSource.hpp\
+		ICharacter.hpp
 
 OBJ = $(SRC:.cpp=.o)
 NAME = ex03
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(IHEADER)
 	$(C++) $(FLAG) $(OBJ) -o $(NAME)
-%.o: %.cpp
+%.o: %.cpp %.hpp
 	$(C++) $(FLAG) -c $< -o $@
 
 clean :

@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 11:47:11 by ycho              #+#    #+#             */
-/*   Updated: 2025/02/19 20:11:50 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/20 00:40:01 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class ClapTrap
 	public:
 		ClapTrap(const std::string name);
 		ClapTrap(const ClapTrap& original);
-		~ClapTrap();
+		virtual ~ClapTrap();
 		std::string getName() const;
 		int getHitPoints() const;
 		int getEnergyPoint() const;

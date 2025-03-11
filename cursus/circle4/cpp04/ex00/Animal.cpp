@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 02:04:53 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/24 23:00:14 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/22 19:06:56 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ Animal::~Animal()
 Animal& Animal::operator=(const Animal& original)
 {
 	std::cout<<"Animal copy assignment operator called"<<std::endl;
-	if (this == &original)
-		return (*this);
-	this->_type = original._type;
+	if (this != &original)
+		this->_type = original._type;
 	return (*this);
 }
 

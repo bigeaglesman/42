@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:53:50 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/30 23:22:30 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/22 22:04:52 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ int main(void)
 
 	std::cout<<"me unequip Cure in inventory 1"<<std::endl;
 	me->unequip(1);
+	std::cout<<std::endl<<std::endl;
+	
+	std::cout<<"me unequip ice in inventory 0"<<std::endl;
+	me->unequip(0);
+	std::cout<<std::endl<<std::endl;
+
+	std::cout<<"me unequip Ice in inventory 0"<<std::endl;
+	me->unequip(0);
 	std::cout<<std::endl<<std::endl;
 	
 	delete tmp;

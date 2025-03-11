@@ -6,11 +6,16 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 00:01:39 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/30 23:21:17 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/22 19:43:23 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Character.hpp"
+
+Character::Character()
+{
+	std::cout<<"Character default constructor called"<<std::endl;
+}
 
 Character::Character(const Character& original)
 {
@@ -20,6 +25,7 @@ Character::Character(const Character& original)
 
 Character::Character(const std::string name)
 {
+	std::cout<<"Character name parameter constructor called"<<std::endl;
 	this->_name = name;
 	this->_floor_i = 0;
 	for (int i = 0; i < MAX_INDEX; i++)
@@ -27,11 +33,11 @@ Character::Character(const std::string name)
 		this->_inventory[i] = NULL;
 		this->_floor[i] = NULL;
 	}
-	std::cout<<"Character name parameter constructor called"<<std::endl;
 }
 
 Character::~Character()
 {
+	std::cout<<"Character destructor called"<<std::endl;
 	for (int i = 0; i < MAX_INDEX; i++)
 	{
 		if (this->_inventory[i] != NULL)
@@ -39,11 +45,11 @@ Character::~Character()
 		if (this->_floor[i] != NULL)
 			delete this->_floor[i];
 	}
-	std::cout<<"Character destructor called"<<std::endl;
 }
 
 Character& Character::operator=(const Character& original)
 {
+	std::cout<<"Character copy assignment operator called"<<std::endl;
 	this->_name = original.getName();
 	this->_floor_i = original._floor_i;
 	for (int i = 0; i < MAX_INDEX; i++)
@@ -57,7 +63,6 @@ Character& Character::operator=(const Character& original)
 		else
 			this->_floor[i] = NULL;
 	}
-	std::cout<<"Character copy assignment operator called"<<std::endl;
 	return (*this);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:40:59 by ycho2             #+#    #+#             */
-/*   Updated: 2025/01/30 21:40:59 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/02/22 21:00:35 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,8 @@ class AMateria;
 
 class ICharacter
 {
-	private:
-		ICharacter(const ICharacter& original);
-		ICharacter& operator=(const ICharacter& original);
-	protected:
-		ICharacter();
 	public:
-		virtual ~ICharacter();
+		virtual ~ICharacter() {};
 		virtual std::string const & getName() const = 0;
 		virtual void equip(AMateria* m) = 0;
 		virtual void unequip(int idx) = 0;
