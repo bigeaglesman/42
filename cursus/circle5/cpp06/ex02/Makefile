@@ -6,7 +6,7 @@
 #    By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/10 17:00:00 by ycho2             #+#    #+#              #
-#    Updated: 2025/03/12 16:49:42 by ycho2            ###   ########.fr        #
+#    Updated: 2025/03/12 16:53:58 by ycho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@ C++ = c++
 FLAG = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 
-SRC = main.cpp
+SRC = Base.cpp\
+	main.cpp
+HEADER = Base.hpp
 OBJ = $(SRC:.cpp=.o)
-NAME = ex00
+NAME = ex02
 
 all: $(NAME)
 

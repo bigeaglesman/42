@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 21:08:09 by ycho2             #+#    #+#             */
-/*   Updated: 2025/03/12 16:41:04 by ycho2            ###   ########.fr       */
+/*   Created: 2025/03/12 14:21:41 by ycho2             #+#    #+#             */
+/*   Updated: 2025/03/12 14:22:56 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-# define SERIALIZER_HPP
+#include <iostream>
 
-# include <cstdint>
-# include <iostream>
-# include "Data.hpp"
-
-class Serializer
+int main()
 {
-	private:
-		Serializer();
-	public:
-		Serializer(const Serializer& original);
-		~Serializer();
-		Serializer& operator=(const Serializer& original);
-		static uintptr_t serialize(Data* ptr);
-		static Data* deserialize(uintptr_t raw);
-};
-
-#endif
+	std::cout<<"no empty work plz"<<std::endl;
+}

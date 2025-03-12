@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
+/*   C.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/08 11:20:04 by ycho2             #+#    #+#             */
-/*   Updated: 2025/03/08 11:37:53 by ycho2            ###   ########.fr       */
+/*   Created: 2025/03/12 17:17:27 by ycho2             #+#    #+#             */
+/*   Updated: 2025/03/12 18:07:35 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
+#ifndef C_HPP
+# define C_HPP
 
-void ScalarConverter::convert(const std::string& input)
+# include "Base.hpp"
+
+class C: public Base
 {
-	double val;
-	char *ptr = NULL;
-	try
-	{
-		val = std::strtod(input.c_str(), &ptr);
-		if ()
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
 	
-	
+};
 
-}
+#endif

@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   Base.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 21:08:09 by ycho2             #+#    #+#             */
-/*   Updated: 2025/03/12 16:41:04 by ycho2            ###   ########.fr       */
+/*   Created: 2025/03/12 16:54:15 by ycho2             #+#    #+#             */
+/*   Updated: 2025/03/12 17:06:22 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-# define SERIALIZER_HPP
+#ifndef BASE_HPP
+# define BASE_HPP
 
-# include <cstdint>
-# include <iostream>
-# include "Data.hpp"
+#include <iostream>
 
-class Serializer
+class Base
 {
-	private:
-		Serializer();
 	public:
-		Serializer(const Serializer& original);
-		~Serializer();
-		Serializer& operator=(const Serializer& original);
-		static uintptr_t serialize(Data* ptr);
-		static Data* deserialize(uintptr_t raw);
+		virtual ~Base();
 };
 
 #endif

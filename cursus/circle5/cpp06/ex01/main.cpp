@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 21:08:09 by ycho2             #+#    #+#             */
-/*   Updated: 2025/03/12 16:41:04 by ycho2            ###   ########.fr       */
+/*   Created: 2025/03/12 16:35:41 by ycho2             #+#    #+#             */
+/*   Updated: 2025/03/12 18:06:39 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-# define SERIALIZER_HPP
+#include "Serializer.hpp"
+#include "Data.hpp"
 
-# include <cstdint>
-# include <iostream>
-# include "Data.hpp"
-
-class Serializer
+int main()
 {
-	private:
-		Serializer();
-	public:
-		Serializer(const Serializer& original);
-		~Serializer();
-		Serializer& operator=(const Serializer& original);
-		static uintptr_t serialize(Data* ptr);
-		static Data* deserialize(uintptr_t raw);
-};
-
-#endif
+	Data *data_ori = new Data();
+	data_ori->num = 42;
+	Data *data_cnv = Serializer::deserialize(Serializer::serialize(data_ori));
+	std::cout<<std::endl<<std::endl;
+	std::cout<<"Original: "<<data_ori->num<<std::endl
+		<<"Converted: "<<data_cnv->num<<std::endl;
+	std::cout<<std::endl<<std::endl;
+	delete(data_ori);
+	return (0);
+}

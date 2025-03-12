@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   Base.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 21:08:09 by ycho2             #+#    #+#             */
-/*   Updated: 2025/03/12 16:41:04 by ycho2            ###   ########.fr       */
+/*   Created: 2025/03/12 17:05:42 by ycho2             #+#    #+#             */
+/*   Updated: 2025/03/12 17:06:45 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-# define SERIALIZER_HPP
+#include "Base.hpp"
 
-# include <cstdint>
-# include <iostream>
-# include "Data.hpp"
-
-class Serializer
+Base::~Base()
 {
-	private:
-		Serializer();
-	public:
-		Serializer(const Serializer& original);
-		~Serializer();
-		Serializer& operator=(const Serializer& original);
-		static uintptr_t serialize(Data* ptr);
-		static Data* deserialize(uintptr_t raw);
-};
-
-#endif
+	std::cout<<"Base default destructor called"<<std::endl;
+}
