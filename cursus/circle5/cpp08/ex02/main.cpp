@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:38:36 by ycho2             #+#    #+#             */
-/*   Updated: 2025/03/17 22:14:33 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/03/17 22:29:34 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main()
 {
-	std::cout << "\033[33m" << "Subject test\n"<< "\033[0m";
+	std::cout << "##TEST1 subject test"<<std::endl;
 
 	MutantStack<int> mstack;
 
@@ -44,11 +44,12 @@ int main()
 		++it;
 	}
 	std::cout << std::endl;
+	std::cout << std::endl;
 	std::stack<int> s(mstack);
 
 
 
-	std::cout << "\033[33m" << "Test with rbegin and rend\n"<< "\033[0m";
+	std::cout << "##TEST2 rbegin rend test"<<std::endl;
 
 	MutantStack<int>::reverse_iterator rit = mstack.rbegin();
 	MutantStack<int>::reverse_iterator rite = mstack.rend();
@@ -60,6 +61,8 @@ int main()
 		++rit;
 	}
 	std::cout << std::endl;
+	std::cout << std::endl;
+
 	
 	return 0;
 }
