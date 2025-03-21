@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 00:09:02 by ycho2             #+#    #+#             */
-/*   Updated: 2025/02/26 03:43:45 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:13:41 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 
 Bureaucrat::Bureaucrat()
+:_name("default")
 {
 	std::cout<<"Bureaucrat default constructor called"<<std::endl;
 }

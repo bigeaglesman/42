@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:33:12 by ycho2             #+#    #+#             */
-/*   Updated: 2025/03/15 00:23:42 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/03/21 18:06:40 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,9 @@ int main(void)
 	{
 		std::cout << e.what() << std::endl;
 	}
+	std::cout<<std::endl;
+
+	Array<int> arr0;
+	Array<int> arr0_cp = Array<int>(arr0);
 	std::cout<<std::endl;
 }

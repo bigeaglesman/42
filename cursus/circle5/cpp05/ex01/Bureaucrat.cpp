@@ -6,16 +6,17 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 00:09:02 by ycho2             #+#    #+#             */
-/*   Updated: 2025/02/27 21:15:19 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:13:44 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-// Bureaucrat::Bureaucrat()
-// {
-// 	std::cout<<"Bureaucrat default constructor called"<<std::endl;
-// }
+Bureaucrat::Bureaucrat()
+: _name("default")
+{
+	std::cout<<"Bureaucrat default constructor called"<<std::endl;
+}
 
 Bureaucrat::Bureaucrat(const Bureaucrat& original)
 : _name(original.getName()), _grade(original.getGrade())
@@ -23,13 +24,13 @@ Bureaucrat::Bureaucrat(const Bureaucrat& original)
 	std::cout<<"Bureaucrat copy constructor called"<<std::endl;
 }
 
-// Bureaucrat& Bureaucrat::operator=(const Bureaucrat& original)
-// {
-// 	std::cout<<"Bureaucrat copy assignment operator called"<<std::endl;
-// 	if (this != &original)
-// 		this->_grade = original.getGrade();
-// 	return (*this);
-// }
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat& original)
+{
+	std::cout<<"Bureaucrat copy assignment operator called"<<std::endl;
+	if (this != &original)
+		this->_grade = original.getGrade();
+	return (*this);
+}
 
 Bureaucrat::~Bureaucrat()
 {

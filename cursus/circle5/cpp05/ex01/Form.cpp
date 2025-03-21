@@ -6,17 +6,17 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:00:09 by ycho2             #+#    #+#             */
-/*   Updated: 2025/02/27 20:30:47 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:01:15 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
 
-// Form::Form()
-// :_name("default"), _is_signed(false), _req_sign_grade(1), _req_exec_grade(1)
-// {
-// 	std::cout<<"Form default constructor called"<<std::endl;
-// }
+Form::Form()
+:_name("default"), _is_signed(false), _req_sign_grade(1), _req_exec_grade(1)
+{
+	std::cout<<"Form default constructor called"<<std::endl;
+}
 
 Form::Form(const Form& original)
 :_name(original.getName()), _is_signed(false), _req_sign_grade(original.getReqSignGrade()), _req_exec_grade(original.getReqExecGrade())
@@ -24,13 +24,13 @@ Form::Form(const Form& original)
 	std::cout<<"Form copy constructor called"<<std::endl;
 }
 
-// Form& Form::operator=(const Form& original)
-// {
-// 	std::cout<<"Bureaucrat copy assignment operator called"<<std::endl;
-// 	if (this != &original)
-// 		this->_is_signed = original.getIsSigned();
-// 	return (*this);
-// }
+Form& Form::operator=(const Form& original)
+{
+	std::cout<<"Bureaucrat copy assignment operator called"<<std::endl;
+	if (this != &original)
+		this->_is_signed = original.getIsSigned();
+	return (*this);
+}
 
 Form::~Form()
 {

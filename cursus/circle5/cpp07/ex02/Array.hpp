@@ -6,7 +6,7 @@
 /*   By: ycho2 <ycho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:08:30 by ycho2             #+#    #+#             */
-/*   Updated: 2025/03/15 00:26:47 by ycho2            ###   ########.fr       */
+/*   Updated: 2025/03/21 18:07:15 by ycho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ class Array
 		}
 
 		Array(const Array<T> &original)
+		:_size(0)
 		{
 			std::cout<<"Array copy constructor called"<<std::endl;
 			*this = original;
